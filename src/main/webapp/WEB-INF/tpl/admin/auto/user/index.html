@@ -1,0 +1,321 @@
+<div class="page-header">
+
+    <h4>
+        <i class="glyphicon glyphicon-signal"></i>
+            会员管理
+    </h4>
+
+</div>
+
+<div class="row" id="">
+    <div class="col-xs-12">
+        <div id="autouser-gridview" class="gridview">
+            <div class="grid-filter">
+                <input type="text input-sm" style="height: 29px" class="txt" name="userName" placeholder="用户名" />
+                <input type="text input-sm" style="height: 29px" class="txt" name="shopName" placeholder="店铺名" />
+                <select data-init="0" name="status" style="height: 29px;width: 160px;">
+                    <option value="0">请选择用户状态</option>
+                    <option value="1">账户禁用</option>
+                    <option value="2">注册或添加</option>
+                    <option value="3">等待实名认证</option>
+                    <option value="4">实名认证通过</option>
+                    <option value="5">实名认证未通过</option>
+                </select>
+                <select data-init="0" name="shopType" style="height: 29px;width: 160px;">
+                    <option value="0">请选择店铺类型</option>
+                    <option value="1">4s店</option>
+                    <option value="2">有实体店二网</option>
+                    <option value="3">无实体店二网</option>
+                    <option value="4">个人</option>
+                </select>
+                <a class="btn btn-xs btn-action btn-purple" data-action="search" style="margin-top: -2px;margin-left: 10px;"><i class="ace-icon fa fa-search"></i>搜索</a>
+            </div>
+
+            {{include file="/inc/module_action.html"}}
+
+            <div class="grid-table">
+                <table class="table table-striped table-bordered table-hover table-list table-tree">
+                    <thead>
+                    <tr>
+                        <th width="50">
+                            <label class="position-relative">
+                                <input type="checkbox" class="ace grid-cb-all" />
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th width="100">编号</th>
+                        <th>头像</th>
+                        <th>用户名</th>
+                        <th>真实姓名</th>
+                        <th>用户状态</th>
+                        <th>店铺名</th>
+                        <th>店铺类型</th>
+                        <th>排序号</th>
+                        <th width="120">操作</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td colspan="10">
+                            <div class='loading'><i class='ace-icon fa fa-spinner bigger-200 orange'></i><span class="text">正在加载</span></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-box">
+
+                </div>
+            </div>
+
+            <div class="grid-form save-form" style="">
+                <div class="overlay"></div>
+                <div class="widget-box widget-color-blue light-border ui-sortable-handle" style="width:600px;">
+                    <div class="widget-header">
+                        <h5 class="widget-title smaller"></h5>
+
+                        <div class="widget-toolbar">
+                            <a href="#" class="btn-action" data-action="hide">
+                                <i class="ace-icon fa fa-close white"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="alert-info red"></div>
+                            <form class="form-horizontal" role="form" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        用户名
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="userName" name="userName" placeholder="用户名,请填写手机号码" class="txt input-sm col-sm-5">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        密码
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="password" id="password" name="password" placeholder="密码,6-20位,为空则为初始密码666666" class="txt input-sm col-sm-8">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        生日
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" id="datepicker" name="birthDay" placeholder="生日" class="txt input-sm col-sm-3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        邮箱
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" id="email" name="email" placeholder="邮箱" class="txt input-sm col-sm-8">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        积分
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" data-init="100" id="point"  name="point" placeholder="积分" class="txt input-sm col-sm-2">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        排序号
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" data-init="0" id="sortOrder"  name="sortOrder" placeholder="排序号" class="txt input-sm col-sm-2">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        备注
+                                    </label>
+
+                                    <div class="col-sm-9">
+                                        <textarea name="remark" placeholder="备注" class="txt input-sm col-sm-8"></textarea>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <input type="hidden" name="userId" value="" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-footer form-actions">
+                        <a class="btn btn-sm btn-action" data-action="reset">
+                            <i class="ace-icon fa fa-undo"></i>
+                            重置
+                        </a>
+                        &nbsp; &nbsp; &nbsp;
+                        <a class="btn btn-sm btn-primary btn-action" data-action="save">
+                            <i class="ace-icon fa fa-check"></i>
+                            提交
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-form search-form "></div>
+
+        </div>
+
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+<!-- page specific plugin scripts -->
+<script type="text/javascript">
+
+    $('.page-content-area').ace_ajax('loadScripts', [null, null], function() {
+       
+        $("#datepicker").datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: false
+        });
+
+        $("#autouser-gridview").gridview({
+            url: "autouser/list.do",
+            form: {
+                url: "autouser/action.do",
+                check: function(){
+                    var userNameReg = /^\d{11}$/;
+                    var emailReg = /^[\w\W]+@[\w\W]+$/;
+                    var dateReg = /^\d{4}-\d{2}-\d{2}$/;
+
+                    var userName = $.trim($("#userName").val());
+                    var password = $.trim($("#password").val());
+                    var birth = $.trim($("#datepicker").val());
+
+                    var email = $.trim($("#email").val());
+
+                    var point = $.trim($("#point").val());
+                    var sortOrder = $.trim($("#sortOrder").val());
+                    if(userName == ""){
+                        $("#userName").focus();
+                        return "请输入用户名";
+                    }
+                    if(!userNameReg.test(userName)){
+                        $("#userName").focus();
+                        return "请输入正确的手机号码";
+                    }
+                    if(password != "" && (password.length < 6 || password.length>20)){
+                        $("#password").focus();
+                        return "请输入正确的密码";
+                    }
+                    if(!dateReg.test(birth) && birth){
+                        console.log("check form");
+                        $("#datepicker").focus();
+                        return "日期格式应为yyyy-MM-dd,如:2001:05:10";
+                    }
+                    if(email != "" && !emailReg.test(email)){
+                        $("#email").focus();
+                        return "请输入正确的邮箱";
+                    }
+                    if(point == "" || isNaN(point)){
+                        $("#point").focus();
+                        return "积分必须为正整数";
+                    }
+                    if(sortOrder < 0 || isNaN(sortOrder)){
+                        $("#sortOrder").focus();
+                        return "排序号必须为正整数";
+                    }
+                    return true;
+                }
+            },
+            jsonReader: {
+                key_field: 'userId'
+            },
+            columns: [
+                {
+                    name: "checkbox"
+                },
+                {
+                    name: "userId"
+                },
+                {
+                    name: "userAvatar",
+                    format: function(opts, column, row){
+                        return "<td><img style='width: 30px;height: 30px;' src='" + row[column.name] + "' /></td>";
+                    }
+                },
+                {
+                    name: "userName"
+                },
+                {
+                    name: "realName"
+                },
+                {
+                    name: "status"
+                },
+                {
+                    name: "shopName"
+                },
+                {
+                    name: "shopType"
+                },
+                {
+                    name: "sortOrder",
+                    format: function(opts, column, row){
+                        return "<td><span class='label label-sm label-info arrowed arrowed-righ'>" + row[column.name] + "</span></td>";
+                    }
+                },
+                {
+                    name: "actions",
+                    list: ["edit", "delete", "view"]
+                }
+            ],
+            buttons:{
+                collect:{
+                    handler: function(){
+                        var key = this.gridview("getKey");
+                        if(!key){
+                            showAlert("请选择记录");
+                            return;
+                        }
+                        var hash = "admin/autocollect/index/" + key;
+                        changeHash(hash);
+                    }
+                },
+                add:{
+                    handler: function(){
+                        var hash = "admin/autouser/add";
+                        changeHash(hash);
+                    }
+                },
+                edit:{
+                    handler: function(key){
+                        key = key || this.gridview("getKey");
+                        if(!key){
+                            showTip("请选择会员");
+                            return;
+                        }
+                        var hash = "admin/autouser/edit/" + key;
+                        changeHash(hash);
+                    }
+                },
+                view:{
+                    handler: function(key){
+                        key = key || this.gridview("getKey");
+                        if(!key){
+                            showTip("请选择会员");
+                            return;
+                        }
+                        var hash = "admin/autouser/view/" + key;
+                        changeHash(hash);
+                    }
+                }
+            }
+        });
+    });
+</script>

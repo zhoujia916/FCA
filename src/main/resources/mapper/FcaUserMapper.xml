@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FcaUserMapper">
+    <resultMap id="FcaUser" type="puzzle.fca.entity.FcaUser">
+    	<id column="user_id" property="userId" /> 
+    	<result column="user_name" property="userName" /> 
+    	<result column="password" property="password" /> 
+    	<result column="birth" property="birth" /> 
+    	<result column="phone" property="phone" /> 
+    	<result column="email" property="email" /> 
+    	<result column="user_avatar" property="userAvatar" /> 
+    	<result column="open_id" property="openId" /> 
+    	<result column="status" property="status" /> 
+    	<result column="point" property="point" /> 
+    	<result column="remark" property="remark" /> 
+    	<result column="add_time" property="addTime" /> 
+    	<result column="sort_order" property="sortOrder" /> 
+    </resultMap>
+
+    <sql id="allColumn">
+    	user_id, user_name, password, birth, phone, email, user_avatar, open_id, status, point, remark, add_time, sort_order
+    </sql>
+
+    <insert id="insert" parameterType="FcaUser" useGeneratedKeys="true" keyProperty="userId">
+        insert into fca_user 
+        (
+        	
+        	<if test="userName != null">user_name, </if>
+        	<if test="password != null">password, </if>
+        	<if test="birth != null">birth, </if>
+        	<if test="phone != null">phone, </if>
+        	<if test="email != null">email, </if>
+        	<if test="userAvatar != null">user_avatar, </if>
+        	<if test="openId != null">open_id, </if>
+        	<if test="status != null">status, </if>
+        	<if test="point != null">point, </if>
+        	<if test="remark != null">remark, </if>
+        	<if test="addTime != null">add_time, </if>
+        	<if test="sortOrder != null">sort_order</if>
+        )
+        values 
+        (
+        	
+        	<if test="userName != null">#{userName}, </if>
+        	<if test="password != null">#{password}, </if>
+        	<if test="birth != null">#{birth}, </if>
+        	<if test="phone != null">#{phone}, </if>
+        	<if test="email != null">#{email}, </if>
+        	<if test="userAvatar != null">#{userAvatar}, </if>
+        	<if test="openId != null">#{openId}, </if>
+        	<if test="status != null">#{status}, </if>
+        	<if test="point != null">#{point}, </if>
+        	<if test="remark != null">#{remark}, </if>
+        	<if test="addTime != null">#{addTime}, </if>
+        	<if test="sortOrder != null">#{sortOrder}</if>
+       	)
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into fca_user
+		(
+			
+			user_name, 
+			password, 
+			birth, 
+			phone, 
+			email, 
+			user_avatar, 
+			open_id, 
+			status, 
+			point, 
+			remark, 
+			add_time, 
+			sort_order
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			
+			#{item.userName}, 
+			#{item.password}, 
+			#{item.birth}, 
+			#{item.phone}, 
+			#{item.email}, 
+			#{item.userAvatar}, 
+			#{item.openId}, 
+			#{item.status}, 
+			#{item.point}, 
+			#{item.remark}, 
+			#{item.addTime}, 
+			#{item.sortOrder}
+		)
+		</foreach>
+	</insert>
+
+    <update id="update" parameterType="FcaUser">
+        update fca_user 
+        <set>
+			<trim suffixOverrides=",">
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId > 0">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId > 0">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId > 0">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId > 0">
+                    and user_id = #{userId}
+                </if>
+                <if test="userId != null and userId > 0">
+                    and user_id = #{userId}
+                </if>
+			</trim>
+        </set>
+        <where> 
+			<trim prefixOverrides="and | or">  
+				<if test="userId != null and userId > 0">
+					and user_id = #{userId}
+				</if>
+			</trim>	
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="Map">
+        delete from fca_user
+        <where>
+	        <trim prefixOverrides="and | or">  
+				<!--单项删除-->
+				<if test="userId != null and userId > 0">
+					and user_id = #{userId}
+				</if>
+				<!--批量删除-->
+				<if test="userIds != null and userIds != ''">
+					and user_id in (${userIds})
+				</if>
+	        </trim>
+        </where>
+    </delete>
+
+    <select id="query" parameterType="Map" resultMap="FcaUser">
+        select <include refid="allColumn"/> from fca_user
+        <where>  
+        	<if test="userId != null and userId > 0">
+                and user_id = #{userId}
+            </if>
+        </where> 
+    </select>
+
+    <select id="queryList" parameterType="Map" resultMap="FcaUser">
+        select <include refid="allColumn"/> from fca_user
+        <where>
+	        <trim prefixOverrides="and | or">
+	        	<if test="userId != null and userId > 0">
+	                and user_id = #{userId}
+	            </if>
+	        	<if test="userName != null and userName != ''">
+	                and user_name = #{userName}
+	            </if>
+	        	<if test="password != null and password != ''">
+	                and password = #{password}
+	            </if>
+	        	<if test="birth != null and birth > 0">
+	                and birth = #{birth}
+	            </if>
+	        	<if test="phone != null and phone != ''">
+	                and phone = #{phone}
+	            </if>
+	        	<if test="email != null and email != ''">
+	                and email = #{email}
+	            </if>
+	        	<if test="userAvatar != null and userAvatar != ''">
+	                and user_avatar = #{userAvatar}
+	            </if>
+	        	<if test="openId != null and openId != ''">
+	                and open_id = #{openId}
+	            </if>
+	        	<if test="status != null and status > 0">
+	                and status = #{status}
+	            </if>
+	        	<if test="point != null and point > 0">
+	                and point = #{point}
+	            </if>
+	        	<if test="remark != null and remark != ''">
+	                and remark = #{remark}
+	            </if>
+	        	<if test="addTime != null and addTime > 0">
+	                and add_time = #{addTime}
+	            </if>
+	        	<if test="sortOrder != null and sortOrder > 0">
+	                and sort_order = #{sortOrder}
+	            </if>
+	        </trim>
+        </where>
+    </select>
+
+</mapper>

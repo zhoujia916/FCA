@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FcaArticleTemplateMapper">
+    <resultMap id="FcaArticleTemplate" type="puzzle.fca.entity.FcaArticleTemplate">
+    	<id column="template_id" property="templateId" /> 
+    	<result column="name" property="name" /> 
+    	<result column="content" property="content" /> 
+    	<result column="sort_order" property="sortOrder" /> 
+    </resultMap>
+
+    <sql id="allColumn">
+    	template_id, name, content, sort_order
+    </sql>
+
+    <insert id="insert" parameterType="FcaArticleTemplate" useGeneratedKeys="true" keyProperty="templateId">
+        insert into fca_article_template 
+        (
+        	
+        	<if test="name != null">name, </if>
+        	<if test="content != null">content, </if>
+        	<if test="sortOrder != null">sort_order</if>
+        )
+        values 
+        (
+        	
+        	<if test="name != null">#{name}, </if>
+        	<if test="content != null">#{content}, </if>
+        	<if test="sortOrder != null">#{sortOrder}</if>
+       	)
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into fca_article_template
+		(
+			
+			name, 
+			content, 
+			sort_order
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			
+			#{item.name}, 
+			#{item.content}, 
+			#{item.sortOrder}
+		)
+		</foreach>
+	</insert>
+
+    <update id="update" parameterType="FcaArticleTemplate">
+        update fca_article_template 
+        <set>
+			<trim suffixOverrides=",">
+                <if test="templateId != null and templateId != ''">
+                    and template_id = #{templateId}
+                </if>
+                <if test="templateId != null and templateId != ''">
+                    and template_id = #{templateId}
+                </if>
+                <if test="templateId != null and templateId > 0">
+                    and template_id = #{templateId}
+                </if>
+			</trim>
+        </set>
+        <where> 
+			<trim prefixOverrides="and | or">  
+				<if test="templateId != null and templateId > 0">
+					and template_id = #{templateId}
+				</if>
+			</trim>	
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="Map">
+        delete from fca_article_template
+        <where>
+	        <trim prefixOverrides="and | or">  
+				<!--单项删除-->
+				<if test="templateId != null and templateId > 0">
+					and template_id = #{templateId}
+				</if>
+				<!--批量删除-->
+				<if test="templateIds != null and templateIds != ''">
+					and template_id in (${templateIds})
+				</if>
+	        </trim>
+        </where>
+    </delete>
+
+    <select id="query" parameterType="Map" resultMap="FcaArticleTemplate">
+        select <include refid="allColumn"/> from fca_article_template
+        <where>  
+        	<if test="templateId != null and templateId > 0">
+                and template_id = #{templateId}
+            </if>
+        </where> 
+    </select>
+
+    <select id="queryList" parameterType="Map" resultMap="FcaArticleTemplate">
+        select <include refid="allColumn"/> from fca_article_template
+        <where>
+	        <trim prefixOverrides="and | or">
+	        	<if test="templateId != null and templateId > 0">
+	                and template_id = #{templateId}
+	            </if>
+	        	<if test="name != null and name != ''">
+	                and name = #{name}
+	            </if>
+	        	<if test="content != null and content != ''">
+	                and content = #{content}
+	            </if>
+	        	<if test="sortOrder != null and sortOrder > 0">
+	                and sort_order = #{sortOrder}
+	            </if>
+	        </trim>
+        </where>
+    </select>
+
+</mapper>

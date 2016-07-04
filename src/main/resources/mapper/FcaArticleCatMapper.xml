@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FcaArticleCatMapper">
+    <resultMap id="FcaArticleCat" type="puzzle.fca.entity.FcaArticleCat">
+    	<id column="cat_id" property="catId" /> 
+    	<result column="cat_name" property="catName" /> 
+    	<result column="parent_id" property="parentId" /> 
+    	<result column="sort_order" property="sortOrder" /> 
+    </resultMap>
+
+    <sql id="allColumn">
+    	cat_id, cat_name, parent_id, sort_order
+    </sql>
+
+    <insert id="insert" parameterType="FcaArticleCat" useGeneratedKeys="true" keyProperty="catId">
+        insert into fca_article_cat 
+        (
+        	
+        	<if test="catName != null">cat_name, </if>
+        	<if test="parentId != null">parent_id, </if>
+        	<if test="sortOrder != null">sort_order</if>
+        )
+        values 
+        (
+        	
+        	<if test="catName != null">#{catName}, </if>
+        	<if test="parentId != null">#{parentId}, </if>
+        	<if test="sortOrder != null">#{sortOrder}</if>
+       	)
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into fca_article_cat
+		(
+			
+			cat_name, 
+			parent_id, 
+			sort_order
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			
+			#{item.catName}, 
+			#{item.parentId}, 
+			#{item.sortOrder}
+		)
+		</foreach>
+	</insert>
+
+    <update id="update" parameterType="FcaArticleCat">
+        update fca_article_cat 
+        <set>
+			<trim suffixOverrides=",">
+                <if test="catId != null and catId != ''">
+                    and cat_id = #{catId}
+                </if>
+                <if test="catId != null and catId > 0">
+                    and cat_id = #{catId}
+                </if>
+                <if test="catId != null and catId > 0">
+                    and cat_id = #{catId}
+                </if>
+			</trim>
+        </set>
+        <where> 
+			<trim prefixOverrides="and | or">  
+				<if test="catId != null and catId > 0">
+					and cat_id = #{catId}
+				</if>
+			</trim>	
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="Map">
+        delete from fca_article_cat
+        <where>
+	        <trim prefixOverrides="and | or">  
+				<!--单项删除-->
+				<if test="catId != null and catId > 0">
+					and cat_id = #{catId}
+				</if>
+				<!--批量删除-->
+				<if test="catIds != null and catIds != ''">
+					and cat_id in (${catIds})
+				</if>
+	        </trim>
+        </where>
+    </delete>
+
+    <select id="query" parameterType="Map" resultMap="FcaArticleCat">
+        select <include refid="allColumn"/> from fca_article_cat
+        <where>  
+        	<if test="catId != null and catId > 0">
+                and cat_id = #{catId}
+            </if>
+        </where> 
+    </select>
+
+    <select id="queryList" parameterType="Map" resultMap="FcaArticleCat">
+        select <include refid="allColumn"/> from fca_article_cat
+        <where>
+	        <trim prefixOverrides="and | or">
+	        	<if test="catId != null and catId > 0">
+	                and cat_id = #{catId}
+	            </if>
+	        	<if test="catName != null and catName != ''">
+	                and cat_name = #{catName}
+	            </if>
+	        	<if test="parentId != null and parentId > 0">
+	                and parent_id = #{parentId}
+	            </if>
+	        	<if test="sortOrder != null and sortOrder > 0">
+	                and sort_order = #{sortOrder}
+	            </if>
+	        </trim>
+        </where>
+    </select>
+
+</mapper>

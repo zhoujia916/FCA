@@ -1,0 +1,119 @@
+<div class="page-header">
+    <h4>
+        <i class="glyphicon glyphicon-signal"></i>
+        系统首页
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            状态和统计
+        </small>
+    </h4>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <div class="widget-box widget-color-blue">
+            <div class="widget-header">
+                <h5 class="widget-title bigger widget-color-blue"><i class="menu-icon fa fa-shopping-cart"></i>&nbsp;&nbsp;订单统计</h5>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <ul class="list-unstyled spaced2">
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本周订单总数: {{$weekOrderCount}}
+                        </li>
+
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本月订单总数: {{$monthOrderCount}}
+                        </li>
+
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本季度订单总数: {{$quarterOrderCount}}
+                        </li>
+
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本年度订单总数: {{$yearOrderCount}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="widget-box widget-color-green">
+            <div class="widget-header">
+                <h5 class="widget-title bigger lighter"><i class="menu-icon fa fa-users"></i>&nbsp;&nbsp;会员统计</h5>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <ul class="list-unstyled spaced2">
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本周会员总数: {{$weekUserCount}}
+                        </li>
+
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本月会员总数: {{$monthUserCount}}
+                        </li>
+
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本季度会员总数: {{$quarterUserCount}}
+                        </li>
+
+                        <li>
+                            <i class="ace-icon fa fa-check green"></i>
+                            本年度会员总数: {{$yearUserCount}}
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="widget-box widget-color-orange">
+        <div class="widget-header">
+            <h5 class="widget-title bigger lighter"><i class="menu-icon fa fa-car"></i>&nbsp;&nbsp;车源统计</h5>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main">
+                <ul class="list-unstyled spaced2">
+                    <li>
+                        <i class="ace-icon fa fa-check green"></i>
+                        本周车源总数: {{$weekCarCount}}
+                    </li>
+
+                    <li>
+                        <i class="ace-icon fa fa-check green"></i>
+                        本月车源总数: {{$monthCarCount}}
+                    </li>
+
+                    <li>
+                        <i class="ace-icon fa fa-check green"></i>
+                        本季度车源单总数: {{$quarterCarCount}}
+                    </li>
+
+                    <li>
+                        <i class="ace-icon fa fa-check green"></i>
+                        本年度车源单总数: {{$yearCarCount}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div></div>
+</div>
+
+<!-- page specific plugin scripts -->
+<script type="text/javascript">
+    var scripts = [null, null]
+    $('.page-content-area').ace_ajax('loadScripts', scripts, function() {
+
+    });
+</script>
