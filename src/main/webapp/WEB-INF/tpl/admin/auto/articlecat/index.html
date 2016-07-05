@@ -122,13 +122,17 @@
 
     $('.page-content-area').ace_ajax('loadScripts', [null, null], function() {
         $("#gridview").gridview({
-            url: "autoarticlecat/list.do",
+            url: "fcaarticlecat/list.do",
+            pagination:{
+                show: false
+            },
             treeReader:{
                 show: true,
-                expand_column: 'catName'
+                expand_column: 'catName',
+                expaned: false
             },
             form:{
-                url: "autoarticlecat/action.do",
+                url: "fcaarticlecat/action.do",
                 check:function(){
                     var catName=$("#catName").val();
                     var sortOrder=$("#sortOrder").val();

@@ -53,9 +53,6 @@ public class SystemDeptController extends ModuleController {
         Result result = new Result();
         Map<String,Object> map = new HashMap<String, Object>();
         if(systemDept != null) {
-            if (StringUtil.isNotNullOrEmpty(ConvertUtil.toString(systemDept.getParentId()))) {
-                map.put("parentId", systemDept.getParentId());
-            }
             if (StringUtil.isNotNullOrEmpty(systemDept.getDeptName())) {
                 map.put("deptName", systemDept.getDeptName());
             }

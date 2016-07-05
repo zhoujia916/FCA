@@ -6,21 +6,21 @@
 <div class="page-header">
     <h4>
         <i class="glyphicon glyphicon-signal"></i>
-        会员管理
+        员工管理
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
             {{if $action eq 'CREATE'}}
-                新建会员
+                新建员工
             {{elseif $action eq 'UPDATE'}}
-                编辑会员
+                编辑员工
             {{elseif $action eq 'VIEW'}}
-                查看会员详情
+                查看员工详情
             {{/if}}
 
         </small>
 
-        <a class="btn btn-xs orange pull-right btn-warning" href="#page/autouser/index">
-            <i class="glyphicon glyphicon-arrow-left"></i>返回会员管理</span></a>
+        <a class="btn btn-xs orange pull-right btn-warning" href="#page/fcauser/index">
+            <i class="glyphicon glyphicon-arrow-left"></i>返回员工管理</span></a>
     </h4>
 </div>
 
@@ -35,20 +35,6 @@
                             基本信息
                         </a>
                     </li>
-
-                    <li>
-                        <a data-toggle="tab" href="#edit-profile">
-                            <i class="purple ace-icon ace-icon fa fa-globe bigger-125"></i>
-                            认证资料
-                        </a>
-                    </li>
-
-                    <li>
-                        <a data-toggle="tab" href="#edit-pics">
-                            <i class="orange ace-icon fa fa fa-picture-o bigger-125"></i>
-                            认证图片
-                        </a>
-                    </li>
                 </ul>
 
                 <div class="tab-content profile-edit-tab-content">
@@ -60,9 +46,10 @@
                             </label>
                             <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
                                 {{if $action eq 'CREATE'}}
-                                <input type="text" id="userName" name="userName" placeholder="用户名,请使用手机号码" class="txt input-sm col-sm-6">
+                                <input type="text" id="userName" name="userName" placeholder="用户名" class="txt input-sm col-sm-6">
                                 {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="userName" name="userName" placeholder="用户名,请使用手机号码" value="{{$user.userName}}" class="txt input-sm col-sm-6">
+                                <input hidden="hidden" name="userId" id="userId" value="{{$user.userId}}"/>
+                                <input type="text" id="userName" name="userName" placeholder="用户名" value="{{$user.userName}}" class="txt input-sm col-sm-6">
                                 {{elseif $action eq 'VIEW'}}
                                 {{$user.userName}}
                                 {{/if}}
@@ -168,126 +155,6 @@
                                 {{/if}}
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                生份证号码
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="idNumber" name="idNumber" placeholder="生份证号码" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="idNumber" name="idNumber" placeholder="生份证号码" value="{{$user.idNumber}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.idNumber}}{{$user.idNumber}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="edit-profile" class="tab-pane">
-                        <div class="space-10"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                真实姓名
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="realName" name="profile.realName" placeholder="真实姓名" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="realName" name="profile.realName" placeholder="真实姓名" value="{{if $user.profile.realName}}{{$user.profile.realName}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.profile.realName}}{{$user.profile.realName}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group" id="rowParts">
-                            <label class="col-sm-3 control-label">
-                                店铺名称
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="shopName" name="profile.shopName" placeholder="店铺名称" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="shopName" name="profile.shopName" placeholder="店铺名称" value="{{if $user.profile.shopName}}{{$user.profile.shopName}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.profile.shopName}}{{$user.profile.shopName}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                店铺类型
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <select id="shopType" name="profile.shopType">
-                                    <option value="0" selected="selected">请选择店铺类型</option>
-                                    <option value="1">4S 店</option>
-                                    <option value="2">有实体店二网</option>
-                                    <option value="3">无实体店二网</option>
-                                    <option value="4">个人</option>
-                                </select>
-                                {{elseif $action eq 'UPDATE'}}
-                                <select id="shopType" name="profile.shopType">
-                                    <option value="0"{{if $user.status neq 3}} selected="selected"{{/if}}>请选择店铺类型</option>
-                                    <option value="1"{{if $user.profile.shopType eq 1}} selected="selected"{{/if}}>4S 店</option>
-                                    <option value="2"{{if $user.profile.shopType eq 2}} selected="selected"{{/if}}>有实体店二网</option>
-                                    <option value="3"{{if $user.profile.shopType eq 3}} selected="selected"{{/if}}>无实体店二网</option>
-                                    <option value="4"{{if $user.profile.shopType eq 4}} selected="selected"{{/if}}>个人</option>
-                                </select>
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.profile.shopType eq 1}}4S 店{{/if}}
-                                {{if $user.profile.shopType eq 2}}有实体店二网{{/if}}
-                                {{if $user.profile.shopType eq 3}}无实体店二网{{/if}}
-                                {{if $user.profile.shopType eq 4}}个人{{/if}}
-                                {{/if}}
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                店铺描述
-                            </label>
-                            <div class="col-sm-6"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <textarea id="shopDesc" placeholder="店铺描述" name="profile.shopDesc" style="max-height:150px;min-height:150px;width:100%;"></textarea>
-                                {{elseif $action eq 'UPDATE'}}
-                                <textarea id="shopDesc" placeholder="店铺描述" name="profile.shopDesc" style="max-height:150px;min-height:150px;width:100%;">{{if $user.profile.shopDesc}}{{$user.profile.shopDesc}}{{/if}}</textarea>
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.profile.shopDesc}}{{$user.profile.shopDesc}}{{/if}}
-                                {{/if}}
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                主营品牌
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="shopBrands" name="profile.shopBrands" placeholder="主营品牌" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="shopBrands" name="profile.shopBrands" placeholder="主营品牌" value="{{if $user.profile.shopBrands}}{{$user.profile.shopBrands}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.profile.shopBrands}}{{$user.profile.shopBrands}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                店铺位置
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="shopBase" name="profile.shopBase" placeholder="店铺位置" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="shopBase" name="profile.shopBase" placeholder="店铺位置" value="{{if $user.profile.shopBase}}{{$user.profile.shopBase}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.profile.shopBase}}{{$user.profile.shopBase}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-
                     </div>
 
                     <div id="edit-pics" class="tab-pane">
@@ -317,18 +184,6 @@
                     <i class="ace-icon fa fa-check bigger-110"></i>
                     确定
                 </button>
-                {{if $action eq 'UPDATE' and $user.status eq 3 }}
-                <button class="btn btn-danger" type="button">
-                    <i class="ace-icon fa fa-times"></i>
-                    <span class="bigger-110">实名审核通过</span>
-                </button>
-
-                <button class="btn btn-success" type="button">
-                    <span class="bigger-110">实名审核通过</span>
-
-                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-                </button>
-                {{/if}}
             </div>
             {{/if}}
         </form>
@@ -347,13 +202,9 @@
                 showTip("用户名不能为空");
                 return;
             }
-            if(!/1\d{10}/.test(name)){
-                showTip("用户名不正确,请输入手机号");
-                return;
-            }
-            $.post("{{$contextPath}}/admin/autouser/action.do","action=" + $(this).attr("data-action") + "&"+$("form").serialize(),function(result){
+            $.post("{{$contextPath}}/admin/fcauser/action.do","action=" + $(this).attr("data-action") + "&"+$("form").serialize(),function(result){
                 if(result.code==0){
-                    changeHash("page/autouser/index");
+                    changeHash("page/fcauser/index");
                 }else{
                     showAlert(result.msg);
                 }

@@ -88,8 +88,7 @@ public class FcaArticleTemplateController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(id)){
                     map.put("templateId", ConvertUtil.toInt(id));
                 }else if(StringUtil.isNotNullOrEmpty(ids)){
-                    String[] templateIds=ids.split(",");
-                    map.put("templateIds",templateIds);
+                    map.put("templateIds",ids);
                 }
                 if(!fcaArticleTemplateService.delete(map)){
                     result.setCode(1);

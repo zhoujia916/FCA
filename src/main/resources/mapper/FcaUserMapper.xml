@@ -97,41 +97,29 @@
         update fca_user 
         <set>
 			<trim suffixOverrides=",">
-                <if test="userId != null and userId != ''">
-                    and user_id = #{userId}
+                <if test="userName != null and userName != ''">
+                    user_name = #{userName},
                 </if>
-                <if test="userId != null and userId != ''">
-                    and user_id = #{userId}
+                <if test="password != null and password != ''">
+                    password = #{password},
                 </if>
-                <if test="userId != null and userId > 0">
-                    and user_id = #{userId}
+                <if test="birth != null and birth > 0">
+                    birth = #{birth},
                 </if>
-                <if test="userId != null and userId != ''">
-                    and user_id = #{userId}
+                <if test="phone != null and phone != ''">
+                    phone = #{phone},
                 </if>
-                <if test="userId != null and userId != ''">
-                    and user_id = #{userId}
+                <if test="email != null and email != ''">
+                    email = #{email},
                 </if>
-                <if test="userId != null and userId != ''">
-                    and user_id = #{userId}
+                <if test="userAvatar != null and userAvatar != ''">
+                    user_avatar = #{userAvatar},
                 </if>
-                <if test="userId != null and userId != ''">
-                    and user_id = #{userId}
+                <if test="status != null and status > 0">
+                    status = ${status},
                 </if>
-                <if test="userId != null and userId > 0">
-                    and user_id = #{userId}
-                </if>
-                <if test="userId != null and userId > 0">
-                    and user_id = #{userId}
-                </if>
-                <if test="userId != null and userId != ''">
-                    and user_id = #{userId}
-                </if>
-                <if test="userId != null and userId > 0">
-                    and user_id = #{userId}
-                </if>
-                <if test="userId != null and userId > 0">
-                    and user_id = #{userId}
+                <if test="point != null and point > 0">
+                    point = ${point},
                 </if>
 			</trim>
         </set>
@@ -166,6 +154,9 @@
         	<if test="userId != null and userId > 0">
                 and user_id = #{userId}
             </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
         </where> 
     </select>
 
@@ -177,7 +168,7 @@
 	                and user_id = #{userId}
 	            </if>
 	        	<if test="userName != null and userName != ''">
-	                and user_name = #{userName}
+	                and user_name like concat('%',#{userName},'%')
 	            </if>
 	        	<if test="password != null and password != ''">
 	                and password = #{password}
@@ -214,6 +205,7 @@
 	            </if>
 	        </trim>
         </where>
+        order by sort_order desc, user_id desc
     </select>
 
 </mapper>

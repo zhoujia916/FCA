@@ -52,14 +52,14 @@
         update fca_article_template 
         <set>
 			<trim suffixOverrides=",">
-                <if test="templateId != null and templateId != ''">
-                    and template_id = #{templateId}
+                <if test="name != null and name != ''">
+                    name = #{name},
                 </if>
-                <if test="templateId != null and templateId != ''">
-                    and template_id = #{templateId}
+                <if test="content != null and content != ''">
+                    content = #{content},
                 </if>
-                <if test="templateId != null and templateId > 0">
-                    and template_id = #{templateId}
+                <if test="sortOrder != null and sortOrder > 0">
+                    sort_order = ${sortOrder},
                 </if>
 			</trim>
         </set>

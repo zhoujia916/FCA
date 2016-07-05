@@ -97,4 +97,14 @@ public class FcaArticleCat implements Serializable{
     }
 
     private List<FcaArticleCat> children;
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    private String parentName;
 }

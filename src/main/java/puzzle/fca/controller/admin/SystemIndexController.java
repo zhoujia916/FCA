@@ -73,21 +73,6 @@ public class SystemIndexController extends ModuleController {
             //region 账户信息
             SystemUser user = (SystemUser)this.getCurrentUser();
             this.setModelAttribute("admin", user);
-            //endregion
-
-            //region 待实名认证用户
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("status", Constants.AUTO_USER_STATUS_AUTH_WAITCHECK);
-            Page page = new Page();
-            page.setPageIndex(Constants.PageHelper.PAGE_INDEX_FIRST);
-            page.setPageSize(Constants.PageHelper.PAGE_SIZE_COMMON);
-            List<FcaUser> users = fcaUserService.queryList(map, page);
-            Result task = new Result();
-            task.setTotal(page.getTotal());
-            task.setData(users);
-            this.setModelAttribute("task", task);
-            //endregion
-
         }
         return Constants.UrlHelper.ADMIN_SYSTEM_INDEX;
     }

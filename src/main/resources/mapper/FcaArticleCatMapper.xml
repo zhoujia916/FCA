@@ -5,7 +5,8 @@
     	<id column="cat_id" property="catId" /> 
     	<result column="cat_name" property="catName" /> 
     	<result column="parent_id" property="parentId" /> 
-    	<result column="sort_order" property="sortOrder" /> 
+    	<result column="sort_order" property="sortOrder" />
+        <result column="parentName" property="parentName"/>
     </resultMap>
 
     <sql id="allColumn">
@@ -52,15 +53,15 @@
         update fca_article_cat 
         <set>
 			<trim suffixOverrides=",">
-                <if test="catId != null and catId != ''">
-                    and cat_id = #{catId}
-                </if>
-                <if test="catId != null and catId > 0">
-                    and cat_id = #{catId}
-                </if>
-                <if test="catId != null and catId > 0">
-                    and cat_id = #{catId}
-                </if>
+              <if test="catName != null and catName != ''">
+                  cat_name = #{catName},
+              </if>
+              <if test="parentId != null and parentId > 0">
+                  parent_id = ${parentId},
+              </if>
+              <if test="sortOrder != null and sortOrder > 0">
+                  sort_order = ${sortOrder},
+              </if>
 			</trim>
         </set>
         <where> 
@@ -98,20 +99,22 @@
     </select>
 
     <select id="queryList" parameterType="Map" resultMap="FcaArticleCat">
-        select <include refid="allColumn"/> from fca_article_cat
+        select fac.*,(select ac.cat_name from fca_article_cat as ac where fac.parent_id=ac.cat_id)
+        as parentName
+        from fca_article_cat as fac
         <where>
 	        <trim prefixOverrides="and | or">
 	        	<if test="catId != null and catId > 0">
-	                and cat_id = #{catId}
+	                and fac.cat_id = #{catId}
 	            </if>
 	        	<if test="catName != null and catName != ''">
-	                and cat_name = #{catName}
+	                and fac.cat_name like concat('%',#{catName},'%')
 	            </if>
 	        	<if test="parentId != null and parentId > 0">
-	                and parent_id = #{parentId}
+	                and fac.parent_id = #{parentId}
 	            </if>
 	        	<if test="sortOrder != null and sortOrder > 0">
-	                and sort_order = #{sortOrder}
+	                and fac.sort_order = #{sortOrder}
 	            </if>
 	        </trim>
         </where>

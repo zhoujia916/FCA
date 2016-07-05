@@ -75,24 +75,18 @@ public class Constants {
     };
 
     /**
-     * 1=无效  2=注册或添加   3=等待审核  4=审核通过  5=审核未通过
+     * 1=账户有效  2=账务无效
      */
     public static final Integer AUTO_USER_STATUS_DISABLED = 1;
     public static final Integer AUTO_USER_STATUS_NORMAL = 2;
-    public static final Integer AUTO_USER_STATUS_AUTH_WAITCHECK = 3;
-    public static final Integer AUTO_USER_STATUS_AUTH_SUCCESS = 4;
-    public static final Integer AUTO_USER_STATUS_AUTH_FAIL = 5;
 
     public static final Integer SYSTEM_AUTHORITY_TARGET_MENU = 1;
     public static final Integer SYSTEM_AUTHORITY_TARGET_ACTION = 2;
 
     public static final  Map<Integer, String> MAP_AUTO_USER_STATUS = new HashMap<Integer, String>(){
         {
-            put(1,"账户禁用");
-            put(2,"注册或添加");
-            put(3,"等待实名认证");
-            put(4,"实名认证通过");
-            put(5,"实名认证未通过");
+            put(1,"账户有效");
+            put(2,"账户无效");
         }
     };
 

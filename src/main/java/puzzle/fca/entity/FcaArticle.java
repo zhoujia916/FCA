@@ -39,7 +39,6 @@ public class FcaArticle implements Serializable{
         sb.append(", sourceUrl=").append(sourceUrl);
         sb.append(", addTime=").append(addTime);
         sb.append(", addUserId=").append(addUserId);
-        sb.append(", addUserType=").append(addUserType);
         sb.append(", checkTime=").append(checkTime);
         sb.append(", status=").append(status);
         sb.append(", checkUserId=").append(checkUserId);
@@ -69,8 +68,6 @@ public class FcaArticle implements Serializable{
 	private Long addTime;
 	@Column(name="add_user_id", nullable=true)
 	private Integer addUserId;
-	@Column(name="add_user_type", nullable=true)
-	private Integer addUserType;
 	@Column(name="check_time", nullable=true)
 	private Long checkTime;
 	@Column(name="status", nullable=true)
@@ -156,14 +153,6 @@ public class FcaArticle implements Serializable{
 		this.addUserId = addUserId;
 	}
 		
-	public Integer getAddUserType(){
-		return addUserType;
-	}
-	
-	public void setAddUserType(Integer addUserType){
-		this.addUserType = addUserType;
-	}
-		
 	public Long getCheckTime(){
 		return checkTime;
 	}
@@ -215,4 +204,24 @@ public class FcaArticle implements Serializable{
     }
 
     private String endDate;
+
+    private String catName;
+
+    private String userName;
+
+    public String getCatName() {
+        return catName;
+    }
+
+    public void setCatName(String catName) {
+        this.catName = catName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

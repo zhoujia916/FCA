@@ -10,6 +10,7 @@ import puzzle.fca.entity.FcaArticleCat;
 import puzzle.fca.entity.SystemMenuAction;
 import puzzle.fca.service.IFcaArticleCatService;
 import puzzle.fca.utils.ConvertUtil;
+import puzzle.fca.utils.Page;
 import puzzle.fca.utils.Result;
 import puzzle.fca.utils.StringUtil;
 
@@ -38,8 +39,14 @@ public class FcaArticleCatController extends ModuleController {
     @ResponseBody
     public Result list(FcaArticleCat fcaArticleCat){
         Result result=new Result();
+        Map map=new HashMap();
         try{
-            List<FcaArticleCat> list = fcaArticleCatService.queryList(fcaArticleCat);
+            if(fcaArticleCat!=null){
+                if(StringUtil.isNotNullOrEmpty(fcaArticleCat.getCatName())){
+                    map.put("catName",fcaArticleCat.getCatName());
+                }
+            }
+            List<FcaArticleCat> list = fcaArticleCatService.queryList(map);
             result.setData(list);
         }catch(Exception e){
             result.setCode(1);
@@ -77,8 +84,7 @@ public class FcaArticleCatController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(id)){
                     map.put("catId", ConvertUtil.toInt(id));
                 }else if(StringUtil.isNotNullOrEmpty(ids)){
-                    String[] catIds=ids.split(",");
-                    map.put("catIds",catIds);
+                    map.put("catIds",ids);
                 }
                 if(!fcaArticleCatService.delete(map)){
                     result.setCode(1);

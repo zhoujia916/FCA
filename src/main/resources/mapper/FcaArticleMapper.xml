@@ -10,16 +10,17 @@
     	<result column="content" property="content" /> 
     	<result column="source_url" property="sourceUrl" /> 
     	<result column="add_time" property="addTime" /> 
-    	<result column="add_user_id" property="addUserId" /> 
-    	<result column="add_user_type" property="addUserType" /> 
+    	<result column="add_user_id" property="addUserId" />
     	<result column="check_time" property="checkTime" /> 
     	<result column="status" property="status" /> 
     	<result column="check_user_id" property="checkUserId" /> 
-    	<result column="sort_order" property="sortOrder" /> 
+    	<result column="sort_order" property="sortOrder" />
+        <result column="catName" property="catName"/>
+        <result column="userName" property="userName"/>
     </resultMap>
 
     <sql id="allColumn">
-    	article_id, title, title2, cat_id, cover, content, source_url, add_time, add_user_id, add_user_type, check_time, status, check_user_id, sort_order
+    	article_id, title, title2, cat_id, cover, content, source_url, add_time, add_user_id, check_time, status, check_user_id, sort_order
     </sql>
 
     <insert id="insert" parameterType="FcaArticle" useGeneratedKeys="true" keyProperty="articleId">
@@ -34,7 +35,6 @@
         	<if test="sourceUrl != null">source_url, </if>
         	<if test="addTime != null">add_time, </if>
         	<if test="addUserId != null">add_user_id, </if>
-        	<if test="addUserType != null">add_user_type, </if>
         	<if test="checkTime != null">check_time, </if>
         	<if test="status != null">status, </if>
         	<if test="checkUserId != null">check_user_id, </if>
@@ -51,7 +51,6 @@
         	<if test="sourceUrl != null">#{sourceUrl}, </if>
         	<if test="addTime != null">#{addTime}, </if>
         	<if test="addUserId != null">#{addUserId}, </if>
-        	<if test="addUserType != null">#{addUserType}, </if>
         	<if test="checkTime != null">#{checkTime}, </if>
         	<if test="status != null">#{status}, </if>
         	<if test="checkUserId != null">#{checkUserId}, </if>
@@ -70,8 +69,7 @@
 			content, 
 			source_url, 
 			add_time, 
-			add_user_id, 
-			add_user_type, 
+			add_user_id,
 			check_time, 
 			status, 
 			check_user_id, 
@@ -88,8 +86,7 @@
 			#{item.content}, 
 			#{item.sourceUrl}, 
 			#{item.addTime}, 
-			#{item.addUserId}, 
-			#{item.addUserType}, 
+			#{item.addUserId},
 			#{item.checkTime}, 
 			#{item.status}, 
 			#{item.checkUserId}, 
@@ -102,44 +99,35 @@
         update fca_article 
         <set>
 			<trim suffixOverrides=",">
-                <if test="articleId != null and articleId != ''">
-                    and article_id = #{articleId}
+                <if test="title != null and title !=''">
+                    title = #{title},
                 </if>
-                <if test="articleId != null and articleId != ''">
-                    and article_id = #{articleId}
+                <if test="title2 != null and title2 !=''">
+                    title2 = #{title2},
                 </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
+                <if test="catId != null and catId > 0">
+                    cat_id = ${catId},
                 </if>
-                <if test="articleId != null and articleId != ''">
-                    and article_id = #{articleId}
+                <if test="cover != null and cover != ''">
+                    cover = #{cover},
                 </if>
-                <if test="articleId != null and articleId != ''">
-                    and article_id = #{articleId}
+                <if test="content != null and content != ''">
+                    content = #{content},
                 </if>
-                <if test="articleId != null and articleId != ''">
-                    and article_id = #{articleId}
+                <if test="sourceUrl != null  and sourceUrl != ''">
+                    source_url = #{sourceUrl},
                 </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
+                <if test="checkTime != null and checkTime != ''">
+                    check_time = #{checkTime},
                 </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
+                <if test="status != null and status > 0">
+                    status = ${status},
                 </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
+                <if test="checkUserId != null and checkUserId > 0">
+                    check_user_id = ${checkUserId},
                 </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
-                </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
-                </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
-                </if>
-                <if test="articleId != null and articleId > 0">
-                    and article_id = #{articleId}
+                <if test="sortOrder != null and sortOrder != ''">
+                    sort_order = ${sortOrder},
                 </if>
 			</trim>
         </set>
@@ -178,53 +166,32 @@
     </select>
 
     <select id="queryList" parameterType="Map" resultMap="FcaArticle">
-        select <include refid="allColumn"/> from fca_article
+        select fa.*,fac.cat_name as catName,fu.user_name as userName from fca_article as fa
+        inner join fca_article_cat as fac on fa.cat_id = fac.cat_id
+        inner join fca_user as fu on fu.user_id = fa.add_user_id
         <where>
 	        <trim prefixOverrides="and | or">
-	        	<if test="articleId != null and articleId > 0">
-	                and article_id = #{articleId}
-	            </if>
 	        	<if test="title != null and title != ''">
-	                and title = #{title}
+	                and fa.title like concat('%',#{title},'%')
 	            </if>
-	        	<if test="title2 != null and title2 != ''">
-	                and title2 = #{title2}
-	            </if>
+                <if test="userName != null and userName != ''">
+                    and fu.user_name like concat('%',#{userName},'%')
+                </if>
 	        	<if test="catId != null and catId > 0">
-	                and cat_id = #{catId}
-	            </if>
-	        	<if test="cover != null and cover != ''">
-	                and cover = #{cover}
-	            </if>
-	        	<if test="content != null and content != ''">
-	                and content = #{content}
-	            </if>
-	        	<if test="sourceUrl != null and sourceUrl != ''">
-	                and source_url = #{sourceUrl}
-	            </if>
-	        	<if test="addTime != null and addTime > 0">
-	                and add_time = #{addTime}
-	            </if>
-	        	<if test="addUserId != null and addUserId > 0">
-	                and add_user_id = #{addUserId}
-	            </if>
-	        	<if test="addUserType != null and addUserType > 0">
-	                and add_user_type = #{addUserType}
-	            </if>
-	        	<if test="checkTime != null and checkTime > 0">
-	                and check_time = #{checkTime}
+	                and fac.cat_id = #{catId}
 	            </if>
 	        	<if test="status != null and status > 0">
-	                and status = #{status}
+	                and fa.status = ${status}
 	            </if>
-	        	<if test="checkUserId != null and checkUserId > 0">
-	                and check_user_id = #{checkUserId}
-	            </if>
-	        	<if test="sortOrder != null and sortOrder > 0">
-	                and sort_order = #{sortOrder}
-	            </if>
+                <if test="beginTime != null and beginTime > 0">
+                    and fa.add_time &gt;= #{beginTime}
+                </if>
+                <if test="endTime != null and endTime > 0">
+                    and fa.add_time &lt;= #{endTime}
+                </if>
 	        </trim>
         </where>
+        order by fa.sort_order desc, fa.article_id desc
     </select>
 
 </mapper>

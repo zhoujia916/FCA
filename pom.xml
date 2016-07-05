@@ -314,26 +314,6 @@
         </dependency>
         <!--End mybatis 延迟加载依赖包 -->
 
-        <!--Start 个推JDK-->
-        <dependency>
-            <groupId>com.gexin.platform</groupId>
-            <artifactId>gexin-rp-sdk-base</artifactId>
-            <version>4.0.0.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.gexin.platform</groupId>
-            <artifactId>gexin-rp-sdk-http</artifactId>
-            <version>4.0.1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.gexin.platform</groupId>
-            <artifactId>gexin-rp-sdk-template</artifactId>
-            <version>4.0.0.5</version>
-        </dependency>
-        <!--End 个推JDK依赖库-->
-
         <!--Start alipay 依赖库-->
         <!--<dependency>-->
         <!--<groupId>commons-codec</groupId>-->

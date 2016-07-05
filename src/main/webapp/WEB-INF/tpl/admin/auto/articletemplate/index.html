@@ -119,13 +119,9 @@
     $('.page-content-area').ace_ajax('loadScripts', [null, null], function() {
         $(function($) {
             $("#gridview").gridview({
-                url: "autoarticletemplate/list.do",
-                treeReader:{
-                    show: true,
-                    expand_column: 'name'
-                },
+                url: "fcaarticletemplate/list.do",
                 form:{
-                    url: "autoarticletemplate/action.do",
+                    url: "fcaarticletemplate/action.do",
                     check:function(){
                         var name = $.trim($("#txtName").val());
                         if(name == ""){
