@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>员工中心-设置新密码</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        body{
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid home">
+
+    <div class="home-logo text-center col-sm-12">
+        <img src="img/logo-fca.png" alt="">
+    </div>
+
+    <div class="home-menu text-center col-sm-12">
+        <a href="#">
+            <span>菜单</span>
+        </a>
+    </div>
+
+    <div class="home-content col-sm-12">
+
+        <div class="home-article">
+            <p class="home-article-p1">
+                春风和煦、阳光明媚，在此春暖花开之际，恰是人们外出游玩的好时候。
+            </p>
+            <p class="home-article-p2">
+                6月17日
+            </p>
+            <img src="img/home-article_1.png" alt="" class="home-article-img">
+            <p class="home-article-p3">
+                为呼吸春的气息，享受大自然的呵护，6月17日，公司组织全体员工外出郊游。
+            </p>
+            <hr/>
+            <a href="" class="home-article-a">阅读全文 <span>&gt;</span></a>
+        </div>
+
+        <div class="home-article">
+            <p class="home-article-p1">
+                春风和煦、阳光明媚，在此春暖花开之际，恰是人们外出游玩的好时候。
+            </p>
+            <p class="home-article-p2">
+                6月17日
+            </p>
+            <img src="img/home-article_2.png" alt="" class="home-article-img">
+            <p class="home-article-p3">
+                为呼吸春的气息，享受大自然的呵护，6月17日，公司组织全体员工外出郊游。
+            </p>
+            <hr/>
+            <a href="" class="home-article-a">阅读全文 <span>&gt;</span></a>
+        </div>
+
+    </div>
+
+    <div class="home-footer-img text-center">
+        <a class="aimg1" href=""><img src="img/carlogo/alfaromeo_看图王.jpg" alt=""></a>
+        <a class="aimg2" href=""><img src="img/carlogo/chrysler_看图王.jpg" alt=""></a>
+        <a class="aimg3" href=""><img src="img/carlogo/dodge_看图王.jpg" alt=""></a>
+        <a class="aimg4" href=""><img src="img/carlogo/fiat_看图王.jpg" alt=""></a>
+        <a class="aimg5" href=""><img src="img/carlogo/fiatpro_看图王.jpg" alt=""></a>
+        <a class="aimg6" href=""><img src="img/carlogo/jeep_看图王.jpg" alt=""></a>
+        <a class="aimg7" href=""><img src="img/carlogo/lancia_看图王.jpg" alt=""></a>
+        <a class="aimg8" href=""><img src="img/carlogo/ram_看图王.jpg" alt=""></a>
+        <a class="aimg9" href=""><img src="img/carlogo/abarth_看图王.jpg" alt=""></a>
+        <a class="aimg10" href=""><img src="img/carlogo/mopar_看图王.jpg" alt=""></a>
+        <a class="aimg11" href=""><img src="img/carlogo/srt_看图王.jpg" alt=""></a>
+        <a class="aimg12" href=""><img src="img/carlogo/maserati_看图王.jpg" alt=""></a>
+        <a class="aimg13" href=""><img src="img/carlogo/comau_看图王.jpg" alt=""></a>
+        <a class="aimg14" href=""><img src="img/carlogo/marelli_看图王.jpg" alt=""></a>
+        <a class="aimg15" href=""><img src="img/carlogo/teksid_看图王.jpg" alt=""></a>
+    </div>
+
+    <div class="home-footer-copyright">
+        <p class="text-center">
+            <a href="">网站导航</a> |
+            <a href="">法律</a> |
+            <a href="">隐私</a> |
+            <a href="">权益</a> |
+            <a href="">联系我们</a> |
+            <a href="">一般存档</a>
+        </p>
+        <p class="text-center">
+            &copy; 2016菲亚特克莱斯勒汽车
+        </p>
+    </div>
+
+
+    <div class="home-modify">
+        <div class="home-black-bg"></div>
+        <form class="col-sm-12 home-modify-password" data-toggle="validator" role="form">
+            <p>设置您的新密码</p>
+            <div class="form-group has-feedback">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-eye-close"></span></span>
+                    <input type="password" data-toggle="validator" data-minlength="6" class="form-control"
+                           id="inputPassword" placeholder="请输入新密码" data-minlength-error="您输入的密码长度不够..." required>
+                </div>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group has-feedback">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-eye-close"></span></span>
+                    <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword"
+                           data-match-error="两次输入的密码不匹配！" placeholder="请再次输入新密码" required>
+                </div>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <button type="submit" class="btn  btn-lg btn-block fgpw-btn-post">确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/validator.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("button").click(function () {
+            location.href = "index.html";
+        })
+
+    })
+</script>
+</body>
+</html>

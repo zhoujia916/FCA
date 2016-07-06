@@ -157,7 +157,8 @@
     </delete>
 
     <select id="query" parameterType="Map" resultMap="FcaArticle">
-        select <include refid="allColumn"/> from fca_article
+        select fa.*,fu.user_name as userName from fca_article as fa
+        inner join fca_user as fu on fu.user_id = fa.add_user_id
         <where>  
         	<if test="articleId != null and articleId > 0">
                 and article_id = #{articleId}

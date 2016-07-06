@@ -66,12 +66,6 @@
 <script type="text/javascript">
 
     $('.page-content-area').ace_ajax('loadScripts', [null, null], function() {
-       
-        $("#datepicker").datepicker({
-            showOtherMonths: true,
-            selectOtherMonths: false
-        });
-
         $("#autouser-gridview").gridview({
             url: "fcauser/list.do",
             form: {
@@ -106,7 +100,10 @@
                     name: "point"
                 },
                 {
-                    name: "status"
+                    name: "status",
+                    format: function(opts, column, row){
+                        return row["status"]==1 ? "<td><span class='label label-sm label-success'>账户有效</span></td>" : "<td><span class='label label-sm label-warning'>账户无效</span></td>";
+                    }
                 },
                 {
                     name: "sortOrder",

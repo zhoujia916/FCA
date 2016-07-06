@@ -101,7 +101,6 @@ public class FcaUserController extends ModuleController {
                 JSONArray array=new JSONArray();
                 for(FcaUser user:list){
                     JSONObject jsonObject=JSONObject.fromObject(user);
-                    jsonObject.put("status",Constants.MAP_AUTO_USER_STATUS.get(user.getStatus()));
                     array.add(jsonObject);
                 }
                 result.setData(array);
@@ -146,9 +145,7 @@ public class FcaUserController extends ModuleController {
                 }else{
                     fcaUser.setUserAvatar("/resource/admin/avatars/profile-pic.jpg");
                 }
-
                 fcaUser.setAddTime(ConvertUtil.toLong(new Date()));
-                fcaUser.setPhone(fcaUser.getUserName());
                 fcaUser.setStatus(Constants.AUTO_USER_STATUS_DISABLED);
                 fcaUser.setSortOrder(0);
                 if(StringUtil.isNotNullOrEmpty(fcaUser.getBirthString())){

@@ -83,34 +83,11 @@ public class Constants {
     public static final Integer SYSTEM_AUTHORITY_TARGET_MENU = 1;
     public static final Integer SYSTEM_AUTHORITY_TARGET_ACTION = 2;
 
-    public static final  Map<Integer, String> MAP_AUTO_USER_STATUS = new HashMap<Integer, String>(){
-        {
-            put(1,"账户有效");
-            put(2,"账户无效");
-        }
-    };
-
-    public static final Map<Integer, String> MAP_AUTO_USER_SHOP_TYPE = new HashMap<Integer, String>(){
-        {
-            put(1,"4s店");
-            put(2,"有实体店二网");
-            put(3,"无实体店二网");
-            put(4,"个人");
-        }
-    };
-
     public static final Map<Integer, String> MAP_AUTO_ARTICLE_STATUS = new HashMap<Integer, String>(){
         {
             put(1,"已保存");
             put(2,"已提交");
             put(3,"已审核");
-        }
-    };
-
-    public static final Map<Integer, String> MAP_AUTO_ARTICLE_USER_TYPE = new HashMap<Integer, String>(){
-        {
-            put(1,"前台用户");
-            put(2,"后台用户");
         }
     };
 
@@ -425,6 +402,14 @@ public class Constants {
 
         public static final String ADMIN_FCA_ARTICLE_TEMPLATE = "admin/auto/articletemplate/index";
 
+        /**
+         * 微信管理模块
+         */
+        public static final String WX_INDEX = "wx/index";
+        public static final String WX_LOGIN = "wx/login";
+        public static final String WX_INDEX_MP = "wx/index_mp";
+        public static final String WX_FORGETPASSWORD = "wx/forgetpassword";
+        public static final String WX_ARTICLE = "wx/article";
     }
 
     public class PageHelper{

@@ -224,4 +224,14 @@ public class FcaArticle implements Serializable{
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public String getAddTimeString() {
+        return addTimeString;
+    }
+
+    public void setAddTimeString(String addTimeString) {
+        this.addTimeString = addTimeString;
+    }
+
+    private String addTimeString;
 }

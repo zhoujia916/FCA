@@ -193,14 +193,56 @@
 </div><!-- /.row -->
 <script type="text/javascript">
     $('.page-content-area').ace_ajax('loadScripts', [null, null], function() {
+        $( "#birth" ).datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: false
+        });
 
         {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
         var spliter = "";
         $("#btnSubmit").on("click",function(){
             var name = $.trim($("#userName").val());
+            var phone = $.trim($("#phone").val());
+            var email = $.trim($("#email").val());
+            var point = $.trim($("#point").val());
+            var pat = new RegExp("^[A-Za-z0-9]+$");
+            var phoneReg = /^\d{11}$/;
+            var emailReg = /^[\w\W]+@[\w\W]+$/;
             if(name == ""){
                 showTip("用户名不能为空");
+                $("#userName").focus();
                 return;
+            }
+            if(name.length<2 || name.length>20){
+                showTip("用户名长度必须在2-20范围内");
+                $("#userName").focus();
+                return;
+            }
+            if(!pat.test(name)){
+                showTip("用户名只能是数字和字母的组合");
+                $("#userName").focus();
+                return;
+            }
+            if(phone != ""){
+                if(!phoneReg.test(phone)){
+                    showTip("请输入正确的电话号码");
+                    $("#phone").focus();
+                    return;
+                }
+            }
+            if(email != ""){
+                if(!emailReg.test(email)){
+                    showTip("请输入正确的邮箱");
+                    $("#email").focus();
+                    return;
+                }
+            }
+            if(point != ""){
+                if(isNaN(point)){
+                    showTip("积分必须为数字");
+                    $("#point").focus();
+                    return;
+                }
             }
             $.post("{{$contextPath}}/admin/fcauser/action.do","action=" + $(this).attr("data-action") + "&"+$("form").serialize(),function(result){
                 if(result.code==0){
