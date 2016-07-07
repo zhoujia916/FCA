@@ -7,7 +7,8 @@
     	<result column="title2" property="title2" /> 
     	<result column="cat_id" property="catId" /> 
     	<result column="cover" property="cover" /> 
-    	<result column="content" property="content" /> 
+    	<result column="content" property="content" />
+        <result column="article_url" property="articleUrl"/>
     	<result column="source_url" property="sourceUrl" /> 
     	<result column="add_time" property="addTime" /> 
     	<result column="add_user_id" property="addUserId" />
@@ -20,7 +21,7 @@
     </resultMap>
 
     <sql id="allColumn">
-    	article_id, title, title2, cat_id, cover, content, source_url, add_time, add_user_id, check_time, status, check_user_id, sort_order
+    	article_id, title, title2, cat_id, cover, content, article_url, source_url, add_time, add_user_id, check_time, status, check_user_id, sort_order
     </sql>
 
     <insert id="insert" parameterType="FcaArticle" useGeneratedKeys="true" keyProperty="articleId">
@@ -32,6 +33,7 @@
         	<if test="catId != null">cat_id, </if>
         	<if test="cover != null">cover, </if>
         	<if test="content != null">content, </if>
+            <if test="articleUrl != null">article_url,</if>
         	<if test="sourceUrl != null">source_url, </if>
         	<if test="addTime != null">add_time, </if>
         	<if test="addUserId != null">add_user_id, </if>
@@ -48,6 +50,7 @@
         	<if test="catId != null">#{catId}, </if>
         	<if test="cover != null">#{cover}, </if>
         	<if test="content != null">#{content}, </if>
+            <if test="articleUrl != null">#{articleUrl},</if>
         	<if test="sourceUrl != null">#{sourceUrl}, </if>
         	<if test="addTime != null">#{addTime}, </if>
         	<if test="addUserId != null">#{addUserId}, </if>
@@ -66,7 +69,8 @@
 			title2, 
 			cat_id, 
 			cover, 
-			content, 
+			content,
+            article_url,
 			source_url, 
 			add_time, 
 			add_user_id,
@@ -83,7 +87,8 @@
 			#{item.title2}, 
 			#{item.catId}, 
 			#{item.cover}, 
-			#{item.content}, 
+			#{item.content},
+            #{item.articleUrl},
 			#{item.sourceUrl}, 
 			#{item.addTime}, 
 			#{item.addUserId},
@@ -113,6 +118,9 @@
                 </if>
                 <if test="content != null and content != ''">
                     content = #{content},
+                </if>
+                <if test="articleUrl != null and articleUrl !=''">
+                    article_url = #{articleUrl},
                 </if>
                 <if test="sourceUrl != null  and sourceUrl != ''">
                     source_url = #{sourceUrl},
@@ -157,8 +165,8 @@
     </delete>
 
     <select id="query" parameterType="Map" resultMap="FcaArticle">
-        select fa.*,fu.user_name as userName from fca_article as fa
-        inner join fca_user as fu on fu.user_id = fa.add_user_id
+        select fa.*,su.user_name as userName from fca_article as fa
+        inner join system_user as su on su.user_id = fa.add_user_id
         <where>  
         	<if test="articleId != null and articleId > 0">
                 and article_id = #{articleId}
@@ -167,16 +175,16 @@
     </select>
 
     <select id="queryList" parameterType="Map" resultMap="FcaArticle">
-        select fa.*,fac.cat_name as catName,fu.user_name as userName from fca_article as fa
+        select fa.*,fac.cat_name as catName,su.user_name as userName from fca_article as fa
         inner join fca_article_cat as fac on fa.cat_id = fac.cat_id
-        inner join fca_user as fu on fu.user_id = fa.add_user_id
+        inner join system_user as su on su.user_id = fa.add_user_id
         <where>
 	        <trim prefixOverrides="and | or">
 	        	<if test="title != null and title != ''">
 	                and fa.title like concat('%',#{title},'%')
 	            </if>
                 <if test="userName != null and userName != ''">
-                    and fu.user_name like concat('%',#{userName},'%')
+                    and su.user_name like concat('%',#{userName},'%')
                 </if>
 	        	<if test="catId != null and catId > 0">
 	                and fac.cat_id = #{catId}

@@ -1,26 +1,24 @@
 
-<title>Puzzle Admin</title>
+<title>Puzzle Admin-广告管理</title>
 <style type="text/css">
 
 </style>
 <div class="page-header">
     <h4>
         <i class="glyphicon glyphicon-signal"></i>
-        员工管理
+        广告管理
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
             {{if $action eq 'CREATE'}}
-                新建员工
+                新增广告
             {{elseif $action eq 'UPDATE'}}
-                编辑员工
-            {{elseif $action eq 'VIEW'}}
-                查看员工详情
+                编辑广告
             {{/if}}
 
         </small>
 
-        <a class="btn btn-xs orange pull-right btn-warning" href="#page/fcauser/index">
-            <i class="glyphicon glyphicon-arrow-left"></i>返回员工管理</span></a>
+        <a class="btn btn-xs orange pull-right btn-warning" href="#page/fcaad/index">
+            <i class="glyphicon glyphicon-arrow-left"></i>返回广告管理</span></a>
     </h4>
 </div>
 
@@ -42,107 +40,69 @@
                         <div class="space-10"></div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                用户名
+                                广告链接
                             </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                            <div class="col-sm-9">
                                 {{if $action eq 'CREATE'}}
-                                <input type="text" id="userName" name="userName" placeholder="用户名" class="txt input-sm col-sm-6">
+                                <input type="text" id="adLink" name="adLink" placeholder="广告链接" class="txt input-sm col-sm-6">
                                 {{elseif $action eq 'UPDATE'}}
-                                <input hidden="hidden" name="userId" id="userId" value="{{$user.userId}}"/>
-                                <input type="text" id="userName" name="userName" placeholder="用户名" value="{{$user.userName}}" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$user.userName}}
+                                <input hidden="hidden" name="adId" id="adId" value="{{$ad.adId}}"/>
+                                <input type="text" id="adLink" name="adLink" placeholder="广告链接" value="{{$ad.adLink}}" class="txt input-sm col-sm-6">
                                 {{/if}}
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                生日
+                                广告图片
                             </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="birth" name="birthString" placeholder="生日" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="birth" name="birthString" placeholder="生日" value="{{if $user.birthString}}{{$user.birthString}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.birthString}}{{$user.birthString}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                手机号码
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="phone" name="phone" placeholder="手机号码" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="phone" name="phone" placeholder="手机号码" value="{{$user.phone}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$user.phone}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                邮箱地址
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="email" name="email" placeholder="邮箱地址" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="email" name="email" placeholder="邮箱地址" value="{{if $user.email}}{{$user.email}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.email}}{{$user.email}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                用户图像
-                            </label>
-                            <div class="col-sm-4" style="height:62px;"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                            <div class="col-sm-4" style="height:62px;">
                                 {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
-                                <input type="hidden" id="hidUserAvatar" name="userAvatar" />
-                                <input type="file" id="userAvatar" name="file" placeholder="封面图片">
-                                {{elseif $action eq 'VIEW'}}
-                                <img src="{{$user.userAvatar}}" style="height:100%;" />
+                                <input type="hidden" id="hidAdPic" name="pic" />
+                                <input type="file" id="pic" name="file" placeholder="广告图片">
                                 {{/if}}
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                状态
+                                位置
                             </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                            <div class="col-sm-9">
                                 {{if $action eq 'CREATE'}}
-                                <select name="status">
-                                    <option value="1" selected="selected">账户有效</option>
-                                    <option value="2">账户无效</option>
+                                <select  id="adPositionId" name="adPositionId" class="select" data-init="0" >
+                                    {{foreach from=$list item=aap}}
+                                    <option value="{{$aap.positionId}}" {{if $aap.positionId == 1}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
+                                    {{/foreach}}
                                 </select>
                                 {{elseif $action eq 'UPDATE'}}
-                                <select name="status">
-                                    <option value="1"{{if $user.status eq 1}} selected="selected"{{/if}}>账户有效</option>
-                                    <option value="2"{{if $user.status eq 2}} selected="selected"{{/if}}>账户无效</option>
+                                <select  id="adPositionId" name="adPositionId" class="select" data-init="0" >
+                                    {{foreach from=$list item=aap}}
+                                    <option value="{{$aap.positionId}}" {{if $aap.positionId == $positionId}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
+                                    {{/foreach}}
                                 </select>
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.status eq 1}}账户有效{{/if}}
-                                {{if $user.status eq 2}}账户无效{{/if}}
                                 {{/if}}
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">
-                                信誉积分
+                                开始时间
                             </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                            <div class="col-sm-9">
                                 {{if $action eq 'CREATE'}}
-                                <input type="text" id="point" name="point" placeholder="信誉积分" value="100" class="txt input-sm col-sm-2">
+                                <input type="text" id="startDate" name="beginTimeString" placeholder="开始时间" class="txt input-sm col-sm-5 "/>
                                 {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="point" name="point" placeholder="信誉积分" value="{{$user.point}}" class="txt input-sm col-sm-2">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$user.point}}
+                                <input type="text" id="startDate" name="beginTimeString" value="{{$ad.beginTimeString}}" placeholder="开始时间" class="txt input-sm col-sm-5 "/>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                结束时间
+                            </label>
+                            <div class="col-sm-9">
+                                {{if $action eq 'CREATE'}}
+                                <input type="text" id="endDate" name="endTimeString" placeholder="结束时间" class="txt input-sm col-sm-5 "/>
+                                {{elseif $action eq 'UPDATE'}}
+                                <input type="text" id="endDate" name="endTimeString" value="{{$ad.endTimeString}}" placeholder="结束时间" class="txt input-sm col-sm-5 "/>
                                 {{/if}}
                             </div>
                         </div>
@@ -184,78 +144,23 @@
 </div><!-- /.row -->
 <script type="text/javascript">
     $('.page-content-area').ace_ajax('loadScripts', [null, null], function() {
-        $( "#birth" ).datepicker({
-            showOtherMonths: true,
-            selectOtherMonths: false
-        });
-
         {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
-        var spliter = "";
+        var spliter = "※";
         $("#btnSubmit").on("click",function(){
-            var name = $.trim($("#userName").val());
-            var phone = $.trim($("#phone").val());
-            var birth = $.trim($("#birth").val());
-            var email = $.trim($("#email").val());
-            var point = $.trim($("#point").val());
-            var pat = new RegExp("^[A-Za-z0-9]+$");
-            var phoneReg = /^\d{11}$/;
-            var emailReg = /^[\w\W]+@[\w\W]+$/;
-            if(name == ""){
-                showTip("用户名不能为空");
-                $("#userName").focus();
-                return;
-            }
-            if(name.length<2 || name.length>20){
-                showTip("用户名长度必须在2-20范围内");
-                $("#userName").focus();
-                return;
-            }
-            if(!pat.test(name)){
-                showTip("用户名只能是数字和字母的组合");
-                $("#userName").focus();
-                return;
-            }
-            if(phone != ""){
-                if(!phoneReg.test(phone)){
-                    showTip("请输入正确的电话号码");
-                    $("#phone").focus();
-                    return;
-                }
-            }
-            if(email == ""){
-                showTip("邮箱不能为空");
-                $("#email").focus();
-                return;
-            }
-            if(email != ""){
-                if(!emailReg.test(email)){
-                    showTip("请输入正确的邮箱");
-                    $("#email").focus();
-                    return;
-                }
-            }
-            if(point != ""){
-                if(isNaN(point)){
-                    showTip("积分必须为数字");
-                    $("#point").focus();
-                    return;
-                }
-            }
-            $.post("{{$contextPath}}/admin/fcauser/action.do","action=" + $(this).attr("data-action") + "&"+$("form").serialize(),function(result){
-                if(result.code==0){
-                    changeHash("page/fcauser/index");
-                }else{
-                    showAlert(result.msg);
-                }
-            });
+
         });
 
-        $("#birthString").datepicker({
+        $("#startDate").datepicker({
             showOtherMonths: true,
             selectOtherMonths: false
         });
 
-        var userAvatar = $('#userAvatar').ace_file_input({
+        $("#endDate").datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: false
+        });
+
+        var userAvatar = $('#pic').ace_file_input({
             style:'well',
             allowExt: ["jpeg", "jpg", "png", "gif" , "bmp"],
             allowMime: ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"],
@@ -272,7 +177,7 @@
 						return true;
 					}*/
             before_remove : function() {
-                $("#hidUserAvatar").val("");
+                $("#hidAdPic").val("");
                 return true;
             },
             preview_error : function(filename, error_code) {
@@ -296,7 +201,7 @@
         var files = [{
             name: "temp.jpeg",
             type: "image",
-            path: "{{$user.userAvatar}}"
+            path: "{{$ad.pic}}"
         }];
         userAvatar.ace_file_input("show_file_list", files, false);
         {{/if}}
@@ -367,7 +272,7 @@
             //change the previewTemplate to use Bootstrap progress bars
             previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-small progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
         });
-        {{if $action eq 'UPDATE' or $action eq 'VIEW'}}
+        {{if $action eq 'UPDATE'}}
         var mockFileList = [];
         {{foreach from=$picList item=picItem}}
         mockFileList.push({ name: "temp.jpg", size: "10000", path: "{{$picItem.path}}" });
@@ -380,8 +285,5 @@
             dropZone.emit("complete", mockFileList[i]);
         }
         {{/if}}
-            {{if $action eq 'VIEW'}}
-            dropZone.disable();
-            {{/if}}
     });
 </script>

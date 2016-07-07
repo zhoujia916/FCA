@@ -40,9 +40,6 @@ public class WxIndexController extends ModuleController{
         if(StringUtil.isNotNullOrEmpty(str)){
             map.put("catId",ConvertUtil.toInt(str));
             this.setModelAttribute("catId", ConvertUtil.toInt(str));
-        }else{
-            map.put("catId",1);
-            this.setModelAttribute("catId", 1);
         }
         Page page=new Page();
         page.setPageSize(2);
@@ -58,13 +55,21 @@ public class WxIndexController extends ModuleController{
         return Constants.UrlHelper.WX_INDEX;
     }
 
+    /**
+     * 微信index页面加载更多信息
+     * @param catId
+     * @param page
+     * @return
+     */
     @RequestMapping(value = "/index/query.do")
     @ResponseBody
     public Result query(Integer catId,Page page){
         Result result=new Result();
         try{
             Map map=new HashMap();
-            map.put("catId",catId);
+            if(catId!=0) {
+                map.put("catId", catId);
+            }
             page.setPageSize(2);
             List<FcaArticle> articleList=fcaArticleService.queryList(map,page);
             for(int i=0;i<articleList.size();i++){

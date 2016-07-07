@@ -153,7 +153,6 @@ public class FcaArticleController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(cover)){
                     fcaArticle.setCover(cover);
                 }
-
                 if(!fcaArticleService.insert(fcaArticle)){
                     result.setCode(1);
                     result.setMsg("添加文章时出错");

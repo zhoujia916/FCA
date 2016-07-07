@@ -28,7 +28,7 @@ public class WxArticleController extends ModuleController{
     private IFcaArticleService fcaArticleService;
 
     /**
-     * 查询微信页面的文章全文
+     * 查询微信article.htrml页面的文章全文
      * @param articleId
      * @return
      */

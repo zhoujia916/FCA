@@ -10,7 +10,7 @@
 
 <div class="row" id="">
     <div class="col-xs-12">
-        <div id="position-gridview" class="gridview">
+        <div id="gridview" class="gridview">
             <div class="grid-filter">
                 <input type="text input-sm" style="height: 29px" class="txt" name="positionName" placeholder="名称" />
                 <a class="btn btn-xs btn-action btn-purple" data-action="search" style="margin-top: -2px;margin-left: 10px;"><i class="ace-icon fa fa-search"></i>搜索</a>
@@ -127,10 +127,10 @@
 </div><!-- /.row -->
 <script type="text/javascript">
     $('.page-content-area').ace_ajax('loadScripts', [null, null], function() {
-        $("#position-gridview").gridview({
-            url: "autoadposition/list.do",
+        $("#gridview").gridview({
+            url: "fcaadposition/list.do",
             form: {
-                url: "autoadposition/action.do",
+                url: "fcaadposition/action.do",
                 check:function(){
                     var positionName=$("#positionName").val();
                     var width=$("#width").val();

@@ -390,6 +390,12 @@ public class Constants {
          *  业务管理模块
          */
 
+        public static final String ADMIN_FCA_AD = "admin/auto/ad/index";
+
+        public static final String ADMIN_FCA_AD_ADD = "admin/auto/ad/add";
+
+        public static final String ADMIN_FCA_AD_POSITION = "admin/auto/adposition/index";
+
         public static final String ADMIN_FCA_USER = "admin/auto/user/index";
 
         public static final String ADMIN_FCA_USER_SHOW = "admin/auto/user/show";

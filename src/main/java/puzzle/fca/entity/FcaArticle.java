@@ -62,6 +62,7 @@ public class FcaArticle implements Serializable{
 	private String cover;
 	@Column(name="content", nullable=true, length=21845)
 	private String content;
+    private String articleUrl;
 	@Column(name="source_url", nullable=true, length=255)
 	private String sourceUrl;
 	@Column(name="add_time", nullable=true)
@@ -128,8 +129,16 @@ public class FcaArticle implements Serializable{
 	public void setContent(String content){
 		this.content = content;
 	}
-		
-	public String getSourceUrl(){
+
+    public String getArticleUrl() {
+        return articleUrl;
+    }
+
+    public void setArticleUrl(String articleUrl) {
+        this.articleUrl = articleUrl;
+    }
+
+    public String getSourceUrl(){
 		return sourceUrl;
 	}
 	

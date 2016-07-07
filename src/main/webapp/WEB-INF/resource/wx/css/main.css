@@ -154,7 +154,7 @@ a:active{text-decoration:none;/* 指正在点的链接*/}
 }
 .menu-nav .navbar-default{
     background-color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 .menu-nav .navbar{
     border: 0;
@@ -203,6 +203,16 @@ a:active{text-decoration:none;/* 指正在点的链接*/}
     background-color: #fff !important;
 }
 
+.ad{
+margin-bottom: 1rem;
+}
+.ad img{
+    width: 100%;
+}
+
+.swiper-container {
+    height: auto;
+}  
 
 .home-content{
     /*margin-top: 10px;*/

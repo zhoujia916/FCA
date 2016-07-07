@@ -23,7 +23,19 @@ public class FcaArticleServiceImpl implements IFcaArticleService {
 	*/
 	@Override
 	public boolean insert(FcaArticle entity){
-		return sqlMapper.insert("FcaArticleMapper.insert", entity);
+        try{
+            if(sqlMapper.insert("FcaArticleMapper.insert", entity)){
+                FcaArticle article=new FcaArticle();
+                article.setArticleId(entity.getArticleId());
+                String articleUrl="http://192.168.1.92:9080/wx/article/"+entity.getArticleId();
+                article.setArticleUrl(articleUrl);
+                update(article);
+                return true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+		return false;
 	}
 
 	/**
