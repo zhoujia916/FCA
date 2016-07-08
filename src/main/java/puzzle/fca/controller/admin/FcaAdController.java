@@ -4,6 +4,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import puzzle.fca.Constants;
@@ -28,16 +29,32 @@ import java.util.Map;
 public class FcaAdController extends ModuleController {
 
     @Autowired
-    private IFcaAdService autoAdService;
+    private IFcaAdService fcaAdService;
 
     @Autowired
-    private IFcaAdPositionService autoAdPositionService;
+    private IFcaAdPositionService fcaAdPositionService;
 
     @RequestMapping(value = "/add")
     public String add(){
-        List<FcaAdPosition> list=autoAdPositionService.queryList(null);
+        List<FcaAdPosition> list=fcaAdPositionService.queryList(null);
         this.setModelAttribute("list",list);
         this.setModelAttribute("action",Constants.PageHelper.PAGE_ACTION_CREATE);
+        return Constants.UrlHelper.ADMIN_FCA_AD_ADD;
+    }
+
+    @RequestMapping(value = "/edit/{adId}")
+    public String edit(@PathVariable Integer adId){
+        List<FcaAdPosition> list=fcaAdPositionService.queryList(null);
+        if(adId!=null && adId>0) {
+            Map map=new HashMap();
+            map.put("adId",adId);
+            FcaAd ad = fcaAdService.query(map);
+            ad.setBeginTimeString(ConvertUtil.toString(ConvertUtil.toDate(ad.getStartDate()), Constants.DATE_FORMAT));
+            ad.setEndTimeString(ConvertUtil.toString(ConvertUtil.toDate(ad.getEndDate()), Constants.DATE_FORMAT));
+            this.setModelAttribute("ad",ad);
+        }
+        this.setModelAttribute("list",list);
+        this.setModelAttribute("action",Constants.PageHelper.PAGE_ACTION_UPDATE);
         return Constants.UrlHelper.ADMIN_FCA_AD_ADD;
     }
 
@@ -45,7 +62,7 @@ public class FcaAdController extends ModuleController {
     public String index(){
         List<SystemMenuAction> actions = getActions();
         this.setModelAttribute("actions", actions);
-        List<FcaAdPosition> list=autoAdPositionService.queryList(null);
+        List<FcaAdPosition> list=fcaAdPositionService.queryList(null);
         this.setModelAttribute("list",list);
         return Constants.UrlHelper.ADMIN_FCA_AD;
     }
@@ -67,15 +84,13 @@ public class FcaAdController extends ModuleController {
                     map.put("endDate", ConvertUtil.toLong(ConvertUtil.toDateTime(autoAd.getEndTimeString() + " 23:59:59")));
                 }
             }
-            List<FcaAd> list=autoAdService.queryList(map,page);
+            List<FcaAd> list=fcaAdService.queryList(map,page);
             if(list!=null && list.size()>0){
                 JSONArray array=new JSONArray();
                 for(FcaAd ad:list){
                     JSONObject jsonObject=JSONObject.fromObject(ad);
-                    jsonObject.put("startDate",ConvertUtil.toString(ConvertUtil.toDate(ad.getStartDate())));
-                    jsonObject.put("endDate",ConvertUtil.toString(ConvertUtil.toDate(ad.getEndDate())));
-                    jsonObject.put("beginTimeString",ConvertUtil.toString(ConvertUtil.toDate(ad.getStartDate()),"yyyy-MM-dd"));
-                    jsonObject.put("endTimeString",ConvertUtil.toString(ConvertUtil.toDate(ad.getEndDate()),"yyyy-MM-dd"));
+                    jsonObject.put("startDate",ConvertUtil.toString(ConvertUtil.toDate(ad.getStartDate()),Constants.DATE_FORMAT));
+                    jsonObject.put("endDate",ConvertUtil.toString(ConvertUtil.toDate(ad.getEndDate()),Constants.DATE_FORMAT));
                     jsonObject.put("addTime",ConvertUtil.toString(ConvertUtil.toDate(ad.getAddTime())));
                     array.add(jsonObject);
                 }
@@ -100,7 +115,7 @@ public class FcaAdController extends ModuleController {
                 fcaAd.setStartDate(ConvertUtil.toLong(ConvertUtil.toDateTime(fcaAd.getBeginTimeString()+" 00:00:00")));
                 fcaAd.setEndDate(ConvertUtil.toLong(ConvertUtil.toDateTime(fcaAd.getEndTimeString()+" 23:59:59")));
                 fcaAd.setStatus(1);
-                if(!autoAdService.insert(fcaAd)){
+                if(!fcaAdService.insert(fcaAd)){
                     result.setCode(1);
                     result.setMsg("添加广告信息时出错");
                 }else{
@@ -109,7 +124,7 @@ public class FcaAdController extends ModuleController {
             }else if(action.equalsIgnoreCase(Constants.PageHelper.PAGE_ACTION_UPDATE)){
                 fcaAd.setStartDate(ConvertUtil.toLong(ConvertUtil.toDateTime(fcaAd.getBeginTimeString()+" 00:00:00")));
                 fcaAd.setEndDate(ConvertUtil.toLong(ConvertUtil.toDateTime(fcaAd.getEndTimeString()+" 23:59:59")));
-                if(!autoAdService.update(fcaAd)){
+                if(!fcaAdService.update(fcaAd)){
                     result.setCode(1);
                     result.setMsg("修改广告信息时出错");
                 }else{
@@ -125,7 +140,7 @@ public class FcaAdController extends ModuleController {
                     String[] adIds=ids.split(",");
                     map.put("adIds",adIds);
                 }
-                if(!autoAdService.delete(map)){
+                if(!fcaAdService.delete(map)){
                     result.setCode(1);
                     result.setMsg("删除广告信息时出错");
                 }else{

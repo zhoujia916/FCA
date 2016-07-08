@@ -62,7 +62,7 @@
         	<if test="endDate != null">  
         		end_date = #{endDate},
         	</if>
-            <if test="pic != null">
+            <if test="pic != null and pic != ''">
                 pic = #{pic}
             </if>
         	<if test="status != null">  

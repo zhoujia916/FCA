@@ -8,8 +8,8 @@
     <title>员工中心</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link href="{{$contextPath}}/resource/wx/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{$contextPath}}/resource/wx/css/main.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +21,12 @@
         body{
             overflow-y: hidden;
         }
+        .tips{
+            color: #eee;
+            margin-top: 6%;
+            display: block;
+            height: 1em;
+        }
     </style>
 </head>
 <body>
@@ -28,26 +34,27 @@
 
     <div class="login-logo center-block">
         <div class="login-logo-wrapper">
-            <img src="img/logo-fca.png" class="" alt="">
+            <img src="{{$contextPath}}/resource/wx/img/logo-fca.png" class="" alt="">
         </div>
     </div>
 
+    <div id="errorMsg" class="tips text-center">
+    </div>
+
     <div class="login-user">
-        <form class="form-horizontal" data-toggle="validator" role="form">
+        <form class="form-horizontal" data-toggle="validator" id="form" role="form">
 
 
             <div class="form-group">
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputnumber" placeholder="用户名"
-                           data-error="请输入用户名..." required>
+                    <input type="text" class="form-control" name="userName" id="inputUserName" placeholder="用户名">
                 </div>
                 <div class="help-block with-errors"></div>
 
             </div>
             <div class="form-group">
                 <div class="col-sm-10">
-                    <input type="password" data-toggle="validator" data-minlength="6" class="form-control"
-                           id="inputPassword" placeholder="密码" data-error="请输入密码..." data-minlength-error="请输入不少于6为数的密码" required>
+                    <input type="password" class="form-control" id="inputPassWord" name="passWord" placeholder="密码">
                 </div>
                 <div class="help-block with-errors"></div>
 
@@ -59,30 +66,57 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-lg btn-block">登录</button>
+                    <button type="button" id="login" class="btn btn-lg btn-block">登录</button>
                 </div>
             </div>
         </form>
     </div>
 
 
-    <img src="img/wechat-login.png" class="img-responsive login-wrapper-bg" alt="Responsive image">
+    <img src="{{$contextPath}}/resource/wx/img/wechat-login.png" class="img-responsive login-wrapper-bg" alt="Responsive image">
 
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js"></script>
+<script src="{{$contextPath}}/resource/wx/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/validator.min.js"></script>
+<script src="{{$contextPath}}/resource/wx/js/bootstrap.min.js"></script>
+<!--<script src="{{$contextPath}}/resource/wx/js/validator.min.js"></script>-->
 
 <script>
     $(document).ready(function () {
-
         $("button").click(function () {
-            location.href = "index_mp.html";
-        })
-    })
+            var userName=$("#inputUserName").val().trim();
+            var passWord=$("#inputPassWord").val().trim();
+            if(userName == ""){
+                $("#errorMsg").html("用户名不能为空！").show();
+                $("#inputUserName").focus();
+                return;
+            }
+            if(userName.length<3 || userName.length>20){
+                $("#errorMsg").html("用户名的长度应在3-20位之间！").show();
+                $("#inputUserName").focus();
+                return;
+            }
+            if(passWord == ""){
+                $("#errorMsg").html("密码不能为空！").show();
+                $("#inputPassWord").focus();
+                return;
+            }
+            if(passWord.length<6 || passWord.length>20){
+                $("#errorMsg").html("密码的长度应在6-20位之间！").show();
+                $("#inputPassWord").focus();
+                return;
+            }
+            $.post("{{$contextPath}}/wx/user/login.do",{userName: userName,passWord: passWord},function(result){
+                if(result.code == 0){
+                    window.location = "{{$contextPath}}/wx/index/into";
+                }else{
+                    $("#errorMsg").html(result.msg).show();
+                }
+            }, "json");
+        });
+    });
 </script>
 </body>
 </html>

@@ -77,8 +77,8 @@ public class Constants {
     /**
      * 1=账户有效  2=账务无效
      */
-    public static final Integer AUTO_USER_STATUS_DISABLED = 1;
-    public static final Integer AUTO_USER_STATUS_NORMAL = 2;
+    public static final Integer FCA_USER_STATUS_DISABLED = 1;
+    public static final Integer FCA_USER_STATUS_NORMAL = 2;
 
     public static final Integer SYSTEM_AUTHORITY_TARGET_MENU = 1;
     public static final Integer SYSTEM_AUTHORITY_TARGET_ACTION = 2;
@@ -355,6 +355,11 @@ public class Constants {
     //下拉加载
     public static final Integer PULLREFRESH_DOWN = 2;
 
+    /**
+     * 微信
+     */
+    public static final Integer WX_DEFAULT_PAGESIZE = 2;
+
     public class UrlHelper{
         public static final String PARAM_RETURN_URL = "ReturnUrl";
 
@@ -392,7 +397,7 @@ public class Constants {
 
         public static final String ADMIN_FCA_AD = "admin/auto/ad/index";
 
-        public static final String ADMIN_FCA_AD_ADD = "admin/auto/ad/add";
+        public static final String ADMIN_FCA_AD_ADD = "admin/auto/ad/show";
 
         public static final String ADMIN_FCA_AD_POSITION = "admin/auto/adposition/index";
 

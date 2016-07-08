@@ -108,12 +108,10 @@
                     name: "addTime"
                 },
                 {
-                    name: "beginTimeString",
-                    value: "startDate"
+                    name: "startDate"
                 },
                 {
-                    name: "endTimeString",
-                    value: "endDate"
+                    name: "endDate"
                 },
                 {
                     name: "status",
@@ -130,6 +128,17 @@
                 add:{
                     handler:function(){
                         var hash = "admin/fcaad/add";
+                        changeHash(hash);
+                    }
+                },
+                edit:{
+                    handler: function(key){
+                        key = key || this.gridview("getKey");
+                        if(!key){
+                            showTip("请选择广告信息");
+                            return;
+                        }
+                        var hash = "admin/fcaad/edit/" + key;
                         changeHash(hash);
                     }
                 }

@@ -39,7 +39,6 @@ public class FcaUser implements Serializable{
         sb.append(", userAvatar=").append(userAvatar);
         sb.append(", openId=").append(openId);
         sb.append(", status=").append(status);
-        sb.append(", point=").append(point);
         sb.append(", remark=").append(remark);
         sb.append(", addTime=").append(addTime);
         sb.append(", sortOrder=").append(sortOrder);
@@ -68,8 +67,6 @@ public class FcaUser implements Serializable{
 	private String openId;
 	@Column(name="status", nullable=true)
 	private Integer status;
-	@Column(name="point", nullable=true)
-	private Integer point;
 	@Column(name="remark", nullable=true, length=500)
 	private String remark;
 	@Column(name="add_time", nullable=true)
@@ -151,14 +148,6 @@ public class FcaUser implements Serializable{
 	
 	public void setStatus(Integer status){
 		this.status = status;
-	}
-		
-	public Integer getPoint(){
-		return point;
-	}
-	
-	public void setPoint(Integer point){
-		this.point = point;
 	}
 		
 	public String getRemark(){

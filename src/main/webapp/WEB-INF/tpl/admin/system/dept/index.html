@@ -139,7 +139,7 @@
                     var sortOrder=$("#sortOrder").val();
                     if(deptName == ""){
                         return "部门名称不能为空！";
-                    }else if(sortOrder<0 || isNaN(sortOrder)){
+                    }else if(sortOrder == "" || isNaN(sortOrder)){
                         console.log("check form");
                         $("#sortOrder").focus();
                         return "排序号必须大于等于0且必须为数字";

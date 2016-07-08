@@ -146,7 +146,7 @@ public class FcaUserController extends ModuleController {
                     fcaUser.setUserAvatar("/resource/admin/avatars/profile-pic.jpg");
                 }
                 fcaUser.setAddTime(ConvertUtil.toLong(new Date()));
-                fcaUser.setStatus(Constants.AUTO_USER_STATUS_DISABLED);
+                fcaUser.setStatus(Constants.FCA_USER_STATUS_DISABLED);
                 fcaUser.setSortOrder(0);
                 if(StringUtil.isNotNullOrEmpty(fcaUser.getBirthString())){
                     fcaUser.setBirth(ConvertUtil.toLong(ConvertUtil.toDate(fcaUser.getBirthString())));

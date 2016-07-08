@@ -184,8 +184,8 @@
             form:{
                 url: "systemmenu/action.do",
                 check:function(){
-                    var menuName=$("#menuName").val();
-                    if(!menuName){
+                    var menuName=$("#menuName").val().trim();
+                    if(menuName == ""){
                         console.log("check form");
                         $("#menuName").focus();
                         return "请输入菜单名称";
@@ -236,7 +236,7 @@
                 }
             },{
                 name: "actions",
-                list: ["edit", "delete", "view"]
+                list: ["edit", "delete"]
             }],
             buttons:{
                 "setting": {

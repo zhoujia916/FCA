@@ -154,9 +154,9 @@
             form: {
                 url: "autosms/action.do",
                 check:function(){
-                    var smsContent=$("#smsContent").val();
-                    var toUserId=$("#toUserId").val();
-                    if(!smsContent){
+                    var smsContent=$("#smsContent").val().trim();
+                    var toUserId=$("#toUserId").val().trim();
+                    if(smsContent == ""){
                         console.log("check form");
                         $("#smsContent").focus();
                         return "请输入内容";

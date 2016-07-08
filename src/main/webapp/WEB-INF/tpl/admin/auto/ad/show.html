@@ -76,7 +76,7 @@
                                 {{elseif $action eq 'UPDATE'}}
                                 <select  id="adPositionId" name="adPositionId" class="select" data-init="0" >
                                     {{foreach from=$list item=aap}}
-                                    <option value="{{$aap.positionId}}" {{if $aap.positionId == $positionId}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
+                                    <option value="{{$aap.positionId}}" {{if $aap.positionId == $ad.positionId}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
                                     {{/foreach}}
                                 </select>
                                 {{/if}}
@@ -107,21 +107,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div id="edit-pics" class="tab-pane">
-                        <div class="space-10"></div>
-                        {{if $action eq 'CREATE'}}
-                        <input type="hidden" id="hidPic" name="pic" value="" />
-                        {{elseif $action eq 'UPDATE'}}
-                        <input type="hidden" id="hidPic" name="pic" value="{{foreach from=$picList item=picItem key=index}}{{if $index gt 0}}※{{/if}}{{$picItem.path}}{{/foreach}}" />
-                        {{/if}}
-                        <div class="dropzone" id="dropzone">
-                            <div class="fallback">
-                                <input type="file" multiple="" />
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
             {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
@@ -147,7 +132,73 @@
         {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
         var spliter = "※";
         $("#btnSubmit").on("click",function(){
-
+            var adLink=$("#adLink").val();
+            var pic=$("#hidAdPic").val();
+            var startDate=$("#startDate").val();
+            var endDate=$("#endDate").val();
+            var urlFormant= new RegExp(
+                            "^" +
+                        // protocol identifier
+                            "(?:(?:https?|ftp)://)" +
+                        // user:pass authentication
+                            "(?:\\S+(?::\\S*)?@)?" +
+                            "(?:" +
+                        // IP address dotted notation octets
+                        // excludes loopback network 0.0.0.0
+                        // excludes reserved space >= 224.0.0.0
+                        // excludes network & broacast addresses
+                        // (first & last IP address of each class)
+                            "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
+                            "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
+                            "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
+                            "|" +
+                        // host name
+                            "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" +
+                        // domain name
+                            "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" +
+                        // TLD identifier
+                            "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))" +
+                            ")" +
+                        // port number
+                            "(?::\\d{2,5})?" +
+                        // resource path
+                            "(?:/\\S*)?" +
+                            "$", "i"
+            );
+            var time1 = new Date(startDate).getTime();
+            var time2 = new Date(endDate).getTime();
+            if(adLink == ""){
+                showTip("请输入URL链接");
+                $("#adLink").focus();
+                return;
+            }
+            if(!urlFormant.test(adLink)){
+                showTip("请输入正确的URL链接");
+                $("#adLink").focus();
+                return;
+            }
+            if(startDate == ""){
+                showTip("请输入开始时间")
+                $("#startDate").focus();
+                return;
+            }
+            if(endDate == ""){
+                showTip("请输入结束时间");
+                $("#endDate").focus();
+                return;
+            }
+            if(time1>time2 || time1==time2){
+                showTip("结束时间必须大于开始时间");
+                $("#endDate").focus();
+                return;
+            }
+            $.post("{{$contextPath}}/admin/fcaad/action.do","action=" + $(this).attr("data-action") + "&"+$("form").serialize(),function(result){
+                if(result.code==0){
+                    changeHash("page/fcaad/index");
+                }else{
+                    showAlert(result.msg);
+                }
+            });
         });
 
         $("#startDate").datepicker({
@@ -204,86 +255,6 @@
             path: "{{$ad.pic}}"
         }];
         userAvatar.ace_file_input("show_file_list", files, false);
-        {{/if}}
-
-
-        Dropzone.autoDiscover = false;
-        var dropZone = new Dropzone("#dropzone" , {
-            paramName: "upfile",
-            params: {type:"userauth"},
-            maxFilesize: 1, // MB
-            maxFiles: 5,
-            method:"post",
-            url: "{{$contextPath}}/plugin/uploader",
-            success:function(file){
-                console.log("success");
-                var result = $.parseJSON(file.xhr.response);
-                if(result.code == 0){
-                    file.path = result.data;
-                    var pic = $("#hidPic").val();
-                    pic += pic != "" ? (spliter + result.data) : result.data;
-                    $("#hidPic").val(pic);
-
-                    $(".dz-details img[data-dz-thumbnail]", file.previewTemplate).attr("src", file.path);
-
-                }
-                else{
-                    showAlert("上传失败....");
-                }
-
-                if (file.previewElement) {
-                    return file.previewElement.classList.add("dz-success");
-                }
-            },
-            removedfile: function(file){
-                console.log("removedfile");
-                var pics = $("#hidPic").val().split(spliter);
-                for(var i = 0; i < pics.length; i++){
-                    if(pics[i] == file.path){
-                        pics = pics.splice(i, 1);
-                        break;
-                    }
-                }
-                $("#hicPic").val(pics.join(spliter));
-
-
-                var _ref;
-                if (file.previewElement) {
-                    if ((_ref = file.previewElement) != null) {
-                        _ref.parentNode.removeChild(file.previewElement);
-                    }
-                }
-                return this._updateMaxFilesReachedClass();
-            },
-            dictCancelUpload: "取消上传",
-            dictCancelUploadConfirmation: "您确定取消上传?",
-            dictRemoveFile: "移除文件",
-            dictRemoveFileConfirmation: null,
-            dictMaxFilesExceeded: "您不能上传更多文件了.",
-            dictDefaultMessage: "拖放文件上传",
-            dictFallbackMessage: "您的浏览器不知拖放",
-            addRemoveLinks : true,
-            dictDefaultMessage :
-                    '<span class="bigger-120 bolder"><i class="ace-icon fa fa-caret-right red"></i>拖放</span>文件上传 \
-                    <span class="smaller-80 grey">(或单击)</span> <br /> \
-                    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-2x"></i>'
-            ,
-            dictResponseError: '上传文件出错!',
-            //change the previewTemplate to use Bootstrap progress bars
-            previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-small progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
-        });
-        {{if $action eq 'UPDATE'}}
-        var mockFileList = [];
-        {{foreach from=$picList item=picItem}}
-        mockFileList.push({ name: "temp.jpg", size: "10000", path: "{{$picItem.path}}" });
-        {{/foreach}}
-        for(var i = 0; i < mockFileList.length; i++){
-            dropZone.emit("addedfile", mockFileList[i]);
-
-            dropZone.emit("thumbnail", mockFileList[i], mockFileList[i].path);
-
-            dropZone.emit("complete", mockFileList[i]);
-        }
         {{/if}}
     });
 </script>

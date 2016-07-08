@@ -119,9 +119,9 @@
             form: {
                 url: "systemrole/action.do",
                 check:function(){
-                    var roleName=$("#roleName").val();
-                    var sortOrder=$("#sortOrder").val();
-                    if(roleName==""){
+                    var roleName=$("#roleName").val().trim();
+                    var sortOrder=$("#sortOrder").val().trim();
+                    if(roleName == ""){
                         console.log("check form");
                         $("#roleName").focus();
                         return "角色名称不能为空";

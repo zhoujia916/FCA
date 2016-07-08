@@ -10,15 +10,14 @@
     	<result column="email" property="email" /> 
     	<result column="user_avatar" property="userAvatar" /> 
     	<result column="open_id" property="openId" /> 
-    	<result column="status" property="status" /> 
-    	<result column="point" property="point" /> 
+    	<result column="status" property="status" />
     	<result column="remark" property="remark" /> 
     	<result column="add_time" property="addTime" /> 
     	<result column="sort_order" property="sortOrder" /> 
     </resultMap>
 
     <sql id="allColumn">
-    	user_id, user_name, password, birth, phone, email, user_avatar, open_id, status, point, remark, add_time, sort_order
+    	user_id, user_name, password, birth, phone, email, user_avatar, open_id, status, remark, add_time, sort_order
     </sql>
 
     <insert id="insert" parameterType="FcaUser" useGeneratedKeys="true" keyProperty="userId">
@@ -33,7 +32,6 @@
         	<if test="userAvatar != null">user_avatar, </if>
         	<if test="openId != null">open_id, </if>
         	<if test="status != null">status, </if>
-        	<if test="point != null">point, </if>
         	<if test="remark != null">remark, </if>
         	<if test="addTime != null">add_time, </if>
         	<if test="sortOrder != null">sort_order</if>
@@ -49,7 +47,6 @@
         	<if test="userAvatar != null">#{userAvatar}, </if>
         	<if test="openId != null">#{openId}, </if>
         	<if test="status != null">#{status}, </if>
-        	<if test="point != null">#{point}, </if>
         	<if test="remark != null">#{remark}, </if>
         	<if test="addTime != null">#{addTime}, </if>
         	<if test="sortOrder != null">#{sortOrder}</if>
@@ -67,8 +64,7 @@
 			email, 
 			user_avatar, 
 			open_id, 
-			status, 
-			point, 
+			status,
 			remark, 
 			add_time, 
 			sort_order
@@ -84,8 +80,7 @@
 			#{item.email}, 
 			#{item.userAvatar}, 
 			#{item.openId}, 
-			#{item.status}, 
-			#{item.point}, 
+			#{item.status},
 			#{item.remark}, 
 			#{item.addTime}, 
 			#{item.sortOrder}
@@ -118,8 +113,14 @@
                 <if test="status != null and status > 0">
                     status = ${status},
                 </if>
-                <if test="point != null and point > 0">
-                    point = ${point},
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="addTime != null and addTime > 0">
+                    add_time = #{addTime},
+                </if>
+                <if test="sortOrder != null and sortOrder > 0">
+                    sort_order = #{sortOrder},
                 </if>
 			</trim>
         </set>
@@ -157,6 +158,9 @@
             <if test="userName != null and userName != ''">
                 and user_name = #{userName}
             </if>
+            <if test="passWord != null and passWord != ''">
+                and password = #{passWord}
+            </if>
         </where> 
     </select>
 
@@ -190,9 +194,6 @@
 	            </if>
 	        	<if test="status != null and status > 0">
 	                and status = #{status}
-	            </if>
-	        	<if test="point != null and point > 0">
-	                and point = #{point}
 	            </if>
 	        	<if test="remark != null and remark != ''">
 	                and remark = #{remark}

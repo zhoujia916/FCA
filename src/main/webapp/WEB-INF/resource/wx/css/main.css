@@ -32,7 +32,7 @@ a:active{text-decoration:none;/* 指正在点的链接*/}
     height: auto;
 }
 .login-user {
-    margin-top: 10%;
+    margin-top: 5%;
     padding: 0 5%;
 }
 .login-user input {

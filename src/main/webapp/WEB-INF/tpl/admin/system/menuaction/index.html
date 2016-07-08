@@ -59,8 +59,8 @@
 
     <!--save form-->
     <div class="grid-form save-form">
-
-        <div class="widget-box widget-color-blue light-border ui-sortable-handle" style="width:600px;height:400px;margin-left:-300px;margin-top:-200px">
+        <div class="overlay"></div>
+        <div class="widget-box widget-color-blue light-border ui-sortable-handle" style="width:600px;">
             <div class="widget-header">
                 <h5 class="widget-title smaller"></h5>
 
@@ -170,18 +170,18 @@
                 form:{
                     url: "systemmenuaction/action.do",
                     check:function(){
-                        var actionName=$("#actionName").val();
-                        var actionCode=$("#actionCode").val();
-                        var actionIco=$("#actionIco").val();
-                        if(!actionName){
+                        var actionName=$("#actionName").val().trim();
+                        var actionCode=$("#actionCode").val().trim();
+                        var actionIco=$("#actionIco").val().trim();
+                        if(actionName == ""){
                             console.log("check form");
                             $("#actionName").focus();
                             return "请输入名称";
-                        }else if(!actionCode){
+                        }else if(actionCode == ""){
                             console.log("check form");
                             $("#actionCode").focus();
                             return "请输入编码";
-                        }else if(!actionIco){
+                        }else if(actionIco ==""){
                             console.log("check form");
                             $("#actionIco").focus();
                             return "请输入图标";

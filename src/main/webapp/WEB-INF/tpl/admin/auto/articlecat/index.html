@@ -134,13 +134,13 @@
             form:{
                 url: "fcaarticlecat/action.do",
                 check:function(){
-                    var catName=$("#catName").val();
-                    var sortOrder=$("#sortOrder").val();
-                    if(!catName){
+                    var catName=$("#catName").val().trim();
+                    var sortOrder=$("#sortOrder").val().trim();
+                    if(catName == ""){
                         console.log("check form");
                         $("#catName").focus();
                         return "名称";
-                    }else if(sortOrder<0 || isNaN(sortOrder)){
+                    }else if(sortOrder == "" || isNaN(sortOrder)){
                         console.log("check form");
                         $("#sortOrder").focus();
                         return "排序号必须大于等于0且必须为数字";

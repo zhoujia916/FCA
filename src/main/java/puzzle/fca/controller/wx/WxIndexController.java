@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import puzzle.fca.Constants;
-import puzzle.fca.controller.ModuleController;
+import puzzle.fca.controller.BaseController;
 import puzzle.fca.entity.FcaArticle;
 import puzzle.fca.entity.FcaArticleCat;
 import puzzle.fca.service.IFcaArticleCatService;
@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller(value = "wxIndexController")
-@RequestMapping(value = "/wx")
-public class WxIndexController extends ModuleController{
+@RequestMapping(value = "/wx/index")
+public class WxIndexController extends BaseController {
 
     @Autowired
     private IFcaArticleCatService fcaArticleCatService;
@@ -33,16 +33,16 @@ public class WxIndexController extends ModuleController{
      * 进入微信index页面加载的数据
      * @return
      */
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/into")
     public String index(){
-        Map map=new HashMap();
+        Map<String, Object> map=new HashMap<String, Object>();
+        Page page=new Page();
+        page.setPageSize(Constants.WX_DEFAULT_PAGESIZE);
         String str=request.getParameter("catId");
         if(StringUtil.isNotNullOrEmpty(str)){
             map.put("catId",ConvertUtil.toInt(str));
             this.setModelAttribute("catId", ConvertUtil.toInt(str));
         }
-        Page page=new Page();
-        page.setPageSize(2);
         List<FcaArticle> articleList=fcaArticleService.queryList(map,page);
         for(int i=0;i<articleList.size();i++){
             articleList.get(i).setAddTimeString(ConvertUtil.toString(ConvertUtil.toDate(
@@ -61,16 +61,19 @@ public class WxIndexController extends ModuleController{
      * @param page
      * @return
      */
-    @RequestMapping(value = "/index/query.do")
+    @RequestMapping(value = "/query.do")
     @ResponseBody
     public Result query(Integer catId,Page page){
         Result result=new Result();
         try{
-            Map map=new HashMap();
-            if(catId!=0) {
-                map.put("catId", catId);
+            if(catId == null || page == null) {
+                result.setCode(-1);
+                result.setMsg("查询参数出错！");
+                return result;
             }
-            page.setPageSize(2);
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("catId", catId);
+            page.setPageSize(Constants.WX_DEFAULT_PAGESIZE);
             List<FcaArticle> articleList=fcaArticleService.queryList(map,page);
             for(int i=0;i<articleList.size();i++){
                 articleList.get(i).setAddTimeString(ConvertUtil.toString(ConvertUtil.toDate(

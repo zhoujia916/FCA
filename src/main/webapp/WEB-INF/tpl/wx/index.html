@@ -41,7 +41,7 @@
                 <ul class="nav navbar-nav navbar-right lev1">
                         <li class="dropdown">
                             {{if $articleCat1.catName eq '首页'}}
-                            <a href="/wx/index?catId={{$articleCat1.catId}}">{{$articleCat1.catName}}</a>
+                            <a href="{{$contextPath}}/wx/index/into?catId={{$articleCat1.catId}}">{{$articleCat1.catName}}</a>
                             {{else}}
                             <a tabindex="0" data-toggle="dropdown" data-submenu>
                                 {{$articleCat1.catName}}<span class="caret"></span>
@@ -56,14 +56,14 @@
                                     <ul class="dropdown-menu lev3">
                                         {{foreach from=$articleCatList item=articleCat3}}
                                         {{if $articleCat3.parentId eq $articleCat2.catId}}
-                                        <li><a href="/wx/index?catId={{$articleCat3.catId}}" tabindex="0">{{$articleCat3.catName}}</a></li>
+                                        <li><a href="{{$contextPath}}/wx/index/into?catId={{$articleCat3.catId}}" tabindex="0">{{$articleCat3.catName}}</a></li>
                                         {{/if}}
                                         {{/foreach}}
                                     </ul>
                                 </li>
                                 {{else}}
                                 <li class="lev2">
-                                    <a href="/wx/index?catId={{$articleCat2.catId}}">{{$articleCat2.catName}}</a>
+                                    <a href="{{$contextPath}}/wx/index/into?catId={{$articleCat2.catId}}">{{$articleCat2.catName}}</a>
                                 </li>
                                 {{/if}}
                                 {{/if}}
@@ -81,7 +81,7 @@
     <div class="ad col-sm-12">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/resource/admin/img/car/1.jpg"/> </div>
+                <div class="swiper-slide"><center>这是广告位</center></div>
             </div>
             <!-- 如果需要分页器 -->
             <div class="swiper-pagination"></div>
@@ -110,7 +110,7 @@
                 {{$article.title2}}
             </p>
             <hr/>
-            <a href="/wx/article/{{$article.articleId}}" class="home-article-a">阅读全文 <span>&gt;</span></a>
+            <a href="{{$contextPath}}/wx/article/view/{{$article.articleId}}" class="home-article-a">阅读全文 <span>&gt;</span></a>
         </div>
         {{/foreach}}
         {{else}}
@@ -199,7 +199,7 @@
                     catId = 0;
                 }
                 pageIndex++;
-                $.post("/wx/index/query.do",{catId: catId,pageIndex: pageIndex},function(result){
+                $.post("{{$contextPath}}/wx/index/query.do",{catId: catId,pageIndex: pageIndex},function(result){
                     if(result.code==0){
                         if(result.data.length>0) {
                             var html = "";
@@ -208,7 +208,7 @@
                                         "<p class='home-article-p2'>" + result.data[i].addTimeString + "</p>" +
                                         "<img src='{{$contextPath}}" + result.data[i].cover + "' alt='' class='home-article-img'>" +
                                         "<p class='home-article-p3'>" + result.data[i].title2 + "</p><hr/>" +
-                                        "<a href='/wx/article/" + result.data[i].articleId + "' class='home-article-a'>阅读全文 <span>&gt;</span></a></div>";
+                                        "<a href='{{$contextPath}}/wx/article/view/" + result.data[i].articleId + "' class='home-article-a'>阅读全文 <span>&gt;</span></a></div>";
                             }
                             $("#list").append(html);
                         }else{

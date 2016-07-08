@@ -132,35 +132,6 @@
                                 {{/if}}
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                信誉积分
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="point" name="point" placeholder="信誉积分" value="100" class="txt input-sm col-sm-2">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="point" name="point" placeholder="信誉积分" value="{{$user.point}}" class="txt input-sm col-sm-2">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$user.point}}
-                                {{/if}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="edit-pics" class="tab-pane">
-                        <div class="space-10"></div>
-                        {{if $action eq 'CREATE'}}
-                        <input type="hidden" id="hidPic" name="pic" value="" />
-                        {{elseif $action eq 'UPDATE'}}
-                        <input type="hidden" id="hidPic" name="pic" value="{{foreach from=$picList item=picItem key=index}}{{if $index gt 0}}※{{/if}}{{$picItem.path}}{{/foreach}}" />
-                        {{/if}}
-                        <div class="dropzone" id="dropzone">
-                            <div class="fallback">
-                                <input type="file" multiple="" />
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -196,7 +167,6 @@
             var phone = $.trim($("#phone").val());
             var birth = $.trim($("#birth").val());
             var email = $.trim($("#email").val());
-            var point = $.trim($("#point").val());
             var pat = new RegExp("^[A-Za-z0-9]+$");
             var phoneReg = /^\d{11}$/;
             var emailReg = /^[\w\W]+@[\w\W]+$/;
@@ -205,8 +175,8 @@
                 $("#userName").focus();
                 return;
             }
-            if(name.length<2 || name.length>20){
-                showTip("用户名长度必须在2-20范围内");
+            if(name.length<3 || name.length>20){
+                showTip("用户名长度必须在3-20范围内");
                 $("#userName").focus();
                 return;
             }
@@ -231,13 +201,6 @@
                 if(!emailReg.test(email)){
                     showTip("请输入正确的邮箱");
                     $("#email").focus();
-                    return;
-                }
-            }
-            if(point != ""){
-                if(isNaN(point)){
-                    showTip("积分必须为数字");
-                    $("#point").focus();
                     return;
                 }
             }
@@ -300,88 +263,5 @@
         }];
         userAvatar.ace_file_input("show_file_list", files, false);
         {{/if}}
-
-
-        Dropzone.autoDiscover = false;
-        var dropZone = new Dropzone("#dropzone" , {
-            paramName: "upfile",
-            params: {type:"userauth"},
-            maxFilesize: 1, // MB
-            maxFiles: 5,
-            method:"post",
-            url: "{{$contextPath}}/plugin/uploader",
-            success:function(file){
-                console.log("success");
-                var result = $.parseJSON(file.xhr.response);
-                if(result.code == 0){
-                    file.path = result.data;
-                    var pic = $("#hidPic").val();
-                    pic += pic != "" ? (spliter + result.data) : result.data;
-                    $("#hidPic").val(pic);
-
-                    $(".dz-details img[data-dz-thumbnail]", file.previewTemplate).attr("src", file.path);
-
-                }
-                else{
-                    showAlert("上传失败....");
-                }
-
-                if (file.previewElement) {
-                    return file.previewElement.classList.add("dz-success");
-                }
-            },
-            removedfile: function(file){
-                console.log("removedfile");
-                var pics = $("#hidPic").val().split(spliter);
-                for(var i = 0; i < pics.length; i++){
-                    if(pics[i] == file.path){
-                        pics = pics.splice(i, 1);
-                        break;
-                    }
-                }
-                $("#hicPic").val(pics.join(spliter));
-
-
-                var _ref;
-                if (file.previewElement) {
-                    if ((_ref = file.previewElement) != null) {
-                        _ref.parentNode.removeChild(file.previewElement);
-                    }
-                }
-                return this._updateMaxFilesReachedClass();
-            },
-            dictCancelUpload: "取消上传",
-            dictCancelUploadConfirmation: "您确定取消上传?",
-            dictRemoveFile: "移除文件",
-            dictRemoveFileConfirmation: null,
-            dictMaxFilesExceeded: "您不能上传更多文件了.",
-            dictDefaultMessage: "拖放文件上传",
-            dictFallbackMessage: "您的浏览器不知拖放",
-            addRemoveLinks : true,
-            dictDefaultMessage :
-                    '<span class="bigger-120 bolder"><i class="ace-icon fa fa-caret-right red"></i>拖放</span>文件上传 \
-                    <span class="smaller-80 grey">(或单击)</span> <br /> \
-                    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-2x"></i>'
-            ,
-            dictResponseError: '上传文件出错!',
-            //change the previewTemplate to use Bootstrap progress bars
-            previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-small progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
-        });
-        {{if $action eq 'UPDATE' or $action eq 'VIEW'}}
-        var mockFileList = [];
-        {{foreach from=$picList item=picItem}}
-        mockFileList.push({ name: "temp.jpg", size: "10000", path: "{{$picItem.path}}" });
-        {{/foreach}}
-        for(var i = 0; i < mockFileList.length; i++){
-            dropZone.emit("addedfile", mockFileList[i]);
-
-            dropZone.emit("thumbnail", mockFileList[i], mockFileList[i].path);
-
-            dropZone.emit("complete", mockFileList[i]);
-        }
-        {{/if}}
-            {{if $action eq 'VIEW'}}
-            dropZone.disable();
-            {{/if}}
     });
 </script>

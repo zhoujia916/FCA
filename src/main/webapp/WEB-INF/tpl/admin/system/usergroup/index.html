@@ -111,9 +111,9 @@
             form: {
                 url: "systemusergroup/action.do",
                 check:function(){
-                    var groupName=$("#groupName").val();
-                    var sortOrder=$("#sortOrder").val();
-                    if(groupName==""){
+                    var groupName=$("#groupName").val().trim();
+                    var sortOrder=$("#sortOrder").val().trim();
+                    if(groupName == ""){
                         console.log("check form");
                         $("#groupName").focus();
                         return "用户组名称不能为空";
