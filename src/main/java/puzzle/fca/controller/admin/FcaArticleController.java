@@ -81,6 +81,8 @@ public class FcaArticleController extends ModuleController {
             map.put("articleId", articleId);
             FcaArticle article = fcaArticleService.query(map);
             this.setModelAttribute("article", article);
+            List<FcaArticleCat> cats=fcaArticleCatService.queryList(null);
+            this.setModelAttribute("catList", addSubFcaArticle(cats, 0, "select"));
         }
         this.setModelAttribute("action", Constants.PageHelper.PAGE_ACTION_VIEW);
         return Constants.UrlHelper.ADMIN_FCA_ARTICLE_SHOW;
@@ -95,6 +97,9 @@ public class FcaArticleController extends ModuleController {
             if(fcaArticle!=null) {
                 if(StringUtil.isNotNullOrEmpty(fcaArticle.getTitle())){
                     map.put("title", fcaArticle.getTitle());
+                }
+                if(StringUtil.isNotNullOrEmpty(fcaArticle.getUserName())){
+                    map.put("userName",fcaArticle.getUserName());
                 }
                 if (StringUtil.isNotNullOrEmpty(fcaArticle.getStartDate())) {
                     map.put("beginTime", ConvertUtil.toLong(ConvertUtil.toDateTime(fcaArticle.getStartDate() + " 00:00:00")));
@@ -148,7 +153,6 @@ public class FcaArticleController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(cover)){
                     fcaArticle.setCover(cover);
                 }
-
                 if(!fcaArticleService.insert(fcaArticle)){
                     result.setCode(1);
                     result.setMsg("添加文章时出错");
@@ -175,8 +179,7 @@ public class FcaArticleController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(id)){
                     map.put("articleId",ConvertUtil.toInt(id));
                 }else if(StringUtil.isNotNullOrEmpty(ids)){
-                    String[] articleId=ids.split(",");
-                    map.put("articleIds",articleId);
+                    map.put("articleIds",ids);
                 }
                 if(!fcaArticleService.delete(map)){
                     result.setCode(1);

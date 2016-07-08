@@ -33,6 +33,8 @@
 
 
 
+        <typeAlias type="puzzle.fca.entity.FcaAd" alias="FcaAd"/>
+        <typeAlias type="puzzle.fca.entity.FcaAdPosition" alias="FcaAdPosition"/>
         <typeAlias type="puzzle.fca.entity.FcaArticle" alias="FcaArticle" />
         <typeAlias type="puzzle.fca.entity.FcaArticleCat" alias="FcaArticleCat" />
         <typeAlias type="puzzle.fca.entity.FcaArticleTemplate" alias="FcaArticleTemplate" />

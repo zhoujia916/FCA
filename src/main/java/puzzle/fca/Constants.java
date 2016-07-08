@@ -75,48 +75,19 @@ public class Constants {
     };
 
     /**
-     * 1=无效  2=注册或添加   3=等待审核  4=审核通过  5=审核未通过
+     * 1=账户有效  2=账务无效
      */
     public static final Integer AUTO_USER_STATUS_DISABLED = 1;
     public static final Integer AUTO_USER_STATUS_NORMAL = 2;
-    public static final Integer AUTO_USER_STATUS_AUTH_WAITCHECK = 3;
-    public static final Integer AUTO_USER_STATUS_AUTH_SUCCESS = 4;
-    public static final Integer AUTO_USER_STATUS_AUTH_FAIL = 5;
 
     public static final Integer SYSTEM_AUTHORITY_TARGET_MENU = 1;
     public static final Integer SYSTEM_AUTHORITY_TARGET_ACTION = 2;
-
-    public static final  Map<Integer, String> MAP_AUTO_USER_STATUS = new HashMap<Integer, String>(){
-        {
-            put(1,"账户禁用");
-            put(2,"注册或添加");
-            put(3,"等待实名认证");
-            put(4,"实名认证通过");
-            put(5,"实名认证未通过");
-        }
-    };
-
-    public static final Map<Integer, String> MAP_AUTO_USER_SHOP_TYPE = new HashMap<Integer, String>(){
-        {
-            put(1,"4s店");
-            put(2,"有实体店二网");
-            put(3,"无实体店二网");
-            put(4,"个人");
-        }
-    };
 
     public static final Map<Integer, String> MAP_AUTO_ARTICLE_STATUS = new HashMap<Integer, String>(){
         {
             put(1,"已保存");
             put(2,"已提交");
             put(3,"已审核");
-        }
-    };
-
-    public static final Map<Integer, String> MAP_AUTO_ARTICLE_USER_TYPE = new HashMap<Integer, String>(){
-        {
-            put(1,"前台用户");
-            put(2,"后台用户");
         }
     };
 
@@ -419,6 +390,12 @@ public class Constants {
          *  业务管理模块
          */
 
+        public static final String ADMIN_FCA_AD = "admin/auto/ad/index";
+
+        public static final String ADMIN_FCA_AD_ADD = "admin/auto/ad/add";
+
+        public static final String ADMIN_FCA_AD_POSITION = "admin/auto/adposition/index";
+
         public static final String ADMIN_FCA_USER = "admin/auto/user/index";
 
         public static final String ADMIN_FCA_USER_SHOW = "admin/auto/user/show";
@@ -431,6 +408,14 @@ public class Constants {
 
         public static final String ADMIN_FCA_ARTICLE_TEMPLATE = "admin/auto/articletemplate/index";
 
+        /**
+         * 微信管理模块
+         */
+        public static final String WX_INDEX = "wx/index";
+        public static final String WX_LOGIN = "wx/login";
+        public static final String WX_INDEX_MP = "wx/index_mp";
+        public static final String WX_FORGETPASSWORD = "wx/forgetpassword";
+        public static final String WX_ARTICLE = "wx/article";
     }
 
     public class PageHelper{

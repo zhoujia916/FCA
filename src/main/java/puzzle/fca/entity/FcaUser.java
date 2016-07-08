@@ -184,5 +184,14 @@ public class FcaUser implements Serializable{
 	public void setSortOrder(Integer sortOrder){
 		this.sortOrder = sortOrder;
 	}
-		
+
+    private String birthString;
+
+    public String getBirthString() {
+        return birthString;
+    }
+
+    public void setBirthString(String birthString) {
+        this.birthString = birthString;
+    }
 }

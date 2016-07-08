@@ -10,7 +10,7 @@
             {{if $action eq 'CREATE'}}新建文章{{elseif $action eq 'UPDATE'}}编辑文章{{elseif $action eq 'VIEW'}}查看文章详情{{/if}}
         </small>
 
-        <a class="btn btn-xs orange pull-right btn-warning" href="#page/autoarticle/index">
+        <a class="btn btn-xs orange pull-right btn-warning" href="#page/fcaarticle/index">
             <i class="glyphicon glyphicon-arrow-left"></i>返回文章管理</span></a>
     </h4>
 </div>
@@ -46,6 +46,7 @@
                                 {{if $action eq 'CREATE'}}
                                 <input type="text"  id="title"  name="title" placeholder="文章标题" class="txt input-sm col-sm-6">
                                 {{elseif $action eq 'UPDATE'}}
+                                <input hidden="hidden" name="articleId" id="articleId" value="{{$article.articleId}}"/>
                                 <input type="text"  id="title" value="{{$article.title}}"  name="title" placeholder="文章标题" class="txt input-sm col-sm-6">
                                 {{elseif $action eq 'VIEW'}}
                                 {{$article.title}}
@@ -58,9 +59,9 @@
                             </label>
                             <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
                                 {{if $action eq 'CREATE'}}
-                                <input type="text"  id="title2"  name="title" placeholder="文章副标题" class="txt input-sm col-sm-6">
+                                <input type="text"  id="title2"  name="title2" placeholder="文章副标题" class="txt input-sm col-sm-6">
                                 {{elseif $action eq 'UPDATE'}}
-                                <input type="text"  id="title2" value="{{$article.title2}}"  name="title" placeholder="文章副标题" class="txt input-sm col-sm-6">
+                                <input type="text"  id="title2" value="{{$article.title2}}"  name="title2" placeholder="文章副标题" class="txt input-sm col-sm-6">
                                 {{elseif $action eq 'VIEW'}}
                                 {{$article.title2}}
                                 {{/if}}
@@ -99,7 +100,11 @@
                                     {{/foreach}}
                                 </select>
                                 {{elseif $action eq 'VIEW'}}
-                                {{$article.catName}}
+                                    {{foreach from=$catList item=catItem}}
+                                        {{if $catItem.catId eq $article.catId}}
+                                            {{$catItem.catName}}
+                                        {{/if}}
+                                    {{/foreach}}
                                 {{/if}}
                             </div>
                         </div>
@@ -196,9 +201,9 @@
                 return;
             }
 
-            $.post("{{$contextPath}}/admin/autoarticle/action.do", "action=" + $(this).attr("data-action") + "&" + $("form").serialize(), function(result){
+            $.post("{{$contextPath}}/admin/fcaarticle/action.do", "action=" + $(this).attr("data-action") + "&" + $("form").serialize(), function(result){
                 if(result.code == 0){
-                    changeHash("admin/autoarticle/index");
+                    changeHash("admin/fcaarticle/index");
                 }else{
                     showTip(result.msg);
                 }

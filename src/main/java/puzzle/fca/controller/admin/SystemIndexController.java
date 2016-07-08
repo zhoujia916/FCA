@@ -73,11 +73,6 @@ public class SystemIndexController extends ModuleController {
             //region 账户信息
             SystemUser user = (SystemUser)this.getCurrentUser();
             this.setModelAttribute("admin", user);
-            //endregion
-
-            //region 待实名认证用户
-            //endregion
-
         }
         return Constants.UrlHelper.ADMIN_SYSTEM_INDEX;
     }

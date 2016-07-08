@@ -1,0 +1,278 @@
+*{
+    font-family: "Microsoft YaHei UI",sans-serif;
+}
+
+/*login 员工登录界面样式*/
+.login-wrapper {
+    text-align: center;
+}
+.login-logo {
+    text-align: center;
+    margin-top: 16%;
+    background-color: #fff;
+    width: 140px;
+    height: 140px;
+    border-radius: 100px;
+}
+.login-logo-wrapper {
+    height: 140px;
+    width: 140px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.login-logo img {
+    width: 70%;
+    height: auto;
+}
+.login-user {
+    margin-top: 10%;
+    padding: 0 5%;
+}
+.login-user input {
+    height: 46px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    color: #fff;
+}
+.login-user input::-webkit-input-placeholder {
+    color: #fff;
+}
+.login-user input:-moz-placeholder {
+    color: #fff;
+}
+.login-user input:focus::-webkit-input-placeholder {
+    text-indent: -999em;
+    z-index: -20;
+}
+.login-user .list-unstyled li{
+    color: #fff;
+}
+.login-user a {
+    color: #fefefe;
+    margin-top: 5%;
+    display: inline-block;
+    text-decoration: none;
+}
+.login-user p {
+    color: #fff;
+    display: none;
+}
+.login-user .btn.disabled {
+    margin-top: 5%;
+    font-weight: bold;
+    color: #fff;
+    opacity: 1;
+    background-color: #6183c2;
+}
+.login-wrapper-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/*forgetpassword 忘记密码界面样式*/
+.fgpw-body {
+    background-color: #eee;
+    color: #7e7e7e;
+}
+.fgpw-wrapper{
+    padding-top:10%;
+}
+.fgpw-wrapper .form-group{
+
+}
+.fgpw-wrapper span{
+    background-color: #fff;
+    border-radius: 0;
+    border: 1px solid #fff;
+    border-right: none;
+}
+.fgpw-wrapper input{
+    height:42px;
+    border-radius: 0;
+    border: 1px solid #fff;
+    border-left: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.fgpw-wrapper input:focus {
+    border: none;
+    outline: none;
+}
+.fgpw-a-get{
+    border: 1px solid #6183c2;
+    color: #fff;
+    border-radius: 0;
+    background-color: #6183c2;
+}
+.fgpw-btn-post{
+    margin-top: 10%;
+    background-color: #6183c2;
+    color: #fff;
+    border-radius: 0;
+    border: 1px solid #6183c2;
+}
+.fgpw-wrapper .btn.disabled{
+    opacity: 1 !important;
+}
+
+/*index 员工中心首页界面样式*/
+.home{
+    padding:0;
+}
+.home-logo{
+    display: block;
+}
+.home-logo img{
+    width:140px;
+    height: auto;
+    margin-top: 5%;
+}
+
+.menu-nav{
+    margin-top: 10px;
+}
+.menu-nav .navbar-default{
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.menu-nav .navbar{
+    border: 0;
+}
+.menu-nav .navbar-header{
+    text-align: center;
+    clear: both;
+    background-color: #597dda;
+}
+.menu-nav .navbar-header a{
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 0;
+    font-size: 16px;
+}
+.menu-nav .caret{
+    float: right;
+}
+.menu-nav .dropdown-menu{
+    margin: 0;
+    padding:0;
+}
+.menu-nav .lev1{
+    border-bottom: 1px dotted #abadae;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.menu-nav .lev2{
+    border-top: 1px dotted #abadae;
+}
+.menu-nav li.lev2{
+    padding:6px 0;
+}
+.menu-nav .lev3{
+    border-top: 1px dotted #abadae;
+}
+.menu-nav .lev3 li{
+    padding:6px 0;
+}
+.menu-nav .navbar-nav li{
+    background-color: #f6f6f5;
+}
+.lev3 li{
+    border-top: 1px dotted #abadae;
+    background-color: #fff !important;
+}
+
+
+.home-content{
+    /*margin-top: 10px;*/
+}
+.home-article{
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow:0 0 4px #eee;
+    padding:15px;
+    margin-bottom: 20px;
+}
+.home-article-p1{
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 4px;
+}
+.home-article-p2{
+    color: #838383;
+}
+.home-article img{
+    width:100%;
+    margin-bottom: 6px;
+}
+.home-article hr{
+    margin: 8px 0;
+}
+.home-article-p3{
+    color: #838383;
+}
+.home-article-a{
+    color: #000;
+    text-decoration: none;
+}
+.home-article-a a{
+    text-decoration: none;
+}
+.home-article-a span{
+    float: right;
+}
+.home-footer-img{
+    border-top: 1px solid #EEE;
+    border-bottom: 1px solid #eee;
+    padding:4px 0;
+    margin-bottom: 10px;
+}
+.home-footer-copyright p{
+    color: #838383;
+    font-size: 12px;
+}
+.home-footer-copyright a{
+    color: #838383;
+    font-size: 13px;
+}
+
+.home-black-bg{
+    background-color: rgba(0, 0, 0, 0.8);
+    /*background-color: #000;*/
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    overflow-y: hidden;
+}
+.home-modify-password{
+    position: absolute;
+    top:20%;
+    left: auto;
+    text-align: center;
+}
+.home-modify-password p{
+    color: #fff;
+    font-size: 15px;
+}
+.home-modify-password input{
+    border-radius: 0;
+    height:46px;
+}
+.home-modify-password span{
+    border-radius: 0;
+}
+.home-modify-password button{
+    background-color: rgba(97,131,194,1);
+}
+.home-modify-password .btn.disabled{
+    opacity: 1;
+}
+
+
+
+

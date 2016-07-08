@@ -53,7 +53,9 @@ public class FcaUserController extends ModuleController {
             if(user != null) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("userId", userId);
-
+                map.put("userId", userId);
+                user.setBirthString(ConvertUtil.toString(ConvertUtil.toDate(user.getBirth()),Constants.DATE_FORMAT));
+                this.setModelAttribute("user",user);
             }
         }
         this.setModelAttribute("action", Constants.PageHelper.PAGE_ACTION_UPDATE);
@@ -67,7 +69,8 @@ public class FcaUserController extends ModuleController {
             if(user != null) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("userId", userId);
-
+                user.setBirthString(ConvertUtil.toString(ConvertUtil.toDate(user.getBirth()),Constants.DATE_FORMAT));
+                this.setModelAttribute("user",user);
             }
         }
         this.setModelAttribute("action", Constants.PageHelper.PAGE_ACTION_VIEW);
@@ -89,26 +92,15 @@ public class FcaUserController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(fcaUser.getUserName())) {
                     map.put("userName", fcaUser.getUserName());
                 }
-
+                if(fcaUser.getStatus() != null && fcaUser.getStatus() > 0){
+                    map.put("status",fcaUser.getStatus());
+                }
             }
             List<FcaUser> list = fcaUserService.queryList(map,page);
             if(list != null && list.size() > 0){
                 JSONArray array=new JSONArray();
                 for(FcaUser user:list){
-                    JSONObject jsonObject=new JSONObject();
-                    jsonObject.put("userId",user.getUserId());
-                    jsonObject.put("userAvatar",user.getUserAvatar());
-                    jsonObject.put("userName",user.getUserName());
-
-                    jsonObject.put("sortOrder",user.getSortOrder());
-                    jsonObject.put("password",user.getPassword());
-                    jsonObject.put("phone",user.getPhone());
-                    jsonObject.put("birth", user.getBirth() != null ? ConvertUtil.toString(ConvertUtil.toDate(user.getBirth()),"yyyy-MM-dd") : "");
-                    jsonObject.put("email",user.getEmail());
-                    jsonObject.put("point",user.getPoint());
-                    jsonObject.put("sortOrder",user.getSortOrder());
-                    jsonObject.put("remark",user.getRemark());
-                    jsonObject.put("status",Constants.MAP_AUTO_USER_STATUS.get(user.getStatus()));
+                    JSONObject jsonObject=JSONObject.fromObject(user);
                     array.add(jsonObject);
                 }
                 result.setData(array);
@@ -153,11 +145,12 @@ public class FcaUserController extends ModuleController {
                 }else{
                     fcaUser.setUserAvatar("/resource/admin/avatars/profile-pic.jpg");
                 }
-
                 fcaUser.setAddTime(ConvertUtil.toLong(new Date()));
-                fcaUser.setPhone(fcaUser.getUserName());
-                fcaUser.setStatus(Constants.AUTO_USER_STATUS_NORMAL);
+                fcaUser.setStatus(Constants.AUTO_USER_STATUS_DISABLED);
                 fcaUser.setSortOrder(0);
+                if(StringUtil.isNotNullOrEmpty(fcaUser.getBirthString())){
+                    fcaUser.setBirth(ConvertUtil.toLong(ConvertUtil.toDate(fcaUser.getBirthString())));
+                }
                 if(!fcaUserService.insert(fcaUser)){
                     result.setCode(1);
                     result.setMsg("新建会员信息失败");
@@ -166,8 +159,15 @@ public class FcaUserController extends ModuleController {
                     insertLog(Constants.PageHelper.PAGE_ACTION_CREATE,"新建会员信息");
                 }
             }else if(action.equalsIgnoreCase(Constants.PageHelper.PAGE_ACTION_UPDATE)){
-                fcaUser.setPassword(EncryptUtil.MD5(fcaUser.getPassword()));
-
+                String avatar = saveAvatar();
+                if(StringUtil.isNotNullOrEmpty(avatar)){
+                    fcaUser.setUserAvatar(avatar);
+                }else{
+                    fcaUser.setUserAvatar("/resource/admin/avatars/profile-pic.jpg");
+                }
+                if(StringUtil.isNotNullOrEmpty(fcaUser.getBirthString())){
+                    fcaUser.setBirth(ConvertUtil.toLong(ConvertUtil.toDate(fcaUser.getBirthString())));
+                }
                 if(!fcaUserService.update(fcaUser)){
                     result.setCode(1);
                     result.setMsg("更新会员信息失败");
@@ -194,37 +194,6 @@ public class FcaUserController extends ModuleController {
         }catch(Exception e){
             result.setCode(1);
             result.setMsg("操作会员信息出错");
-            logger.error(result.getMsg()+e.getMessage());
-        }
-        return result;
-    }
-
-
-    /**
-     * 实名认证会员信息
-     * @param action
-     * @param fcaUser
-     * @return
-     */
-    @RequestMapping(value = "/auth.do")
-    @ResponseBody
-    public Result auth(String action, FcaUser fcaUser){
-        Result result=new Result();
-        try{
-            fcaUser = fcaUserService.query(fcaUser.getUserId(), null);
-            if(action.equals("accept")){
-                fcaUser.setStatus(Constants.AUTO_USER_STATUS_AUTH_SUCCESS);
-            }
-            else if(action.equals("reject")){
-                fcaUser.setStatus(Constants.AUTO_USER_STATUS_AUTH_FAIL);
-            }
-            if(!fcaUserService.update(fcaUser)){
-                result.setCode(1);
-                result.setMsg("实名认证会员信息失败");
-            }
-        }catch(Exception e){
-            result.setCode(1);
-            result.setMsg("实名认证会员信息出错");
             logger.error(result.getMsg()+e.getMessage());
         }
         return result;
