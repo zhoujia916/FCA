@@ -38,7 +38,7 @@ public class WxIndexController extends BaseController {
      * 进入微信index页面加载的数据
      * @return
      */
-    @RequestMapping(value = "/into")
+    @RequestMapping(value = "")
     public String index(){
         Map<String, Object> map=new HashMap<String, Object>();
         Page page=new Page();
