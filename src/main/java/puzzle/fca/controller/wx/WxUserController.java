@@ -26,7 +26,7 @@ public class WxUserController extends BaseController {
      * 进入微信登录页面
      * @return
      */
-    @RequestMapping(value = "/intoLogin")
+    @RequestMapping(value = "/index")
     public String intoLogin(){
         return Constants.UrlHelper.WX_LOGIN;
     }
