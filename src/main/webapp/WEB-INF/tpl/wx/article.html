@@ -45,7 +45,7 @@
                 <ul class="nav navbar-nav navbar-right lev1">
                     <li class="dropdown">
                         {{if $articleCat1.catName eq '首页'}}
-                        <a href="{{$contextPath}}/wx/index/into?catId={{$articleCat1.catId}}">{{$articleCat1.catName}}</a>
+                        <a href="{{$contextPath}}/wx/index?catId={{$articleCat1.catId}}">{{$articleCat1.catName}}</a>
                         {{else}}
                         <a tabindex="0" data-toggle="dropdown" data-submenu>
                             {{$articleCat1.catName}}<span class="caret"></span>
@@ -60,14 +60,14 @@
                                 <ul class="dropdown-menu lev3">
                                     {{foreach from=$articleCatList item=articleCat3}}
                                     {{if $articleCat3.parentId eq $articleCat2.catId}}
-                                    <li><a href="{{$contextPath}}/wx/index/into?catId={{$articleCat3.catId}}" tabindex="0">{{$articleCat3.catName}}</a></li>
+                                    <li><a href="{{$contextPath}}/wx/index?catId={{$articleCat3.catId}}" tabindex="0">{{$articleCat3.catName}}</a></li>
                                     {{/if}}
                                     {{/foreach}}
                                 </ul>
                             </li>
                             {{else}}
                             <li class="lev2">
-                                <a href="{{$contextPath}}/wx/index/into?catId={{$articleCat2.catId}}">{{$articleCat2.catName}}</a>
+                                <a href="{{$contextPath}}/wx/index?catId={{$articleCat2.catId}}">{{$articleCat2.catName}}</a>
                             </li>
                             {{/if}}
                             {{/if}}
