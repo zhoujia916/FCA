@@ -22,7 +22,6 @@
         <project.webapp>src/main/webapp</project.webapp>
     </properties>
 
-    <!--org.mortbay.jetty:maven-jetty-plugin:6.1.7:run-->
     <build>
         <finalName>LianChe</finalName>
         <plugins>
@@ -44,7 +43,6 @@
                     <stopKey>foo</stopKey>
                     <stopPort>9090</stopPort>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
-                    <!--<jettyConfig>${project.basedir}/src/main/resources/jetty-config.xml</jettyConfig>-->
 
                     <systemProperties>
                         <systemProperty>

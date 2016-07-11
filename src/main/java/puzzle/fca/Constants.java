@@ -395,33 +395,32 @@ public class Constants {
          *  业务管理模块
          */
 
-        public static final String ADMIN_FCA_AD = "admin/auto/ad/index";
+        public static final String ADMIN_FCA_AD = "admin/fca/ad/index";
 
-        public static final String ADMIN_FCA_AD_ADD = "admin/auto/ad/show";
+        public static final String ADMIN_FCA_AD_ADD = "admin/fca/ad/show";
 
-        public static final String ADMIN_FCA_AD_POSITION = "admin/auto/adposition/index";
+        public static final String ADMIN_FCA_AD_POSITION = "admin/fca/adposition/index";
 
-        public static final String ADMIN_FCA_USER = "admin/auto/user/index";
+        public static final String ADMIN_FCA_USER = "admin/fca/user/index";
 
-        public static final String ADMIN_FCA_USER_SHOW = "admin/auto/user/show";
+        public static final String ADMIN_FCA_USER_SHOW = "admin/fca/user/show";
 
-        public static final String ADMIN_FCA_ARTICLE = "admin/auto/article/index";
+        public static final String ADMIN_FCA_ARTICLE = "admin/fca/article/index";
 
-        public static final String ADMIN_FCA_ARTICLE_SHOW = "admin/auto/article/show";
+        public static final String ADMIN_FCA_ARTICLE_SHOW = "admin/fca/article/show";
 
-        public static final String ADMIN_FCA_ARTICLE_CAT = "admin/auto/articlecat/index";
+        public static final String ADMIN_FCA_ARTICLE_CAT = "admin/fca/articlecat/index";
 
-        public static final String ADMIN_FCA_ARTICLE_TEMPLATE = "admin/auto/articletemplate/index";
+        public static final String ADMIN_FCA_ARTICLE_TEMPLATE = "admin/fca/articletemplate/index";
 
         /**
-         * 微信管理模块
+         * 微信模块
          */
-        public static final String WX_TEST = "wx/test";
         public static final String WX_INDEX = "wx/index";
-        public static final String WX_LOGIN = "wx/login";
-        public static final String WX_INDEX_MP = "wx/index_mp";
-        public static final String WX_FORGETPASSWORD = "wx/forgetpassword";
-        public static final String WX_ARTICLE = "wx/article";
+        public static final String WX_USER_LOGIN = "wx/user/login";
+        public static final String WX_USER_FORGET = "wx/user/forget";
+        public static final String WX_USER_PASSWORD = "wx/user/password";
+        public static final String WX_ARTICLE = "wx/article/index";
     }
 
     public class PageHelper{

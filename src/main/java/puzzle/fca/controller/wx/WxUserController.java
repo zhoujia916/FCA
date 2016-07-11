@@ -28,35 +28,36 @@ public class WxUserController extends BaseController {
      */
     @RequestMapping(value = "/intoLogin")
     public String intoLogin(){
-        return Constants.UrlHelper.WX_LOGIN;
+        return Constants.UrlHelper.WX_USER_LOGIN;
     }
 
     /**
      * 验证登录
      * @param userName
-     * @param passWord
+     * @param password
      * @return
      */
     @RequestMapping(value = "/login.do")
     @ResponseBody
-    public Result login(String userName,String passWord){
+    public Result login(String userName,String password){
         Result result=new Result();
         try{
-            userName=userName.trim();
-            passWord=passWord.trim();
-            if(StringUtil.isNullOrEmpty(userName) || StringUtil.isNullOrEmpty(passWord)){
+            if(StringUtil.isNullOrEmpty(userName) || StringUtil.isNullOrEmpty(password)){
                 result.setCode(-1);
                 result.setMsg("用户名或密码不能为空！");
                 return result;
             }
-            if(!StringUtil.isRangeLength(userName, 3, 20) || !StringUtil.isRangeLength(passWord, 6, 20)){
+            userName=userName.trim();
+            password=password.trim();
+
+            if(!StringUtil.isRangeLength(userName, 3, 20) || !StringUtil.isRangeLength(password, 6, 20)){
                 result.setCode(-1);
                 result.setMsg("用户名或密码不正确！");
                 return result;
             }
             Map<String, Object> map=new HashMap<String, Object>();
             map.put("userName",userName);
-            map.put("passWord", EncryptUtil.MD5(passWord));
+            map.put("password", EncryptUtil.MD5(password));
             FcaUser user=fcaUserService.query(map);
             if(user == null){
                 result.setCode(1);
