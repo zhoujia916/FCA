@@ -416,6 +416,7 @@ public class Constants {
         /**
          * 微信管理模块
          */
+        public static final String WX_TEST = "wx/test";
         public static final String WX_INDEX = "wx/index";
         public static final String WX_LOGIN = "wx/login";
         public static final String WX_INDEX_MP = "wx/index_mp";

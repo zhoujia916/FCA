@@ -29,6 +29,11 @@ public class WxIndexController extends BaseController {
     @Autowired
     private IFcaArticleService fcaArticleService;
 
+    @RequestMapping(value = "/cs")
+    public String cs(){
+        return Constants.UrlHelper.WX_TEST;
+    }
+
     /**
      * 进入微信index页面加载的数据
      * @return
