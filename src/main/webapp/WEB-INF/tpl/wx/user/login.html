@@ -110,7 +110,7 @@
             }
             $.post("{{$contextPath}}/wx/user/login.do",{userName: userName,passWord: passWord},function(result){
                 if(result.code == 0){
-                    window.location = "{{$contextPath}}/wx/index/into";
+                    window.location = "{{$contextPath}}/wx/index";
                 }else{
                     $("#errorMsg").html(result.msg).show();
                 }
