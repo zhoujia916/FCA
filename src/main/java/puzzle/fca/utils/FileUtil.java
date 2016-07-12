@@ -1,6 +1,7 @@
 package puzzle.fca.utils;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 
 public class FileUtil {
 	public static boolean checkFileType(String fileName, String[] accept){
@@ -135,6 +136,19 @@ public class FileUtil {
 
         }
         return result.toString();
+    }
+
+    public static byte[] readFileByte(String fileName){
+        byte[] data = null;
+        try{
+            InputStream is = new FileInputStream(fileName);
+            data = new byte[is.available()];
+            is.read(data, 0, data.length);
+            is.close();
+        }catch (Exception e){
+
+        }
+        return data;
     }
 
     public static boolean createFile(String fileName){

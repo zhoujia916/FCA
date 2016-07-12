@@ -167,7 +167,4 @@ public class BaseController {
             logger.error("write error:" + e.getMessage());
         }
     }
-
-
-
 }

@@ -2,6 +2,10 @@ package puzzle.fca.controller.admin;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.udf.UDFFinder;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +24,9 @@ import puzzle.fca.utils.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.*;
 
 @Controller(value = "adminFcaUserController")
 @RequestMapping(value = "/admin/fcauser")
@@ -75,6 +78,30 @@ public class FcaUserController extends ModuleController {
         }
         this.setModelAttribute("action", Constants.PageHelper.PAGE_ACTION_VIEW);
         return Constants.UrlHelper.ADMIN_FCA_USER_SHOW;
+    }
+
+    @RequestMapping (value = {"/import/download"})
+    public void download(){
+        OutputStream os = null;
+        try {
+            os = response.getOutputStream();
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("FCA员工导入表.xlsx", "UTF-8"));
+            response.setContentType("application/octet-stream; charset=utf-8");
+            os.write(FileUtil.readFileByte(request.getRealPath("") + "/WEB-INF/file/FCA员工导入表.xlsx"));
+            os.flush();
+        }
+        catch (Exception e){
+            if(os != null){
+                try {
+                    os.close();
+                }
+                catch (Exception ex){
+                    os = null;
+                }
+            }
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -227,6 +254,41 @@ public class FcaUserController extends ModuleController {
                 url += relativeUrl + saveName;
 
                 return url;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<FcaUser> saveImport(){
+        List<FcaUser> list = null;
+        try {
+            CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(session.getServletContext());
+            if (multipartResolver.isMultipart(request)) {
+                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+                MultipartFile file = multiRequest.getFile("file");
+
+                HSSFWorkbook wb = new HSSFWorkbook(file.getInputStream());
+                HSSFSheet sheet = wb.getSheetAt(0);
+
+                int rowsCount = sheet.getPhysicalNumberOfRows();
+                list = new ArrayList<FcaUser>(rowsCount);
+                for(int i = 0; i < rowsCount; i++){
+                    String name = sheet.getRow(i).getCell(0).getStringCellValue();
+                    String email = sheet.getRow(i).getCell(1).getStringCellValue();
+                    if(StringUtil.isNotNullOrEmpty(name) && StringUtil.isNotNullOrEmpty(email)){
+                        FcaUser user = new FcaUser();
+                        user.setUserName(name);
+                        user.setEmail("email");
+                        user.setPassword(EncryptUtil.MD5("666666"));
+                        list.add(user);
+                    }
+                }
+
+
+                return list;
             }
         }
         catch (Exception e){

@@ -325,6 +325,12 @@
             <version>3.0.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.9</version>
+        </dependency>
+
         <!--<dependency>-->
         <!--<groupId>dom4j</groupId>-->
         <!--<artifactId>dom4j</artifactId>-->

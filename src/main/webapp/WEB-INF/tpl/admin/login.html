@@ -31,11 +31,11 @@
 
                                             <div id="msg" class="red" style="display:none;text-align:center;max-height:16px;min-height:16px;line-height:16px;margin-bottom:10px;">用户名或密码不正确</div>
 
-											<form method="post" action="/admin/login.do">
+											<form method="post" action="/admin/sign.do">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input id="txtUserName"{{if $user}} value="{{$user}}"{{/if}} name="username" type="text" class="form-control" placeholder="账户" />
+															<input id="txtUserName" name="username" type="text" class="form-control" placeholder="账户" {{if $user}} value="{{$user}}"{{/if}} />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
@@ -99,7 +99,7 @@
                       }
                       $.post("{{$contextPath}}/admin/sign.do", {username: username, password: password, remember: remember}, function(result){
                           if(result.code == 0){
-                              window.location = "{{$contextPath}}/{{if $ReturnUrl}}{{$ReturnUrl}}{{else}}admin/index{{/if}}";
+                              window.location = "{{$contextPath}}/admin/index";
                           }else{
                               $("#msg").html(result.msg).show();
                           }

@@ -14,8 +14,8 @@
                 <input type="text input-sm" style="height: 29px" class="txt" name="userName" placeholder="用户名" />
                 <select data-init="0" name="status" style="height: 29px;width: 160px;">
                     <option value="0">请选择用户状态</option>
-                    <option value="1">账户有效</option>
-                    <option value="2">注册无效</option>
+                    <option value="1">有效</option>
+                    <option value="2">无效</option>
                 </select>
                 <a class="btn btn-xs btn-action btn-purple" data-action="search" style="margin-top: -2px;margin-left: 10px;"><i class="ace-icon fa fa-search"></i>搜索</a>
             </div>
@@ -60,6 +60,10 @@
 
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
+
+    <div class="">
+
+    </div>
 </div><!-- /.row -->
 <!-- page specific plugin scripts -->
 <script type="text/javascript">
@@ -113,17 +117,11 @@
                 }
             ],
             buttons:{
-//                collect:{
-//                    handler: function(){
-//                        var key = this.gridview("getKey");
-//                        if(!key){
-//                            showAlert("请选择记录");
-//                            return;
-//                        }
-//                        var hash = "admin/autocollect/index/" + key;
-//                        changeHash(hash);
-//                    }
-//                },
+                import:{
+                    handler: function(){
+
+                    }
+                },
                 add:{
                     handler: function(){
                         var hash = "admin/fcauser/add";
