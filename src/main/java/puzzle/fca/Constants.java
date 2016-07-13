@@ -360,6 +360,9 @@ public class Constants {
      */
     public static final Integer WX_DEFAULT_PAGESIZE = 2;
 
+    //广告状态 1：有效 2：无效
+    public static final Integer AD_STATUS = 1;
+
     public class UrlHelper{
         public static final String PARAM_RETURN_URL = "ReturnUrl";
 

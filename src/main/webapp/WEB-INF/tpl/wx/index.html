@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no, width=device-width">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>员工中心-首页</title>
 
@@ -38,38 +38,26 @@
             <div class="collapse navbar-collapse">
                 {{foreach from=$articleCatList item=articleCat1}}
                 {{if $articleCat1.parentId == 24}}
-                <ul class="nav navbar-nav navbar-right lev1">
-                        <li class="dropdown">
-                            {{if $articleCat1.catName eq '首页'}}
-                            <a href="{{$contextPath}}/wx/index?catId={{$articleCat1.catId}}">{{$articleCat1.catName}}</a>
-                            {{else}}
-                            <a tabindex="0" data-toggle="dropdown" data-submenu>
-                                {{$articleCat1.catName}}<span class="caret"></span>
-                            </a>
+                <ul class="nav navbar-nav lev1">
+                    <li class="dropdown">
+
+                        {{if $articleCat1.catName != '分类1'}}
+                        <a href="{{$contextPath}}/wx/index?catId={{$articleCat1.catId}}">
+                            {{$articleCat1.catName}}
+                        </a>
+                        {{else}}
+                        <a class="home-menu-a" tabindex="0" data-toggle="dropdown" data-submenu>
+                            {{$articleCat1.catName}}<span class="caret"></span>
+                        </a>
+                        {{/if}}
+                        <ul class="dropdown-menu lev2">
+                            {{foreach from=$articleCatList item=articleCat2}}
+                            {{if $articleCat2.parentId == $articleCat1.catId}}
+                            <li><a href="{{$contextPath}}/wx/index?catId={{$articleCat2.catId}}" tabindex="0">{{$articleCat2.catName}}</a></li>
                             {{/if}}
-                            <ul class="dropdown-menu">
-                                {{foreach from=$articleCatList item=articleCat2}}
-                                {{if $articleCat2.parentId eq $articleCat1.catId}}
-                                {{if $articleCat2.catName eq '整车品牌' or $articleCat2.catName eq '零部件厂商'}}
-                                <li class="dropdown-submenu lev2">
-                                    <a tabindex="0">{{$articleCat2.catName}}</a>
-                                    <ul class="dropdown-menu lev3">
-                                        {{foreach from=$articleCatList item=articleCat3}}
-                                        {{if $articleCat3.parentId eq $articleCat2.catId}}
-                                        <li><a href="{{$contextPath}}/wx/index?catId={{$articleCat3.catId}}" tabindex="0">{{$articleCat3.catName}}</a></li>
-                                        {{/if}}
-                                        {{/foreach}}
-                                    </ul>
-                                </li>
-                                {{else}}
-                                <li class="lev2">
-                                    <a href="{{$contextPath}}/wx/index?catId={{$articleCat2.catId}}">{{$articleCat2.catName}}</a>
-                                </li>
-                                {{/if}}
-                                {{/if}}
-                                {{/foreach}}
-                            </ul>
-                        </li>
+                            {{/foreach}}
+                        </ul>
+                    </li>
                 </ul>
                 {{/if}}
                 {{/foreach}}
@@ -78,39 +66,44 @@
     </div>
 
     <!--广告位 -->
+    {{if $adList and $adList|@count gt 0}}
     <div class="ad col-sm-12">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><center>这是广告位</center></div>
+                {{foreach from=$adList item=ad}}
+                    <div class="swiper-slide">
+                        <a href="{{$ad.adLink}}">
+                            <img src="{{$contextPath}}{{$ad.pic}}"/>
+                        </a>
+                    </div>
+                {{/foreach}}
             </div>
             <!-- 如果需要分页器 -->
             <div class="swiper-pagination"></div>
-
-            <!-- 如果需要导航按钮 -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-
             <!-- 如果需要滚动条 -->
             <!--<div class="swiper-scrollbar"></div>-->
         </div>
     </div>
+    {{/if}}
 
     <div class="home-content col-sm-12" id="list">
         {{if $articleList and $articleList|@count gt 0}}
         {{foreach from=$articleList item=article}}
         <div class="home-article">
-            <p class="home-article-p1">
-                {{$article.title}}
-            </p>
-            <p class="home-article-p2">
-                {{$article.addTimeString}}
-            </p>
-            <img src="{{$contextPath}}{{$article.cover}}" alt="" class="home-article-img">
-            <p class="home-article-p3">
-                {{$article.title2}}
-            </p>
-            <hr/>
-            <a href="{{$contextPath}}/wx/article/view/{{$article.articleId}}" class="home-article-a">阅读全文 <span>&gt;</span></a>
+            <a href="{{$contextPath}}/wx/article/view/{{$article.articleId}}" class="home-article-a">
+                <p class="home-article-p1">
+                    {{$article.title}}
+                </p>
+                <p class="home-article-p2">
+                    {{$article.addTimeString}}
+                </p>
+                <img src="{{$contextPath}}{{$article.cover}}" alt="" class="home-article-img">
+                <p class="home-article-p3">
+                    {{$article.title2}}
+                </p>
+                <hr/>
+                <p class="home-article-a">阅读全文 <span>&gt;</span></a>
+            </a>
         </div>
         {{/foreach}}
         {{else}}
@@ -174,12 +167,7 @@
         autoplay : 4000,
 
         // 如果需要分页器
-        pagination: '.swiper-pagination',
-
-        // 如果需要前进后退按钮
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-
+        pagination: '.swiper-pagination'
         // 如果需要滚动条
         // scrollbar: '.swiper-scrollbar',
     })
@@ -204,11 +192,12 @@
                         if(result.data.length>0) {
                             var html = "";
                             for (var i = 0; i < result.data.length; i++) {
-                                html += "<div class='home-article'><p class='home-article-p1'>" + result.data[i].title + "</p>" +
+                                html += "<div class='home-article'><a href='{{$contextPath}}/wx/article/view/" + result.data[i].articleId + "' class='home-article-a'>" +
+                                        "<p class='home-article-p1'>" + result.data[i].title + "</p>" +
                                         "<p class='home-article-p2'>" + result.data[i].addTimeString + "</p>" +
                                         "<img src='{{$contextPath}}" + result.data[i].cover + "' alt='' class='home-article-img'>" +
                                         "<p class='home-article-p3'>" + result.data[i].title2 + "</p><hr/>" +
-                                        "<a href='{{$contextPath}}/wx/article/view/" + result.data[i].articleId + "' class='home-article-a'>阅读全文 <span>&gt;</span></a></div>";
+                                        "<p class='home-article-a'>阅读全文 <span>&gt;</span></a></div>";
                             }
                             $("#list").append(html);
                         }else{

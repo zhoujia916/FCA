@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import puzzle.fca.Constants;
 import puzzle.fca.controller.BaseController;
+import puzzle.fca.entity.FcaAd;
 import puzzle.fca.entity.FcaArticle;
 import puzzle.fca.entity.FcaArticleCat;
+import puzzle.fca.service.IFcaAdService;
 import puzzle.fca.service.IFcaArticleCatService;
 import puzzle.fca.service.IFcaArticleService;
 import puzzle.fca.utils.ConvertUtil;
@@ -15,6 +17,7 @@ import puzzle.fca.utils.Page;
 import puzzle.fca.utils.Result;
 import puzzle.fca.utils.StringUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,9 @@ public class WxIndexController extends BaseController {
 
     @Autowired
     private IFcaArticleService fcaArticleService;
+
+    @Autowired
+    private IFcaAdService fcaAdService;
 
     /**
      * 进入微信index页面加载的数据
@@ -49,7 +55,11 @@ public class WxIndexController extends BaseController {
                     articleList.get(i).getAddTime()
             ),"MM-dd"));
         }
+        map.clear();
+        map.put("status",Constants.AD_STATUS);
+        List<FcaAd> ad=fcaAdService.queryList(map);
         List<FcaArticleCat> articleCatList=fcaArticleCatService.queryList(null);
+        this.setModelAttribute("adList",ad);
         this.setModelAttribute("articleList",articleList);
         this.setModelAttribute("articleCatList",articleCatList);
         return Constants.UrlHelper.WX_INDEX;

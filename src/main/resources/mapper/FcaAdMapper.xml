@@ -112,14 +112,17 @@
         from fca_ad as aa
         inner join fca_ad_position as aap on aa.ad_position_id=aap.position_id
         <where>
-            <if test="adPositionId!=null and adPositionId >0">
+            <if test="adPositionId != null and adPositionId > 0">
                 and aa.ad_position_id = ${adPositionId}
             </if>
-            <if test="startDate!=null">
+            <if test="startDate != null">
                 and start_date &gt;= #{startDate}
             </if>
-            <if test="endDate!=null">
+            <if test="endDate != null">
                 and end_date &lt;= #{endDate}
+            </if>
+            <if test="status != null and status > 0">
+                and aa.status = ${status}
             </if>
         </where>
         order by aa.ad_id desc
