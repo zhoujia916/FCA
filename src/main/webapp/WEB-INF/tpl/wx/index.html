@@ -41,15 +41,10 @@
                 <ul class="nav navbar-nav lev1">
                     <li class="dropdown">
 
-                        {{if $articleCat1.catName != '分类1'}}
-                        <a href="{{$contextPath}}/wx/index?catId={{$articleCat1.catId}}">
-                            {{$articleCat1.catName}}
+
+                        <a href="{{$contextPath}}/wx/index?catId={{$articleCat1.catId}}" {{if $articleCat1.catCount gt 0}} class="home-menu-a" tabindex="0" data-toggle="dropdown" data-submenu {{/if}}>
+                            {{$articleCat1.catName}} {{if $articleCat1.catCount gt 0}}<span class="caret"></span>{{/if}}
                         </a>
-                        {{else}}
-                        <a class="home-menu-a" tabindex="0" data-toggle="dropdown" data-submenu>
-                            {{$articleCat1.catName}}<span class="caret"></span>
-                        </a>
-                        {{/if}}
                         <ul class="dropdown-menu lev2">
                             {{foreach from=$articleCatList item=articleCat2}}
                             {{if $articleCat2.parentId == $articleCat1.catId}}

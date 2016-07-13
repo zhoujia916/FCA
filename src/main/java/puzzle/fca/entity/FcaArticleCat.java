@@ -107,4 +107,14 @@ public class FcaArticleCat implements Serializable{
     }
 
     private String parentName;
+
+    private Integer catCount;
+
+    public Integer getCatCount() {
+        return catCount;
+    }
+
+    public void setCatCount(Integer catCount) {
+        this.catCount = catCount;
+    }
 }

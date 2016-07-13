@@ -7,6 +7,7 @@
     	<result column="parent_id" property="parentId" /> 
     	<result column="sort_order" property="sortOrder" />
         <result column="parentName" property="parentName"/>
+        <result column="catCount" property="catCount"/>
     </resultMap>
 
     <sql id="allColumn">
@@ -100,7 +101,8 @@
 
     <select id="queryList" parameterType="Map" resultMap="FcaArticleCat">
         select fac.*,(select ac.cat_name from fca_article_cat as ac where fac.parent_id=ac.cat_id)
-        as parentName
+        as parentName,(select count(fca_article_cat.cat_id) from fca_article_cat where fca_article_cat.parent_id=fac.cat_id)
+        as catCount
         from fca_article_cat as fac
         <where>
 	        <trim prefixOverrides="and | or">
