@@ -187,7 +187,7 @@
                     and su.user_name like concat('%',#{userName},'%')
                 </if>
 	        	<if test="catId != null and catId > 0">
-	                and fac.cat_id = #{catId}
+	                and fac.cat_id = #{catId} or fac.parent_id = #{catId}
 	            </if>
 	        	<if test="status != null and status > 0">
 	                and fa.status = ${status}
