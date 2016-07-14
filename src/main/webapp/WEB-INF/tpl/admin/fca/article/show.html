@@ -85,6 +85,7 @@
                                 所属分类
                             </label>
                             <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
+                            <input hidden="hidden" id="markId"/>
                                 {{if $action eq 'CREATE'}}
                                 <select id="catId" name="catId">
                                     <option value="0">请选择分类</option>
@@ -186,6 +187,16 @@
         null], function() {
 
         {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
+        $("#catId").on("change",function(){
+            var catId=$(this).val();
+            $.post("{{$contextPath}}/admin/fcaarticle/queryArticleCat.do","catId="+catId,function(result){
+                if(result.data.catCount > 0){
+                    $("#markId").val("存在下级");
+                    showAlert("该分类存在下级，请重新选择！");
+                }
+            });
+        });
+
         UE.getEditor("content");
         $("#btnSubmit").on("click", function(){
             var title = $.trim($("#title").val());
@@ -197,6 +208,12 @@
             var catId = $("#catId").val();
             if(catId == "0"){
                 showTip("请选择分类");
+                $("#catId").focus();
+                return;
+            }
+            var markId=$("#markId").val();
+            if(markId == "存在下级"){
+                showTip("该分类存在下级，请重新选择");
                 $("#catId").focus();
                 return;
             }

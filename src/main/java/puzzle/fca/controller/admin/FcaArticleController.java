@@ -200,6 +200,25 @@ public class FcaArticleController extends ModuleController {
         return result;
     }
 
+    @RequestMapping(value = "/queryArticleCat.do")
+    @ResponseBody
+    public Result queryArticleCat(Integer catId){
+        Result result=new Result();
+        try{
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("catId",catId);
+            FcaArticleCat articleCat=fcaArticleCatService.query(map);
+            if(articleCat!=null){
+                result.setData(articleCat);
+            }
+        }catch(Exception e){
+            result.setCode(1);
+            result.setMsg("查看文章分类信息出错！");
+            logger.error(result.getMsg()+e.getMessage());
+        }
+        return result;
+    }
+
     //region
     public List<FcaArticleCat> addSubFcaArticle(List<FcaArticleCat> list, int   parentId, String type){
         List<FcaArticleCat> newList = new ArrayList<FcaArticleCat>();

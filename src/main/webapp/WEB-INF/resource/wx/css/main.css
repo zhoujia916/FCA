@@ -32,7 +32,7 @@ a:active{text-decoration:none;/* 指正在点的链接*/}
     height: auto;
 }
 .login-user {
-    margin-top: 5%;
+    margin-top: 6%;
     padding: 0 5%;
 }
 .login-user input {
@@ -147,69 +147,59 @@ a:active{text-decoration:none;/* 指正在点的链接*/}
     height: auto;
     margin-top: 5%;
 }
-
-.menu-nav{
-    margin-top: 10px;
-
+.home .navbar{
+	margin-top: 1em;
 }
-.menu-nav .navbar-default{
-    background-color: #fff;
-    margin-bottom: 1rem;
+.home .navbar-nav{
+	margin: 0 -15px;
 }
-.menu-nav .navbar{
-    border: 0;
+.home .navbar-default .navbar-brand{
+	color: #FFFFFF;
 }
-.menu-nav .navbar-header{
-    text-align: center;
-    clear: both;
-    background-color: #597dda;
+.home .navbar-brand{
+	float: none;
+	padding: 15px 0;
 }
-.menu-nav .navbar-header a{
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    padding: 10px 0;
-    font-size: 16px;
+.home .navbar-header{
+	background-color: #597dda;
 }
-.menu-nav .caret{
-    float: right;
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover{
+	background-color: #597DDA;
 }
-.menu-nav .dropdown-menu{
-    margin: 0;
-    padding:0;
+.navbar-toggle{
+	border: none;
+	margin: 8px auto;
+	float: none;
+	padding: 9px 6px;
 }
-.menu-nav .lev1{
-    border-bottom: 1px dotted #abadae;
-    margin-top: 0;
-    margin-bottom: 0;
+.navbar-default .navbar-toggle .icon-bar{
+	background-color: #FFFFFF;
 }
-.menu-nav .lev2{
-    border-top: 1px dotted #abadae;
+.home li{
+	background-color: #F5F5F5;
+	border-bottom: 1px dotted #abadae;
 }
-.menu-nav li.lev2{
-    padding:6px 0;
+.home ul>li>ul{
+	padding: 0;
 }
-.menu-nav .lev3{
-    border-top: 1px dotted #abadae;
+.home .dropdown-menu>li>a{
+	padding: 10px 15px;
 }
-.menu-nav .lev3 li{
-    padding:6px 0;
-}
-.menu-nav .navbar-nav li{
-    background-color: #f6f6f5;
-}
-.lev3 li{
-    border-top: 1px dotted #abadae;
-    background-color: #fff !important;
+.home .dropdown-menu li:last-child{
+    border-bottom: none;
 }
 
 .ad{
-margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
+/*.swiper-container {
+    width: 100%;
+    height: 60px;
+} */
 .ad img{
     width: 100%;
+    height: auto;
 }
-
 .swiper-container {
     height: auto;
 }  

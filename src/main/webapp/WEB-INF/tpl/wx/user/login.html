@@ -108,7 +108,7 @@
                 $("#inputPassWord").focus();
                 return;
             }
-            $.post("{{$contextPath}}/wx/user/login.do",{userName: userName,passWord: passWord},function(result){
+            $.post("{{$contextPath}}/wx/user/login.do",{userName: userName,password: passWord},function(result){
                 if(result.code == 0){
                     window.location = "{{$contextPath}}/wx/index";
                 }else{

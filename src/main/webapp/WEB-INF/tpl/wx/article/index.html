@@ -31,55 +31,50 @@
         <img src="{{$contextPath}}/resource/wx/img/logo-fca.png" alt="">
     </div>
 
-    <div class="menu-nav">
-
-        <nav class="navbar navbar-default">
-            <div class="navbar-header">
-                <a class="home-menu-a" type="button" data-toggle="collapse" data-target=".navbar-collapse">菜单 <img
-                        src="{{$contextPath}}/resource/wx/img/hamburger.gif" alt=""></a>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header text-center  collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <a class="navbar-brand" href="#">菜单</a>
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">菜单</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-
-            <div class="collapse navbar-collapse">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 {{foreach from=$articleCatList item=articleCat1}}
                 {{if $articleCat1.parentId == 24}}
-                <ul class="nav navbar-nav navbar-right lev1">
-                    <li class="dropdown">
-                        {{if $articleCat1.catName eq '首页'}}
-                        <a href="{{$contextPath}}/wx/index?catId={{$articleCat1.catId}}">{{$articleCat1.catName}}</a>
-                        {{else}}
-                        <a tabindex="0" data-toggle="dropdown" data-submenu>
-                            {{$articleCat1.catName}}<span class="caret"></span>
-                        </a>
+                <ul class="nav navbar-nav">
+                    <li {{if $articleCat1.catCount gt 0}} class="dropdown" {{/if}}>
+                    <a href="{{$contextPath}}/wx/index?catId={{$articleCat1.catId}}" {{if $articleCat1.catCount gt 0}} class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" {{/if}}>
+                    {{$articleCat1.catName}}
+                    {{if $articleCat1.catCount gt 0}}
+                    <span class="caret"></span>
+                    {{/if}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        {{foreach from=$articleCatList item=articleCat2}}
+                        {{if $articleCat2.parentId == $articleCat1.catId}}
+                        <li>
+                            <a href="{{$contextPath}}/wx/index?catId={{$articleCat2.catId}}">
+                                {{$articleCat2.catName}}
+                            </a>
+                        </li>
                         {{/if}}
-                        <ul class="dropdown-menu">
-                            {{foreach from=$articleCatList item=articleCat2}}
-                            {{if $articleCat2.parentId eq $articleCat1.catId}}
-                            {{if $articleCat2.catName eq '整车品牌' or $articleCat2.catName eq '零部件厂商'}}
-                            <li class="dropdown-submenu lev2">
-                                <a tabindex="0">{{$articleCat2.catName}}</a>
-                                <ul class="dropdown-menu lev3">
-                                    {{foreach from=$articleCatList item=articleCat3}}
-                                    {{if $articleCat3.parentId eq $articleCat2.catId}}
-                                    <li><a href="{{$contextPath}}/wx/index?catId={{$articleCat3.catId}}" tabindex="0">{{$articleCat3.catName}}</a></li>
-                                    {{/if}}
-                                    {{/foreach}}
-                                </ul>
-                            </li>
-                            {{else}}
-                            <li class="lev2">
-                                <a href="{{$contextPath}}/wx/index?catId={{$articleCat2.catId}}">{{$articleCat2.catName}}</a>
-                            </li>
-                            {{/if}}
-                            {{/if}}
-                            {{/foreach}}
-                        </ul>
+                        {{/foreach}}
+                    </ul>
                     </li>
                 </ul>
                 {{/if}}
                 {{/foreach}}
             </div>
-        </nav>
-    </div>
+            <!--/.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
 
     <div class="home-content col-sm-12">
 

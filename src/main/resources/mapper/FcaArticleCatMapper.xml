@@ -91,10 +91,13 @@
     </delete>
 
     <select id="query" parameterType="Map" resultMap="FcaArticleCat">
-        select <include refid="allColumn"/> from fca_article_cat
+        select fac.*,
+        (select count(fca_article_cat.cat_id) from fca_article_cat where fca_article_cat.parent_id=fac.cat_id)
+        as catCount
+        from fca_article_cat as fac
         <where>  
         	<if test="catId != null and catId > 0">
-                and cat_id = #{catId}
+                and fac.cat_id = #{catId}
             </if>
         </where> 
     </select>
