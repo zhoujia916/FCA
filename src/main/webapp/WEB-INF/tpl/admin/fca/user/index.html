@@ -52,7 +52,9 @@
                     </tbody>
                 </table>
                 <div class="pagination-box">
-
+                    <form class="form-horizontal" id="form">
+                        <input type="file" name="file" id="file"/>
+                    </form>
                 </div>
             </div>
 
@@ -148,6 +150,10 @@
                         }
                         var hash = "admin/fcauser/view/" + key;
                         changeHash(hash);
+                    }
+                },
+                import:{
+                    handler: function(){
                     }
                 }
             }
