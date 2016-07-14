@@ -10,6 +10,8 @@ public interface IFcaUserService{
 
 	public boolean insert(FcaUser entity);
 
+    public boolean insertBatch(List<FcaUser> list);
+
     public boolean update(FcaUser entity);
 
     public boolean delete(Map<String, Object> map);

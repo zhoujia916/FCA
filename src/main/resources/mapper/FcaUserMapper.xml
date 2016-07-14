@@ -56,34 +56,20 @@
     <insert id="insertBatch" parameterType="java.util.List">
 		insert into fca_user
 		(
-			
+
 			user_name, 
-			password, 
-			birth, 
-			phone, 
+			password,
 			email, 
-			user_avatar, 
-			open_id, 
-			status,
-			remark, 
-			add_time, 
-			sort_order
+			user_avatar
 		)
 		values
 		<foreach collection="list" item="item" index="index" separator=",">
 		(
 			
 			#{item.userName}, 
-			#{item.password}, 
-			#{item.birth}, 
-			#{item.phone}, 
+			#{item.password},
 			#{item.email}, 
-			#{item.userAvatar}, 
-			#{item.openId}, 
-			#{item.status},
-			#{item.remark}, 
-			#{item.addTime}, 
-			#{item.sortOrder}
+			#{item.userAvatar}
 		)
 		</foreach>
 	</insert>

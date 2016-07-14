@@ -27,6 +27,14 @@ public class FcaUserServiceImpl implements IFcaUserService {
 		return sqlMapper.insert("FcaUserMapper.insert", entity);
 	}
 
+    /**
+     * 插入单条记录
+     */
+    @Override
+    public boolean insertBatch(List<FcaUser> list){
+        return sqlMapper.insert("FcaUserMapper.insertBatch", list);
+    }
+
 	/**
 	* 更新单条记录
 	*/

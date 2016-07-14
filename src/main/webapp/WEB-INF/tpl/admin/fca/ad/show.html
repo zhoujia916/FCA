@@ -25,100 +25,94 @@
 <div class="row" id="">
     <div class="col-xs-12">
         <form class="form-horizontal" id="form">
-            <div class="tabbable">
-
-                <div class="tab-content profile-edit-tab-content">
-                    <div id="edit-basic" class="tab-pane in active">
-                        <div class="space-10"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                广告链接
-                            </label>
-                            <div class="col-sm-9">
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="adLink" name="adLink" placeholder="广告链接" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input hidden="hidden" name="adId" id="adId" value="{{$ad.adId}}"/>
-                                <input type="text" id="adLink" name="adLink" placeholder="广告链接" value="{{$ad.adLink}}" class="txt input-sm col-sm-6">
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                广告图片
-                            </label>
-                            <div class="col-sm-4" style="height:62px;">
-                                {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
-                                <input type="hidden" id="hidAdPic" name="pic" />
-                                <input type="file" id="pic" name="file" placeholder="广告图片">
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                位置
-                            </label>
-                            <div class="col-sm-9">
-                                {{if $action eq 'CREATE'}}
-                                <select  id="adPositionId" name="adPositionId" class="select" data-init="0" >
-                                    {{foreach from=$list item=aap}}
-                                    <option value="{{$aap.positionId}}" {{if $aap.positionId == 1}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
-                                    {{/foreach}}
-                                </select>
-                                {{elseif $action eq 'UPDATE'}}
-                                <select  id="adPositionId" name="adPositionId" class="select" data-init="0" >
-                                    {{foreach from=$list item=aap}}
-                                    <option value="{{$aap.positionId}}" {{if $aap.positionId == $ad.positionId}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
-                                    {{/foreach}}
-                                </select>
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                开始时间
-                            </label>
-                            <div class="col-sm-9">
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="startDate" name="beginTimeString" placeholder="开始时间" class="txt input-sm col-sm-5 "/>
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="startDate" name="beginTimeString" value="{{$ad.beginTimeString}}" placeholder="开始时间" class="txt input-sm col-sm-5 "/>
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                结束时间
-                            </label>
-                            <div class="col-sm-9">
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="endDate" name="endTimeString" placeholder="结束时间" class="txt input-sm col-sm-5 "/>
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="endDate" name="endTimeString" value="{{$ad.endTimeString}}" placeholder="结束时间" class="txt input-sm col-sm-5 "/>
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                状态
-                            </label>
-                            <div class="col-sm-9">
-                                {{if $action eq 'CREATE'}}
-                                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
-                                <label class="lbl">有效</label>
-                                &nbsp;&nbsp;
-                                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $ad.status == 2}} checked {{/if}}>
-                                <label class="lbl">无效</label>
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
-                                <label class="lbl">有效</label>
-                                &nbsp;&nbsp;
-                                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $ad.status == 2}} checked {{/if}}>
-                                <label class="lbl">无效</label>
-                                {{/if}}
-                            </div>
-                        </div>
-
+            <div class="space-10"></div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    广告链接
+                </label>
+                <div class="col-sm-9">
+                    {{if $action eq 'CREATE'}}
+                    <input type="text" id="adLink" name="adLink" placeholder="广告链接" class="txt input-sm col-sm-6">
+                    {{elseif $action eq 'UPDATE'}}
+                    <input hidden="hidden" name="adId" id="adId" value="{{$ad.adId}}"/>
+                    <input type="text" id="adLink" name="adLink" placeholder="广告链接" value="{{$ad.adLink}}" class="txt input-sm col-sm-6">
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    广告图片
+                </label>
+                <div class="col-sm-4" style="height:62px;">
+                    {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
+                    <input type="hidden" id="hidAdPic" name="pic" />
+                    <input type="file" id="pic" name="file" placeholder="广告图片">
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    位置
+                </label>
+                <div class="col-sm-9">
+                    {{if $action eq 'CREATE'}}
+                    <select  id="adPositionId" name="adPositionId" class="select" data-init="0" >
+                        {{foreach from=$list item=aap}}
+                        <option value="{{$aap.positionId}}" {{if $aap.positionId == 1}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
+                        {{/foreach}}
+                    </select>
+                    {{elseif $action eq 'UPDATE'}}
+                    <select  id="adPositionId" name="adPositionId" class="select" data-init="0" >
+                        {{foreach from=$list item=aap}}
+                        <option value="{{$aap.positionId}}" {{if $aap.positionId == $ad.positionId}}selected="selected"{{/if}}>{{$aap.positionName}}</option>
+                        {{/foreach}}
+                    </select>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    开始时间
+                </label>
+                <div class="col-sm-9">
+                    {{if $action eq 'CREATE'}}
+                    <input type="text" id="startDate" name="beginTimeString" placeholder="开始时间" class="txt input-sm col-sm-5 "/>
+                    {{elseif $action eq 'UPDATE'}}
+                    <input type="text" id="startDate" name="beginTimeString" value="{{$ad.beginTimeString}}" placeholder="开始时间" class="txt input-sm col-sm-5 "/>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    结束时间
+                </label>
+                <div class="col-sm-9">
+                    {{if $action eq 'CREATE'}}
+                    <input type="text" id="endDate" name="endTimeString" placeholder="结束时间" class="txt input-sm col-sm-5 "/>
+                    {{elseif $action eq 'UPDATE'}}
+                    <input type="text" id="endDate" name="endTimeString" value="{{$ad.endTimeString}}" placeholder="结束时间" class="txt input-sm col-sm-5 "/>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    状态
+                </label>
+                <div class="col-sm-9">
+                    <div class="position-relative">
+                        {{if $action eq 'CREATE'}}
+                        <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
+                        <label class="lbl">有效</label>
+                        &nbsp;&nbsp;
+                        <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $ad.status == 2}} checked {{/if}}>
+                        <label class="lbl">无效</label>
+                        {{elseif $action eq 'UPDATE'}}
+                        <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
+                        <label class="lbl">有效</label>
+                        &nbsp;&nbsp;
+                        <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $ad.status == 2}} checked {{/if}}>
+                        <label class="lbl">无效</label>
+                        {{/if}}
                     </div>
                 </div>
             </div>

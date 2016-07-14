@@ -177,14 +177,19 @@
 		
 		if(opts.treeReader.show){
 			jq.on("click", opts.gridtable + " tbody " + opts.treeReader.branch_class, function(event){
-				var key = $(this.parentNode).attr("data-key");
-				var children = jq.find(opts.gridtable + " tbody tr[data-parent='" + key + "']");
+                function hideRow(row){
+                    var key = $(row).attr("data-key");
+                    jq.find(opts.gridtable + " tbody tr[data-parent='" + key + "']").hide().each(function(){
+                       hideRow(this);
+                    });
+                }
+
                 var isOpen = $(this).find(".ace-icon").hasClass(opts.treeReader.icons.open);
                 if(isOpen){
-                    children.hide();
+                    hideRow(this.parentNode);
                     $(this).find(".ace-icon").attr("class", opts.treeReader.icons.close);
                 }else{
-                    children.show();
+                    jq.find(opts.gridtable + " tbody tr[data-parent='" + ($(this.parentNode).attr("data-key")) + "']")
                     $(this).find(".ace-icon").attr("class", opts.treeReader.icons.open);
                 }
                 event.stopPropagation();
@@ -500,9 +505,6 @@
 			}else{
 				hidePagination(jq);
 			}
-            if(opts.onLoadSuccess && $.isFunction(opts.onLoadSuccess)){
-                opts.onLoadSuccess.call(jq, opts.data);
-            }
 		}else if(status == "loaded.empty"){
 			hideLoading(jq);
             showStatus(jq, "empty");

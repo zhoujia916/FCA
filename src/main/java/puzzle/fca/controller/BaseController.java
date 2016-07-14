@@ -167,4 +167,16 @@ public class BaseController {
             logger.error("write error:" + e.getMessage());
         }
     }
+
+    public String getHost(){
+        String host = request.getScheme() + "://" + request.getServerName();
+        if(request.getServerPort() != 80){
+            host += ":" + request.getServerPort() + "/";
+        }
+        return host;
+    }
+
+    public String getRoot(){
+        return session.getServletContext().getRealPath("");
+    }
 }

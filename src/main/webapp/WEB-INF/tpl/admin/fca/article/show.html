@@ -176,14 +176,14 @@
 
     </div><!-- /.col -->
 </div><!-- /.row -->
+{{if $action eq 'CREATE' or $action eq 'UPDATE'}}
+<script type="text/javascript" src="{{$contextPath}}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="{{$contextPath}}/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="{{$contextPath}}/lang/zh-cn/zh-cn.js"></script>
+{{/if}}
 <script type="text/javascript">
 
     $('.page-content-area').ace_ajax('loadScripts', [ null,
-        {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
-        "{{$contextPath}}/ueditor/ueditor.config.js",
-        "{{$contextPath}}/ueditor/ueditor.all.min.js",
-        "{{$contextPath}}/ueditor/lang/zh-cn/zh-cn.js",
-        {{/if}}
         null], function() {
 
         {{if $action eq 'CREATE' or $action eq 'UPDATE'}}

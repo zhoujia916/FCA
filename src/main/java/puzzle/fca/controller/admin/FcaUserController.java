@@ -82,27 +82,43 @@ public class FcaUserController extends ModuleController {
 
     @RequestMapping (value = {"/import/download"})
     public void download(){
-        OutputStream os = null;
         try {
-            os = response.getOutputStream();
+            OutputStream os = response.getOutputStream();
             response.reset();
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("FCA员工导入表.xlsx", "UTF-8"));
             response.setContentType("application/octet-stream; charset=utf-8");
-            os.write(FileUtil.readFileByte(request.getRealPath("") + "/WEB-INF/file/FCA员工导入表.xlsx"));
+            os.write(FileUtil.readFileByte(session.getServletContext().getRealPath("") + "/WEB-INF/file/FCA员工导入表.xlsx"));
             os.flush();
         }
         catch (Exception e){
-            if(os != null){
-                try {
-                    os.close();
-                }
-                catch (Exception ex){
-                    os = null;
-                }
-            }
             e.printStackTrace();
         }
     }
+
+    @RequestMapping (value = {"/import/upload"})
+    @ResponseBody
+    public Result upload(){
+        Result result = new Result();
+        try {
+            List<FcaUser> list = saveImport();
+            if(list == null){
+                result.setCode(-1);
+                result.setMsg("导入文件格式无法识别");
+                return result;
+            }
+            if(!fcaUserService.insertBatch(list)){
+                result.setCode(1);
+                result.setMsg("导入用户信息失败");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            result.setCode(1);
+            result.setMsg("导入用户信息出错");
+        }
+        return result;
+    }
+
 
     /**
      * 获取会员信息
@@ -170,7 +186,7 @@ public class FcaUserController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(avatar)){
                     fcaUser.setUserAvatar(avatar);
                 }else{
-                    fcaUser.setUserAvatar("/resource/admin/avatars/profile-pic.jpg");
+                    fcaUser.setUserAvatar(getHost() + "/resource/admin/avatars/profile-pic.jpg");
                 }
                 fcaUser.setAddTime(ConvertUtil.toLong(new Date()));
                 fcaUser.setStatus(Constants.FCA_USER_STATUS_DISABLED);
@@ -190,7 +206,7 @@ public class FcaUserController extends ModuleController {
                 if(StringUtil.isNotNullOrEmpty(avatar)){
                     fcaUser.setUserAvatar(avatar);
                 }else{
-                    fcaUser.setUserAvatar("/resource/admin/avatars/profile-pic.jpg");
+                    fcaUser.setUserAvatar(getHost() + "/resource/admin/avatars/profile-pic.jpg");
                 }
                 if(StringUtil.isNotNullOrEmpty(fcaUser.getBirthString())){
                     fcaUser.setBirth(ConvertUtil.toLong(ConvertUtil.toDate(fcaUser.getBirthString())));
@@ -275,18 +291,19 @@ public class FcaUserController extends ModuleController {
 
                 int rowsCount = sheet.getPhysicalNumberOfRows();
                 list = new ArrayList<FcaUser>(rowsCount);
-                for(int i = 0; i < rowsCount; i++){
+                for(int i = 1; i < rowsCount; i++){
                     String name = sheet.getRow(i).getCell(0).getStringCellValue();
                     String email = sheet.getRow(i).getCell(1).getStringCellValue();
                     if(StringUtil.isNotNullOrEmpty(name) && StringUtil.isNotNullOrEmpty(email)){
                         FcaUser user = new FcaUser();
                         user.setUserName(name);
-                        user.setEmail("email");
+                        user.setEmail(email);
                         user.setPassword(EncryptUtil.MD5("666666"));
+
+                        user.setUserAvatar(getHost() + "/resource/admin/avatars/profile-pic.jpg");
                         list.add(user);
                     }
                 }
-
 
                 return list;
             }

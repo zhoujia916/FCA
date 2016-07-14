@@ -27,106 +27,98 @@
 <div class="row" id="">
     <div class="col-xs-12">
         <form class="form-horizontal" id="form">
-            <div class="tabbable">
-
-                <div class="tab-content profile-edit-tab-content">
-                    <div id="edit-basic" class="tab-pane in active">
-                        <div class="space-10"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                用户名
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="userName" name="userName" placeholder="用户名" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input hidden="hidden" name="userId" id="userId" value="{{$user.userId}}"/>
-                                <input type="text" id="userName" name="userName" placeholder="用户名" value="{{$user.userName}}" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$user.userName}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                生日
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="birth" name="birthString" placeholder="生日" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="birth" name="birthString" placeholder="生日" value="{{if $user.birthString}}{{$user.birthString}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.birthString}}{{$user.birthString}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                手机号码
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="phone" name="phone" placeholder="手机号码" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="phone" name="phone" placeholder="手机号码" value="{{$user.phone}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$user.phone}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                邮箱地址
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text" id="email" name="email" placeholder="邮箱地址" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text" id="email" name="email" placeholder="邮箱地址" value="{{if $user.email}}{{$user.email}}{{/if}}" class="txt input-sm col-sm-4">
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.email}}{{$user.email}}{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                用户图像
-                            </label>
-                            <div class="col-sm-4" style="height:62px;"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
-                                <input type="hidden" id="hidUserAvatar" name="userAvatar" />
-                                <input type="file" id="userAvatar" name="file" placeholder="封面图片">
-                                {{elseif $action eq 'VIEW'}}
-                                <img src="{{$user.userAvatar}}" style="height:100%;" />
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                状态
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
-                                <label class="lbl">有效</label>
-                                &nbsp;&nbsp;
-                                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
-                                <label class="lbl">无效</label>
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
-                                <label class="lbl">有效</label>
-                                &nbsp;&nbsp;
-                                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
-                                <label class="lbl">无效</label>
-                                {{elseif $action eq 'VIEW'}}
-                                {{if $user.status eq 1}}账户有效{{/if}}
-                                {{if $user.status eq 2}}账户无效{{/if}}
-                                {{/if}}
-                            </div>
-                        </div>
-                    </div>
+            <div class="space-10"></div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    用户名
+                </label>
+                <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                {{if $action eq 'CREATE'}}
+                <input type="text" id="userName" name="userName" placeholder="用户名" class="txt input-sm col-sm-6">
+                {{elseif $action eq 'UPDATE'}}
+                <input hidden="hidden" name="userId" id="userId" value="{{$user.userId}}"/>
+                <input type="text" id="userName" name="userName" placeholder="用户名" value="{{$user.userName}}" class="txt input-sm col-sm-6">
+                {{elseif $action eq 'VIEW'}}
+                {{$user.userName}}
+                {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    生日
+                </label>
+                <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                {{if $action eq 'CREATE'}}
+                <input type="text" id="birth" name="birthString" placeholder="生日" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'UPDATE'}}
+                <input type="text" id="birth" name="birthString" placeholder="生日" value="{{if $user.birthString}}{{$user.birthString}}{{/if}}" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'VIEW'}}
+                {{if $user.birthString}}{{$user.birthString}}{{/if}}
+                {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    手机号码
+                </label>
+                <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                {{if $action eq 'CREATE'}}
+                <input type="text" id="phone" name="phone" placeholder="手机号码" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'UPDATE'}}
+                <input type="text" id="phone" name="phone" placeholder="手机号码" value="{{$user.phone}}" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'VIEW'}}
+                {{$user.phone}}
+                {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    邮箱地址
+                </label>
+                <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                {{if $action eq 'CREATE'}}
+                <input type="text" id="email" name="email" placeholder="邮箱地址" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'UPDATE'}}
+                <input type="text" id="email" name="email" placeholder="邮箱地址" value="{{if $user.email}}{{$user.email}}{{/if}}" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'VIEW'}}
+                {{if $user.email}}{{$user.email}}{{/if}}
+                {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    用户图像
+                </label>
+                <div class="col-sm-4" style="height:62px;"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
+                <input type="hidden" id="hidUserAvatar" name="userAvatar" />
+                <input type="file" id="userAvatar" name="file" placeholder="封面图片">
+                {{elseif $action eq 'VIEW'}}
+                <img src="{{$user.userAvatar}}" style="height:100%;" />
+                {{/if}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    状态
+                </label>
+                <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                {{if $action eq 'CREATE'}}
+                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
+                <label class="lbl">有效</label>
+                &nbsp;&nbsp;
+                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
+                <label class="lbl">无效</label>
+                {{elseif $action eq 'UPDATE'}}
+                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
+                <label class="lbl">有效</label>
+                &nbsp;&nbsp;
+                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
+                <label class="lbl">无效</label>
+                {{elseif $action eq 'VIEW'}}
+                {{if $user.status eq 1}}账户有效{{/if}}
+                {{if $user.status eq 2}}账户无效{{/if}}
+                {{/if}}
                 </div>
             </div>
             <br><br>
