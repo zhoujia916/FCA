@@ -124,6 +124,9 @@
             <if test="status != null and status > 0">
                 and aa.status = ${status}
             </if>
+            <if test="statusTime != null and statusTime > 0">
+                and #{statusTime} &gt;= start_date and #{statusTime} &lt;= end_date
+            </if>
         </where>
         order by aa.ad_id desc
     </select>

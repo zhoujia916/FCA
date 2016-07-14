@@ -147,7 +147,7 @@ public class FcaArticleController extends ModuleController {
                     userId = ((SystemUser)getCurrentUser()).getUserId();
                 }
                 fcaArticle.setAddUserId(userId);
-                fcaArticle.setStatus(2);
+//                fcaArticle.setStatus(2);
                 fcaArticle.setAddTime(ConvertUtil.toLong(new Date()));
                 String cover = saveCover();
                 if(StringUtil.isNotNullOrEmpty(cover)){

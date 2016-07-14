@@ -114,7 +114,7 @@ public class FcaAdController extends ModuleController {
                 fcaAd.setAddTime(ConvertUtil.toLong(new Date()));
                 fcaAd.setStartDate(ConvertUtil.toLong(ConvertUtil.toDateTime(fcaAd.getBeginTimeString()+" 00:00:00")));
                 fcaAd.setEndDate(ConvertUtil.toLong(ConvertUtil.toDateTime(fcaAd.getEndTimeString()+" 23:59:59")));
-                fcaAd.setStatus(1);
+//                fcaAd.setStatus(1);
                 if(!fcaAdService.insert(fcaAd)){
                     result.setCode(1);
                     result.setMsg("添加广告信息时出错");

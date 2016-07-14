@@ -17,10 +17,7 @@ import puzzle.fca.utils.Page;
 import puzzle.fca.utils.Result;
 import puzzle.fca.utils.StringUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller(value = "wxIndexController")
 @RequestMapping(value = "/wx/index")
@@ -56,7 +53,8 @@ public class WxIndexController extends BaseController {
             ),"MM-dd"));
         }
         map.clear();
-        map.put("status",Constants.AD_STATUS);
+        map.put("status", Constants.AD_STATUS);
+        map.put("statusTime",ConvertUtil.toLong(new Date()));
         List<FcaAd> ad=fcaAdService.queryList(map);
         List<FcaArticleCat> articleCatList=fcaArticleCatService.queryList(null);
         this.setModelAttribute("adList",ad);

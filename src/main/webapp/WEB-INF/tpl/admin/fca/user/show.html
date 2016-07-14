@@ -28,14 +28,6 @@
     <div class="col-xs-12">
         <form class="form-horizontal" id="form">
             <div class="tabbable">
-                <ul class="nav nav-tabs padding-16">
-                    <li class="active">
-                        <a data-toggle="tab" href="#edit-basic">
-                            <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
-                            基本信息
-                        </a>
-                    </li>
-                </ul>
 
                 <div class="tab-content profile-edit-tab-content">
                     <div id="edit-basic" class="tab-pane in active">
@@ -117,15 +109,17 @@
                             </label>
                             <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
                                 {{if $action eq 'CREATE'}}
-                                <select name="status">
-                                    <option value="1" selected="selected">账户有效</option>
-                                    <option value="2">账户无效</option>
-                                </select>
+                                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
+                                <label class="lbl">有效</label>
+                                &nbsp;&nbsp;
+                                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
+                                <label class="lbl">无效</label>
                                 {{elseif $action eq 'UPDATE'}}
-                                <select name="status">
-                                    <option value="1"{{if $user.status eq 1}} selected="selected"{{/if}}>账户有效</option>
-                                    <option value="2"{{if $user.status eq 2}} selected="selected"{{/if}}>账户无效</option>
-                                </select>
+                                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
+                                <label class="lbl">有效</label>
+                                &nbsp;&nbsp;
+                                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
+                                <label class="lbl">无效</label>
                                 {{elseif $action eq 'VIEW'}}
                                 {{if $user.status eq 1}}账户有效{{/if}}
                                 {{if $user.status eq 2}}账户无效{{/if}}
@@ -135,6 +129,7 @@
                     </div>
                 </div>
             </div>
+            <br><br>
             {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
             <div class="clearfix form-actions">
                 <button id="btnReset" class="btn" type="reset">
