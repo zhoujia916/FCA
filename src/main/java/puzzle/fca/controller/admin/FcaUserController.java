@@ -85,9 +85,9 @@ public class FcaUserController extends ModuleController {
         try {
             OutputStream os = response.getOutputStream();
             response.reset();
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("FCA员工导入表.xlsx", "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode("FCA员工导入表.xls", "UTF-8"));
             response.setContentType("application/octet-stream; charset=utf-8");
-            os.write(FileUtil.readFileByte(session.getServletContext().getRealPath("") + "/WEB-INF/file/FCA员工导入表.xlsx"));
+            os.write(FileUtil.readFileByte(session.getServletContext().getRealPath("") + "/WEB-INF/file/FCA员工导入表.xls"));
             os.flush();
         }
         catch (Exception e){
