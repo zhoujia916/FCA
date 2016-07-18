@@ -1,11 +1,8 @@
 package puzzle.fca.controller.admin;
 
+import jxl.Sheet;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.udf.UDFFinder;
-import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.*;
+import  jxl.Workbook;
 
 @Controller(value = "adminFcaUserController")
 @RequestMapping(value = "/admin/fcauser")
@@ -54,10 +52,9 @@ public class FcaUserController extends ModuleController {
         if(userId != null && userId > 0){
             FcaUser user = fcaUserService.query(userId, null);
             if(user != null) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("userId", userId);
-                map.put("userId", userId);
-                user.setBirthString(ConvertUtil.toString(ConvertUtil.toDate(user.getBirth()),Constants.DATE_FORMAT));
+                if(user.getBirth() != null && user.getBirth() > 0) {
+                    user.setBirthString(ConvertUtil.toString(ConvertUtil.toDate(user.getBirth()), Constants.DATE_FORMAT));
+                }
                 this.setModelAttribute("user",user);
             }
         }
@@ -70,9 +67,9 @@ public class FcaUserController extends ModuleController {
         if(userId != null && userId > 0){
             FcaUser user = fcaUserService.query(userId, null);
             if(user != null) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("userId", userId);
-                user.setBirthString(ConvertUtil.toString(ConvertUtil.toDate(user.getBirth()),Constants.DATE_FORMAT));
+                if(user.getBirth() != null && user.getBirth() > 0) {
+                    user.setBirthString(ConvertUtil.toString(ConvertUtil.toDate(user.getBirth()), Constants.DATE_FORMAT));
+                }
                 this.setModelAttribute("user",user);
             }
         }
@@ -278,38 +275,34 @@ public class FcaUserController extends ModuleController {
         return null;
     }
 
-    public List<FcaUser> saveImport(){
-        List<FcaUser> list = null;
-        try {
-            CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(session.getServletContext());
-            if (multipartResolver.isMultipart(request)) {
-                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-                MultipartFile file = multiRequest.getFile("file");
+    public List<FcaUser> saveImport() throws Exception{
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(session.getServletContext());
+        if (multipartResolver.isMultipart(request)) {
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+            MultipartFile file = multiRequest.getFile("file");
 
-                HSSFWorkbook wb = new HSSFWorkbook(file.getInputStream());
-                HSSFSheet sheet = wb.getSheetAt(0);
+            Workbook wb  =  Workbook.getWorkbook(file.getInputStream());
+            Sheet sheet = wb.getSheet(0);
+            int rowsCount = sheet.getRows();
+            List<FcaUser> list = new ArrayList<FcaUser>(rowsCount);
 
-                int rowsCount = sheet.getPhysicalNumberOfRows();
-                list = new ArrayList<FcaUser>(rowsCount);
-                for(int i = 1; i < rowsCount; i++){
-                    String name = sheet.getRow(i).getCell(0).getStringCellValue();
-                    String email = sheet.getRow(i).getCell(1).getStringCellValue();
-                    if(StringUtil.isNotNullOrEmpty(name) && StringUtil.isNotNullOrEmpty(email)){
-                        FcaUser user = new FcaUser();
-                        user.setUserName(name);
-                        user.setEmail(email);
-                        user.setPassword(EncryptUtil.MD5("666666"));
-
-                        user.setUserAvatar(getHost() + "/resource/admin/avatars/profile-pic.jpg");
-                        list.add(user);
-                    }
+            for(int i = 1; i < rowsCount; i++){
+                String name = sheet.getCell(0, i).getContents();
+                String email = sheet.getCell(1, i).getContents();
+                String dept = sheet.getCell(2, i).getContents();
+                if(StringUtil.isNotNullOrEmpty(name) && StringUtil.isNotNullOrEmpty(email)){
+                    FcaUser user = new FcaUser();
+                    user.setUserName(name);
+                    user.setEmail(email);
+                    user.setPassword(EncryptUtil.MD5("666666"));
+                    user.setDept(dept);
+                    user.setUserAvatar(getHost() + "/resource/admin/avatars/profile-pic.jpg");
+                    user.setStatus(Constants.FCA_USER_STATUS_NORMAL);
+                    list.add(user);
                 }
-
-                return list;
             }
-        }
-        catch (Exception e){
-            e.printStackTrace();
+
+            return list;
         }
         return null;
     }

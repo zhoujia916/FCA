@@ -62,13 +62,13 @@ public class FcaUserServiceImpl implements IFcaUserService {
     /**
      * 查询单条记录
      */
-    public FcaUser query(Integer userId, String userName){
+    public FcaUser query(Integer userId, String email){
         Map<String, Object> map = new HashMap<String, Object>();
         if(userId != null && userId > 0){
             map.put("userId", userId);
         }
-        if(StringUtil.isNotNullOrEmpty(userName)){
-            map.put("userName", userName);
+        if(StringUtil.isNotNullOrEmpty(email)){
+            map.put("email", email);
         }
         return sqlMapper.query("FcaUserMapper.query", map);
     }

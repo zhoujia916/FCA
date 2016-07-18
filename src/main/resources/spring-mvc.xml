@@ -182,6 +182,22 @@
             <!--</bean>-->
 
         <!--</mvc:interceptor>-->
+
+        <!--微信身份-->
+        <mvc:interceptor>
+            <mvc:mapping path="/wx/**" />
+            <bean id="wxInterceptor" class="puzzle.fca.intercept.WxLoginInterceptor">
+                <property name="excludePath">
+                    <list>
+                        <value>/wx/user/index</value>
+                        <value>/wx/user/login</value>
+                        <value>/wx/user/forget</value>
+                        <value>/wx/user/email</value>
+                        <value>/wx/user/password</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 

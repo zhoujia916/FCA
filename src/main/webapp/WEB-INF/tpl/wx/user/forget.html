@@ -8,8 +8,8 @@
     <title>员工中心-忘记密码</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link href="{{$contextPath}}/resource/wx/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{$contextPath}}/resource/wx/css/main.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,6 +20,7 @@
 </head>
 <body class="fgpw-body">
 <div class="fgpw-wrapper">
+    <div class="">提示信息</div>
     <form class="col-sm-12" data-toggle="validator" role="form">
         <p>请输入您的帐号</p>
         <div class="form-group has-feedback">
@@ -36,7 +37,7 @@
                 <span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
                 <input type="number" class="form-control" id="inputnumber" placeholder="请输入验证码"
                        data-error="请输入验证码！" required>
-                <div class="input-group-addon fgpw-a-get">获取验证码</div>
+                <div class="input-group-addon fgpw-a-get" id="btnCode">获取验证码</div>
             </div>
             <div class="help-block with-errors"></div>
         </div>
@@ -59,22 +60,73 @@
             <div class="help-block with-errors"></div>
         </div>
 
+
+
         <div class="form-group">
             <div>
-                <button type="submit" class="btn  btn-lg btn-block fgpw-btn-post">确定</button>
+                <button type="submit" id="btnSubmit" class="btn  btn-lg btn-block fgpw-btn-post">确定</button>
             </div>
         </div>
     </form>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js"></script>
+<script src="{{$contextPath}}/resource/wx/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/validator.min.js"></script>
+<script src="{{$contextPath}}/resource/wx/js/bootstrap.min.js"></script>
+<script src="{{$contextPath}}/resource/wx/js/validator.min.js"></script>
 <script>
     $(document).ready(function () {
-
+        $("#btnCode").on("click", function(){
+            var email = $.trim($("#inputEmail").val());
+            if(email == ""){
+                alert("邮箱地址不能为空");
+                return;
+            }
+            if(email.indexOf("@") == -1){
+                alert("您输入的不是一个有效的邮件地址");
+                return;
+            }
+            if(!$(this).hasClass("disabled")){
+                $(this).addClass("disabled");
+                $.post("{{$contextPath}}/wx/user/email", {
+                    email:email
+                }, function(result){
+                    $("#btnCode").removeClass("disabled");
+                    if(result.code == 0){
+                        alert("邮件发送成功，请注意查收")
+                    }else{
+                        alert(result.msg);
+                    }
+                });
+            }
+        });
+        $('form').validator().on('submit', function (e) {
+            if (!e.isDefaultPrevented()) {
+                doSubmit();
+                e.preventDefault();
+            }
+        })
+        function doSubmit(){
+            if(!$("#btnSubmit").hasClass("disabled")) {
+                $("#btnSubmit").addClass("disabled");
+                $.post("{{$contextPath}}/wx/user/password", {
+                    email: $.trim($("#inputEmail").val()),
+                    code: $.trim($("#inputnumber").val()),
+                    password: $.trim($("#inputPassword").val()),
+                    repassword: $.trim($("#inputPasswordConfirm").val())
+                }, function (result) {
+                    $("#btnSubmit").removeClass("disabled");
+                    if (result.code == 0) {
+                        alert("重置成功")
+                        window.location = "{{$contextPath}}/wx/user/index";
+                    } else {
+                        alert(result.msg);
+                    }
+                });
+            }
+            return false;
+        }
     })
 </script>
 </body>

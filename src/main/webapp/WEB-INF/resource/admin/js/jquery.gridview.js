@@ -189,7 +189,7 @@
                     hideRow(this.parentNode);
                     $(this).find(".ace-icon").attr("class", opts.treeReader.icons.close);
                 }else{
-                    jq.find(opts.gridtable + " tbody tr[data-parent='" + ($(this.parentNode).attr("data-key")) + "']")
+                    jq.find(opts.gridtable + " tbody tr[data-parent='" + ($(this.parentNode).attr("data-key")) + "']").show();
                     $(this).find(".ace-icon").attr("class", opts.treeReader.icons.open);
                 }
                 event.stopPropagation();

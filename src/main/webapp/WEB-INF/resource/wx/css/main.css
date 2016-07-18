@@ -185,8 +185,9 @@ a:active{text-decoration:none;/* 指正在点的链接*/}
 .home .dropdown-menu>li>a{
 	padding: 10px 15px;
 }
-.home .dropdown-menu li:last-child{
-    border-bottom: none;
+@media (max-width: 767px)
+.navbar-nav .open .dropdown-menu .dropdown-header, .navbar-nav .open .dropdown-menu>li>a {
+    padding: 10px 15px 10px 15px;
 }
 
 .ad{

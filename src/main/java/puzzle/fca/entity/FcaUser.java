@@ -57,7 +57,9 @@ public class FcaUser implements Serializable{
 	private String password;
 	@Column(name="birth", nullable=true)
 	private Long birth;
-	@Column(name="phone", nullable=true, length=20)
+    @Column(name="phone", nullable=true, length=20)
+    private String dept;
+    @Column(name="dept", nullable=true, length=50)
 	private String phone;
 	@Column(name="email", nullable=true, length=20)
 	private String email;
@@ -183,4 +185,34 @@ public class FcaUser implements Serializable{
     public void setBirthString(String birthString) {
         this.birthString = birthString;
     }
+
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
+    }
+
+    private String repassword;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    private String code;
+
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
 }

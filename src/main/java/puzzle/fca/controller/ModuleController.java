@@ -63,11 +63,14 @@ public class ModuleController extends BaseController {
                         actionIds.add(item.getTargetId());
                     }
                 }
-                Map<String,Object> map = new HashMap<String, Object>();
-                map.put("menuId", menuId);
-                map.put("actionIds", StringUtil.concat(actionIds, ","));
-                List<SystemMenuAction> actions = systemMenuActionService.queryList(map);
-                return actions;
+                if(actionIds.size() > 0) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("menuId", menuId);
+                    map.put("actionIds", StringUtil.concat(actionIds, ","));
+                    List<SystemMenuAction> actions = systemMenuActionService.queryList(map);
+                    return actions;
+                }
+                return null;
             }
         }
         return null;

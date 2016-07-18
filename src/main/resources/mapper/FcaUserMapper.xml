@@ -5,10 +5,12 @@
     	<id column="user_id" property="userId" /> 
     	<result column="user_name" property="userName" /> 
     	<result column="password" property="password" /> 
-    	<result column="birth" property="birth" /> 
-    	<result column="phone" property="phone" /> 
-    	<result column="email" property="email" /> 
-    	<result column="user_avatar" property="userAvatar" /> 
+    	<result column="birth" property="birth" />
+        <result column="dept" property="dept" />
+        <result column="phone" property="phone" />
+    	<result column="email" property="email" />
+        <result column="code" property="code" />
+        <result column="user_avatar" property="userAvatar" />
     	<result column="open_id" property="openId" /> 
     	<result column="status" property="status" />
     	<result column="remark" property="remark" /> 
@@ -17,7 +19,7 @@
     </resultMap>
 
     <sql id="allColumn">
-    	user_id, user_name, password, birth, phone, email, user_avatar, open_id, status, remark, add_time, sort_order
+    	user_id, user_name, password, birth, dept, phone, replace(email, '|', '@') as email, code, user_avatar, open_id, status, remark, add_time, sort_order
     </sql>
 
     <insert id="insert" parameterType="FcaUser" useGeneratedKeys="true" keyProperty="userId">
@@ -27,8 +29,10 @@
         	<if test="userName != null">user_name, </if>
         	<if test="password != null">password, </if>
         	<if test="birth != null">birth, </if>
+            <if test="dept != null">dept, </if>
         	<if test="phone != null">phone, </if>
         	<if test="email != null">email, </if>
+            <if test="code != null">code, </if>
         	<if test="userAvatar != null">user_avatar, </if>
         	<if test="openId != null">open_id, </if>
         	<if test="status != null">status, </if>
@@ -42,8 +46,10 @@
         	<if test="userName != null">#{userName}, </if>
         	<if test="password != null">#{password}, </if>
         	<if test="birth != null">#{birth}, </if>
+            <if test="dept != null">#{dept}, </if>
         	<if test="phone != null">#{phone}, </if>
         	<if test="email != null">#{email}, </if>
+            <if test="code != null">#{code}, </if>
         	<if test="userAvatar != null">#{userAvatar}, </if>
         	<if test="openId != null">#{openId}, </if>
         	<if test="status != null">#{status}, </if>
@@ -59,7 +65,8 @@
 
 			user_name, 
 			password,
-			email, 
+			email,
+            dept,
 			user_avatar
 		)
 		values
@@ -68,7 +75,8 @@
 			
 			#{item.userName}, 
 			#{item.password},
-			#{item.email}, 
+            #{item.email},
+            #{item.dept},
 			#{item.userAvatar}
 		)
 		</foreach>
@@ -87,11 +95,17 @@
                 <if test="birth != null and birth > 0">
                     birth = #{birth},
                 </if>
+                <if test="dept != null">
+                    dept = #{dept},
+                </if>
                 <if test="phone != null and phone != ''">
                     phone = #{phone},
                 </if>
                 <if test="email != null and email != ''">
                     email = #{email},
+                </if>
+                <if test="code != null and code != ''">
+                    code = #{code},
                 </if>
                 <if test="userAvatar != null and userAvatar != ''">
                     user_avatar = #{userAvatar},
@@ -144,8 +158,14 @@
             <if test="userName != null and userName != ''">
                 and user_name = #{userName}
             </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
             <if test="password != null and password != ''">
                 and password = #{password}
+            </if>
+            <if test="openId != null and openId != ''">
+                and open_id = #{openId}
             </if>
         </where> 
     </select>

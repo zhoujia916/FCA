@@ -61,7 +61,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <a href="forgetpassword.html">忘记密码</a>
+                    <a href="forget">忘记密码</a>
                 </div>
             </div>
             <div class="form-group">
@@ -108,7 +108,7 @@
                 $("#inputPassWord").focus();
                 return;
             }
-            $.post("{{$contextPath}}/wx/user/login.do",{userName: userName,password: passWord},function(result){
+            $.post("{{$contextPath}}/wx/user/login",{userName: userName,password: passWord},function(result){
                 if(result.code == 0){
                     window.location = "{{$contextPath}}/wx/index";
                 }else{

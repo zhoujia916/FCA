@@ -18,7 +18,7 @@ public interface IFcaUserService{
 
     public FcaUser query(Map<String, Object> map);
 
-    public FcaUser query(Integer userId, String userName);
+    public FcaUser query(Integer userId, String email);
     
     public List<FcaUser> queryList(Object param);
 

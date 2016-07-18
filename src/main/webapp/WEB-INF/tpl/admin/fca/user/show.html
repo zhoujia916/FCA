@@ -65,9 +65,9 @@
                 {{if $action eq 'CREATE'}}
                 <input type="text" id="phone" name="phone" placeholder="手机号码" class="txt input-sm col-sm-4">
                 {{elseif $action eq 'UPDATE'}}
-                <input type="text" id="phone" name="phone" placeholder="手机号码" value="{{$user.phone}}" class="txt input-sm col-sm-4">
+                <input type="text" id="phone" name="phone" placeholder="手机号码" value="{{if $user.phone}}{{$user.phone}}{{/if}}" class="txt input-sm col-sm-4">
                 {{elseif $action eq 'VIEW'}}
-                {{$user.phone}}
+                {{if $user.phone}}{{$user.phone}}{{/if}}
                 {{/if}}
                 </div>
             </div>
@@ -100,21 +100,39 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">
+                    部门
+                </label>
+                <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
+                {{if $action eq 'CREATE'}}
+                <input type="text" id="dept" name="dept" placeholder="部门" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'UPDATE'}}
+                <input type="text" id="dept" name="dept" placeholder="部门" value="{{if $user.dept}}{{$user.dept}}{{/if}}" class="txt input-sm col-sm-4">
+                {{elseif $action eq 'VIEW'}}
+                {{if $user.dept}}{{$user.dept}}{{/if}}
+                {{/if}}
+            </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
                     状态
                 </label>
                 <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px;"{{/if}}>
                 {{if $action eq 'CREATE'}}
-                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
-                <label class="lbl">有效</label>
-                &nbsp;&nbsp;
-                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
+                <div class="position-relative">
+                <input type="radio" value="1" name="status" class="ace">
                 <label class="lbl">无效</label>
+                &nbsp;&nbsp;
+                <input type="radio" value="2" name="status" class="ace" checked>
+                <label class="lbl">有效</label>
+                </div>
                 {{elseif $action eq 'UPDATE'}}
-                <input type="radio" data-init="1" value="1" offval="2" name="status" class="ace" checked>
-                <label class="lbl">有效</label>
-                &nbsp;&nbsp;
-                <input type="radio" data-init="1" value="2" offval="1" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
+                <div class="position-relative">
+                <input type="radio" value="1" name="status" class="ace" {{if $user.status == 1}} checked {{/if}}>
                 <label class="lbl">无效</label>
+                &nbsp;&nbsp;
+                <input type="radio" value="2" name="status" class="ace" {{if $user.status == 2}} checked {{/if}}>
+                <label class="lbl">有效</label>
+                </div>
                 {{elseif $action eq 'VIEW'}}
                 {{if $user.status eq 1}}账户有效{{/if}}
                 {{if $user.status eq 2}}账户无效{{/if}}

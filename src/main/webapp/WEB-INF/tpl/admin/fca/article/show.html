@@ -43,117 +43,132 @@
                                 文章标题
                             </label>
                             <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text"  id="title"  name="title" placeholder="文章标题" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input hidden="hidden" name="articleId" id="articleId" value="{{$article.articleId}}"/>
-                                <input type="text"  id="title" value="{{$article.title}}"  name="title" placeholder="文章标题" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$article.title}}
-                                {{/if}}
-                            </div>
+                            {{if $action eq 'CREATE'}}
+                            <input type="text"  id="title"  name="title" placeholder="文章标题" class="txt input-sm col-sm-6"/>
+                            {{elseif $action eq 'UPDATE'}}
+                            <input hidden="hidden" name="articleId" id="articleId" value="{{$article.articleId}}"/>
+                            <input type="text"  id="title" value="{{$article.title}}"  name="title" placeholder="文章标题" class="txt input-sm col-sm-6"/>
+                            {{elseif $action eq 'VIEW'}}
+                            {{$article.title}}
+                            {{/if}}
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                文章副标题
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text"  id="title2"  name="title2" placeholder="文章副标题" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text"  id="title2" value="{{$article.title2}}"  name="title2" placeholder="文章副标题" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$article.title2}}
-                                {{/if}}
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            文章副标题
+                        </label>
+                        <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
+                            {{if $action eq 'CREATE'}}
+                            <input type="text"  id="title2"  name="title2" placeholder="文章副标题" class="txt input-sm col-sm-6">
+                            {{elseif $action eq 'UPDATE'}}
+                            <input type="text"  id="title2" value="{{$article.title2}}"  name="title2" placeholder="文章副标题" class="txt input-sm col-sm-6">
+                            {{elseif $action eq 'VIEW'}}
+                            {{$article.title2}}
+                            {{/if}}
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                封面图
-                            </label>
-                            <div class="col-sm-5" style="height:62px;{{if $action eq 'VIEW'}}padding-top:10px{{/if}}">
-                                {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
-                                <input type="hidden" id="hidCover" name="cover" />
-                                <input type="file" id="file" name="file" placeholder="封面图片">
-                                {{elseif $action eq 'VIEW'}}
-                                <img src="{{$article.cover}}" style="height:100%;" />
-                                {{/if}}
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            封面图
+                        </label>
+                        <div class="col-sm-5" style="height:62px;{{if $action eq 'VIEW'}}padding-top:10px{{/if}}">
+                            {{if $action eq 'CREATE' or $action eq 'UPDATE'}}
+                            <input type="hidden" id="hidCover" name="cover" />
+                            <input type="file" id="file" name="file" placeholder="封面图片">
+                            {{elseif $action eq 'VIEW'}}
+                            <img src="{{$article.cover}}" style="height:100%;" />
+                            {{/if}}
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                所属分类
-                            </label>
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            所属分类
+                        </label>
+                        <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
                             <input hidden="hidden" id="markId"/>
-                                {{if $action eq 'CREATE'}}
-                                <select id="catId" name="catId">
-                                    <option value="0">请选择分类</option>
-                                    {{foreach from=$catList item=catItem}}
-                                    <option value="{{$catItem.catId}}">{{$catItem.catName}}</option>
-                                    {{/foreach}}
-                                </select>
-                                {{elseif $action eq 'UPDATE'}}
-                                <select id="catId" name="catId">
-                                    <option value="0">请选择分类</option>
-                                    {{foreach from=$catList item=catItem}}
-                                    <option value="{{$catItem.catId}}"{{if $catItem.catId eq $article.catId}} selected="selected"{{/if}}>{{$catItem.catName}}</option>
-                                    {{/foreach}}
-                                </select>
-                                {{elseif $action eq 'VIEW'}}
-                                    {{foreach from=$catList item=catItem}}
-                                        {{if $catItem.catId eq $article.catId}}
-                                            {{$catItem.catName}}
-                                        {{/if}}
-                                    {{/foreach}}
-                                {{/if}}
-                            </div>
+                            {{if $action eq 'CREATE'}}
+                            <select id="catId" name="catId">
+                                <option value="0">请选择分类</option>
+                                {{foreach from=$catList item=catItem}}
+                                <option value="{{$catItem.catId}}">{{$catItem.catName}}</option>
+                                {{/foreach}}
+                            </select>
+                            {{elseif $action eq 'UPDATE'}}
+                            <select id="catId" name="catId">
+                                <option value="0">请选择分类</option>
+                                {{foreach from=$catList item=catItem}}
+                                <option value="{{$catItem.catId}}"{{if $catItem.catId eq $article.catId}} selected="selected"{{/if}}>{{$catItem.catName}}</option>
+                                {{/foreach}}
+                            </select>
+                            {{elseif $action eq 'VIEW'}}
+                            {{foreach from=$catList item=catItem}}
+                            {{if $catItem.catId eq $article.catId}}
+                            {{$catItem.catName}}
+                            {{/if}}
+                            {{/foreach}}
+                            {{/if}}
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                文章来源地址
-                            </label>
-
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text"  id="sourceUrl"  name="sourceUrl" placeholder="来源地址" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text"  id="sourceUrl" value="{{$article.sourceUrl}}"  name="sourceUrl" placeholder="来源地址" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$article.sourceUrl}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                排序号
-                            </label>
-
-                            <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
-                                {{if $action eq 'CREATE'}}
-                                <input type="text"  id="sortOrder"  name="sortOrder" placeholder="排序号" value="0" class="txt input-sm col-sm-2">
-                                {{elseif $action eq 'UPDATE'}}
-                                <input type="text"  id="sortOrder" value="{{$article.sortOrder}}"  name="sortOrder" placeholder="排序号" class="txt input-sm col-sm-6">
-                                {{elseif $action eq 'VIEW'}}
-                                {{$article.sortOrder}}
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="clear"></div>
                     </div>
 
-                    <div id="edit-content" class="tab-pane">
-                        <div class="space-10"></div>
-                        {{if $action eq 'CREATE'}}
-                        <textarea id="content" name="content" style="min-height:300px;width:100%;"></textarea>
-                        {{elseif $action eq 'UPDATE'}}
-                        <textarea id="content" name="content" style="min-height:300px;width:100%;">{{$article.content}}</textarea>
-                        {{elseif $action eq 'VIEW'}}
-                        {{$article.content}}
-                        {{/if}}
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            文章来源地址
+                        </label>
 
+                        <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
+                            {{if $action eq 'CREATE'}}
+                            <input type="text"  id="sourceUrl"  name="sourceUrl" placeholder="来源地址" class="txt input-sm col-sm-6">
+                            {{elseif $action eq 'UPDATE'}}
+                            <input type="text"  id="sourceUrl" value="{{$article.sourceUrl}}"  name="sourceUrl" placeholder="来源地址" class="txt input-sm col-sm-6">
+                            {{elseif $action eq 'VIEW'}}
+                            {{$article.sourceUrl}}
+                            {{/if}}
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            是否置顶
+                        </label>
+
+                        <div class="col-sm-9"{{if $action eq 'VIEW'}} style="padding-top:10px"{{/if}}>
+                            {{if $action eq 'CREATE'}}
+                            <div class="position-relative">
+                                <input type="radio" value="1" name="sortOrder" class="ace" checked>
+                                <label class="lbl">否</label>
+                                &nbsp;&nbsp;
+                                <input type="radio" value="2" name="sortOrder" class="ace">
+                                <label class="lbl">是</label>
+                            </div>
+                            {{elseif $action eq 'UPDATE'}}
+                            <div class="position-relative">
+                                <input type="radio" value="1" name="sortOrder" class="ace" {{if $article.sortOrder == 1}} checked {{/if}}>
+                                <label class="lbl">否</label>
+                                &nbsp;&nbsp;
+                                <input type="radio" value="2" name="sortOrder" class="ace" {{if $article.sortOrder == 2}} checked {{/if}}>
+                                <label class="lbl">是</label>
+                            </div>
+                            {{elseif $action eq 'VIEW'}}
+                            {{if $article.sortOrder eq 1}}否{{elseif $article.sortOrder eq 2}}是{{/if}}
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+
+                <div id="edit-content" class="tab-pane">
+                    <div class="space-10"></div>
+                    {{if $action eq 'CREATE'}}
+                    <textarea id="content" name="content" style="min-height:300px;width:100%;"></textarea>
+                    {{elseif $action eq 'UPDATE'}}
+                    <textarea id="content" name="content" style="min-height:300px;width:100%;">{{$article.content}}</textarea>
+                    {{elseif $action eq 'VIEW'}}
+                    {{$article.content}}
+                    {{/if}}
+
+                </div>
             </div>
 
             <div class="clearfix form-actions">

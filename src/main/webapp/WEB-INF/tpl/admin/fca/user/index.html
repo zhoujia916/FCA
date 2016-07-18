@@ -12,10 +12,10 @@
         <div id="gridview" class="gridview">
             <div class="grid-filter">
                 <input type="text input-sm" style="height: 29px" class="txt" name="userName" placeholder="用户名" />
-                <select data-init="0" name="status" style="height: 29px;width: 160px;">
+                <select name="status" style="height: 29px;width: 160px;">
                     <option value="0">请选择用户状态</option>
-                    <option value="1">有效</option>
-                    <option value="2">无效</option>
+                    <option value="2">有效</option>
+                    <option value="1">无效</option>
                 </select>
                 <a class="btn btn-xs btn-action btn-purple" data-action="search" style="margin-top: -2px;margin-left: 10px;"><i class="ace-icon fa fa-search"></i>搜索</a>
             </div>
@@ -165,7 +165,8 @@
                 {
                     name: "status",
                     format: function(opts, column, row){
-                        return row["status"]==1 ? "<td><span class='label label-sm label-success'>账户有效</span></td>" : "<td><span class='label label-sm label-warning'>账户无效</span></td>";
+                        var array = ["<span class='label label-sm label-warning'>账户无效</span>", "<span class='label label-sm label-success'>账户有效</span>"];
+                        return "<td>" + array[row[column.name] - 1] + "</td>";
                     }
                 },
                 {
